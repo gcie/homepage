@@ -3,16 +3,14 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ContactDetailsComponent } from './contacts/contact-details/contact-details.component';
+import { ContactListComponent } from './contacts/contact-list/contact-list.component';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [AppComponent, ContactDetailsComponent, ContactListComponent],
+    imports: [BrowserModule, AppRoutingModule, HttpModule],
+    providers: [],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
