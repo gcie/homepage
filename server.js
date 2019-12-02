@@ -1,18 +1,45 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongodb = require('mongodb');
+var passport = require('passport');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const { Strategy, ExtractJwt } = require('passport-jwt');
+require('dotenv').config();
+
 var ObjectID = mongodb.ObjectID;
 
-var PUPILS_COLLECTION = 'pupils';
+const secret = process.env.SECRET || 'default secret';
+const opts = {
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: secret
+};
+
+// passport's authentication setup
+
+var USERS_COLLECTION = 'users';
 
 var app = express();
-app.use(bodyParser.json());
 
-var distDir = __dirname + '/dist/';
-app.use(express.static(distDir));
+app.use(bodyParser.json());
+app.use(passport.initialize());
 
 // Create a database variable outside of the database connection callback to reuse the connection pool in your app.
 var db;
+
+passport.use(
+    new Strategy(opts, (payload, done) => {
+        db.collection(USERS_COLLECTION).findOne({ _id: new ObjectID(payload.id), login: payload.login }, function(err, user) {
+            if (err) {
+                done(err);
+            } else if (user) {
+                done(null, user);
+            } else {
+                done(null, false);
+            }
+        });
+    })
+);
 
 // Connect to the database before starting the application server.
 mongodb.MongoClient.connect(
@@ -28,6 +55,12 @@ mongodb.MongoClient.connect(
         db = client.db();
         console.log('Database connection ready');
 
+        // Introduce routes
+        app.use('/api/pupils', passport.authenticate('jwt', { session: false }), require('./api/pupils')(db));
+        app.use('/', express.static(__dirname + '/dist'));
+        app.use('/login', express.static(__dirname + '/dist'));
+        app.use('/register', express.static(__dirname + '/dist'));
+
         // Initialize the app.
         var server = app.listen(process.env.PORT || 8080, function() {
             var port = server.address().port;
@@ -36,71 +69,60 @@ mongodb.MongoClient.connect(
     }
 );
 
-app.get('/api/pupils', function(req, res) {
-    db.collection(PUPILS_COLLECTION)
-        .find({})
-        .toArray(function(err, docs) {
-            if (err) {
-                handleError(res, err.message, 'Failed to get pupils.');
-            } else {
-                res.status(200).json(docs);
-            }
-        });
-});
-
-app.post('/api/pupils', function(req, res) {
-    var newPupil = req.body;
-    newPupil.createDate = new Date();
-
-    if (!req.body.name) {
-        handleError(res, 'Invalid user input', 'Must provide a name.', 400);
-    } else {
-        db.collection(PUPILS_COLLECTION).insertOne(newPupil, function(err, doc) {
-            if (err) {
-                handleError(res, err.message, 'Failed to create new pupil.');
-            } else {
-                res.status(201).json(doc.ops[0]);
-            }
-        });
-    }
-});
-
-/*  "/api/pupils/:id"
- *    GET: find contact by id
- *    PUT: update contact by id
- *    DELETE: deletes contact by id
- */
-
-app.get('/api/pupils/:id', function(req, res) {
-    db.collection(PUPILS_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
-        if (err) {
-            handleError(res, err.message, 'Failed to get pupil');
+app.post('/signup', (req, res) => {
+    db.collection(USERS_COLLECTION).findOne({ login: req.body.login }, (err, user) => {
+        if (user) {
+            return res.status(400).json({ error: 'Login exists in database.' });
         } else {
-            res.status(200).json(doc);
+            const newUser = {
+                login: req.body.login,
+                password: req.body.password
+            };
+            bcrypt.genSalt(10, (err, salt) => {
+                if (err) throw err;
+                bcrypt.hash(newUser.password, salt, (err, hash) => {
+                    if (err) throw err;
+                    newUser.password = hash;
+                    db.collection(USERS_COLLECTION).insertOne(newUser, function(err, doc) {
+                        if (err) {
+                            res.status(400).json(err);
+                        } else {
+                            res.status(201).json(doc.ops[0]);
+                        }
+                    });
+                });
+            });
         }
     });
 });
 
-app.put('/api/pupils/:id', function(req, res) {
-    var updateDoc = req.body;
-    delete updateDoc._id;
-
-    db.collection(PUPILS_COLLECTION).updateOne({ _id: new ObjectID(req.params.id) }, updateDoc, function(err, doc) {
+app.post('/signin', (req, res) => {
+    const login = req.body.login;
+    const password = req.body.password;
+    db.collection(USERS_COLLECTION).findOne({ login }, (err, user) => {
         if (err) {
-            handleError(res, err.message, 'Failed to update pupil');
-        } else {
-            updateDoc._id = req.params.id;
-            res.status(200).json(updateDoc);
+            return res.status(500).json({ error: 'Error while finding user', raw: err });
         }
-    });
-});
-
-app.delete('/api/pupils/:id', function(req, res) {
-    db.collection(PUPILS_COLLECTION).deleteOne({ _id: new ObjectID(req.params.id) }, function(err, result) {
-        if (err) {
-            handleError(res, err.message, 'Failed to delete pupil');
-        } else {
-            res.status(200).json(req.params.id);
+        if (!user) {
+            return res.status(404).json({ error: 'No account found' });
         }
+        bcrypt.compare(password, user.password).then((isMatch) => {
+            if (isMatch) {
+                const payload = {
+                    id: user._id,
+                    login: user.login
+                };
+                jwt.sign(payload, secret, { expiresIn: 36000 }, (err, token) => {
+                    if (err) res.status(500).json({ error: 'Error signing token', raw: err });
+                    res.json({
+                        success: true,
+                        token: `Bearer ${token}`,
+                        expiresIn: 36000
+                    });
+                });
+            } else {
+                res.status(400).json({ error: 'Password is incorrect' });
+            }
+        });
     });
 });

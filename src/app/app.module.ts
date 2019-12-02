@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
@@ -9,11 +9,28 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material/material.module';
 import { PupilAddDialogComponent } from './pupils/pupil-add-dialog/pupil-add-dialog.component';
 import { PupilsListComponent } from './pupils/pupils-list/pupils-list.component';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { MainPageComponent } from './main-page/main-page.component';
+import { RegisterPageComponent } from './register-page/register-page.component';
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 @NgModule({
-    declarations: [AppComponent, PupilsListComponent, PupilAddDialogComponent],
+    declarations: [
+        AppComponent,
+        PupilsListComponent,
+        PupilAddDialogComponent,
+        LoginPageComponent,
+        MainPageComponent,
+        RegisterPageComponent
+    ],
     imports: [BrowserModule, AppRoutingModule, HttpClientModule, MaterialModule, FormsModule, ReactiveFormsModule, BrowserAnimationsModule],
-    providers: [],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true
+        }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

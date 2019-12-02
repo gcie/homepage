@@ -1,0 +1,33 @@
+mat-sidenav-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;   
+}
+
+.app-content {
+    padding: 10px;
+}
+
+.login-form-container {
+    width: 300px;
+    margin: 50px auto;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-container > * {
+    width: 100%;
+}
+  
+.form-container form {
+    margin-bottom: 20px;
+}
+  
+.form-container form > * {
+    margin: 5px 0;
+}

@@ -1,0 +1,21 @@
+<mat-sidenav-container>
+    <mat-toolbar color="primary">
+        <span class="title">Konsola podprzęsłowego korepetycji Mostowych {{ token }}</span>
+    </mat-toolbar>
+    <div class="app-content">
+        <mat-card class="login-form-container">
+            <mat-card-title style="text-align: center;">Rejestracja</mat-card-title>
+            <mat-card-content>
+                <form class="form-container" [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)">
+                    <mat-form-field>
+                        <input matInput placeholder="Login" formControlName="login" required>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput type="password" placeholder="Hasło" formControlName="password" required>
+                    </mat-form-field>
+                    <button mat-raised-button color="primary" type="submit">Utwórz konto</button>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</mat-sidenav-container>
