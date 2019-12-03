@@ -5,6 +5,11 @@ var router = express.Router();
 var ObjectID = mongodb.ObjectID;
 var PUPILS_COLLECTION = 'pupils';
 
+function handleError(res, err, msg, status) {
+    if (status === null) status = 500;
+    res.status(status).json({ error: msg, raw: err });
+}
+
 module.exports = function(db) {
     router.get('', function(req, res) {
         db.collection(PUPILS_COLLECTION)

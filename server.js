@@ -1,18 +1,15 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var mongodb = require('mongodb');
-var passport = require('passport');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongodb = require('mongodb');
+const passport = require('passport');
 const { Strategy, ExtractJwt } = require('passport-jwt');
 require('dotenv').config();
 
 var ObjectID = mongodb.ObjectID;
 
-const secret = process.env.SECRET || 'default secret';
 const opts = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: secret
+    secretOrKey: process.env.SECRET || 'default secret'
 };
 
 // passport's authentication setup
@@ -41,6 +38,19 @@ passport.use(
     })
 );
 
+function group(group) {
+    return (req, res, next) => {
+        console.log(req.user);
+        if (req.user.group === group) {
+            next();
+        } else {
+            res.status(401).json({
+                error: `Unauthorized, requires permission group "${group}", but you have group ${req.body.user.group}`
+            });
+        }
+    };
+}
+
 // Connect to the database before starting the application server.
 mongodb.MongoClient.connect(
     process.env.MONGODB_URI || 'mongodb://localhost:27017/test',
@@ -57,9 +67,11 @@ mongodb.MongoClient.connect(
 
         // Introduce routes
         app.use('/api/pupils', passport.authenticate('jwt', { session: false }), require('./api/pupils')(db));
-        app.use('/', express.static(__dirname + '/dist'));
+        app.use('/api/auth', require('./api/auth')(db));
+        app.use('/api/users', passport.authenticate('jwt', { session: false }), group('admin'), require('./api/users')(db));
         app.use('/login', express.static(__dirname + '/dist'));
-        app.use('/register', express.static(__dirname + '/dist'));
+        app.use('/register', passport.authenticate('jwt', { session: false }), express.static(__dirname + '/dist'));
+        app.use('/', express.static(__dirname + '/dist'));
 
         // Initialize the app.
         var server = app.listen(process.env.PORT || 8080, function() {
@@ -68,61 +80,3 @@ mongodb.MongoClient.connect(
         });
     }
 );
-
-app.post('/signup', (req, res) => {
-    db.collection(USERS_COLLECTION).findOne({ login: req.body.login }, (err, user) => {
-        if (user) {
-            return res.status(400).json({ error: 'Login exists in database.' });
-        } else {
-            const newUser = {
-                login: req.body.login,
-                password: req.body.password
-            };
-            bcrypt.genSalt(10, (err, salt) => {
-                if (err) throw err;
-                bcrypt.hash(newUser.password, salt, (err, hash) => {
-                    if (err) throw err;
-                    newUser.password = hash;
-                    db.collection(USERS_COLLECTION).insertOne(newUser, function(err, doc) {
-                        if (err) {
-                            res.status(400).json(err);
-                        } else {
-                            res.status(201).json(doc.ops[0]);
-                        }
-                    });
-                });
-            });
-        }
-    });
-});
-
-app.post('/signin', (req, res) => {
-    const login = req.body.login;
-    const password = req.body.password;
-    db.collection(USERS_COLLECTION).findOne({ login }, (err, user) => {
-        if (err) {
-            return res.status(500).json({ error: 'Error while finding user', raw: err });
-        }
-        if (!user) {
-            return res.status(404).json({ error: 'No account found' });
-        }
-        bcrypt.compare(password, user.password).then((isMatch) => {
-            if (isMatch) {
-                const payload = {
-                    id: user._id,
-                    login: user.login
-                };
-                jwt.sign(payload, secret, { expiresIn: 36000 }, (err, token) => {
-                    if (err) res.status(500).json({ error: 'Error signing token', raw: err });
-                    res.json({
-                        success: true,
-                        token: `Bearer ${token}`,
-                        expiresIn: 36000
-                    });
-                });
-            } else {
-                res.status(400).json({ error: 'Password is incorrect' });
-            }
-        });
-    });
-});

@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Potwierdź</h1>
+<div mat-dialog-content class="mat-body">
+    <p>Czy na pewno chcesz usunąć użytkownika {{ user.name + ' ' + user.surname }}?</p>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Anuluj</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Tak</button>
+</div>

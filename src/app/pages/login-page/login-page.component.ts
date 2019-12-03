@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
+import { UserLoginData } from '../../auth/user/user-login-data';
 
 @Component({
     selector: 'app-login-page',
@@ -13,13 +14,13 @@ export class LoginPageComponent {
 
     constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
         this.loginForm = this.formBuilder.group({
-            login: ['', Validators.required],
+            email: ['', Validators.email],
             password: ['', Validators.required]
         });
     }
 
-    onSubmit(data: { login: string; password: string }) {
-        this.authService.login(data.login, data.password).subscribe(() => {
+    onSubmit(credentials: UserLoginData) {
+        this.authService.login(credentials).subscribe(() => {
             this.router.navigateByUrl('/');
         });
     }

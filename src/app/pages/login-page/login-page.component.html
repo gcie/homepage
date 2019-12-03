@@ -1,14 +1,12 @@
 <mat-sidenav-container>
-    <mat-toolbar color="primary">
-        <span class="title">Konsola podprzęsłowego korepetycji Mostowych</span>
-    </mat-toolbar>
+    <app-toolbar></app-toolbar>
     <div class="app-content">
         <mat-card class="login-form-container">
             <mat-card-title style="text-align: center;">Logowanie</mat-card-title>
             <mat-card-content>
                 <form class="form-container" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
                     <mat-form-field>
-                        <input matInput placeholder="Login" formControlName="login" required>
+                        <input matInput placeholder="Adres email" formControlName="email" required>
                     </mat-form-field>
                     <mat-form-field>
                         <input matInput type="password" placeholder="Hasło" formControlName="password" required>

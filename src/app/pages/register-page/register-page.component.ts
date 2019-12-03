@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
     selector: 'app-register-page',
@@ -9,21 +10,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RegisterPageComponent {
     registerForm: FormGroup;
-    token: string;
 
-    constructor(private formBuilder: FormBuilder, private http: HttpClient) {
+    constructor(private formBuilder: FormBuilder, private http: HttpClient, private authService: AuthService) {
         this.registerForm = this.formBuilder.group({
-            login: ['', Validators.required],
+            name: ['', Validators.required],
+            surname: ['', Validators.required],
+            email: ['', Validators.email],
             password: ['', Validators.required]
         });
-        this.token = localStorage.getItem('id_token') || '';
     }
 
-    onSubmit(data: { login: string; password: string }) {
-        console.log(data);
-        this.http.post('/signup', data).subscribe((res) => {
-            console.log('res:');
-            console.log(res);
-        });
+    onSubmit(data: { name: string; surname: string; email: string; password: string }) {
+        this.authService.register(data);
     }
 }

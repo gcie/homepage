@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Rejestracja</h1>
+<div mat-dialog-content class="form-container">
+    <form class="form-container" [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)">
+        <mat-form-field>
+            <input matInput placeholder="Imię" formControlName="name" required>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Nazwisko" formControlName="surname">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="email" placeholder="Adres email" formControlName="email">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="password" placeholder="Hasło" formControlName="password">
+        </mat-form-field>
+        <button mat-button type="submit">Zatwierdź</button>
+    </form>
+</div>

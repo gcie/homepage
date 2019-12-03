@@ -12,6 +12,7 @@ import { PupilAddDialogComponent } from '../pupil-add-dialog/pupil-add-dialog.co
 export class PupilsListComponent implements OnInit {
     pupils: Pupil[] = [];
     displayedColumns: string[] = ['name', 'email', 'phone', 'needs', 'class'];
+
     constructor(private pupilsService: PupilsService, private dialog: MatDialog) {}
 
     ngOnInit() {

@@ -27,14 +27,6 @@ export class PupilAddDialogComponent {
         });
     }
 
-    onCancelClick() {
-        this.dialogRef.close();
-    }
-
-    onOkClick() {
-        console.log(this.pupilForm);
-    }
-
     onSubmit(pupilData) {
         if (this.pupilForm.valid) {
             console.log(pupilData as Pupil);

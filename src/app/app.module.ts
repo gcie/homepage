@@ -6,13 +6,19 @@ import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AuthInterceptor } from './auth/auth.interceptor';
 import { MaterialModule } from './material/material.module';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { MainPageComponent } from './pages/main-page/main-page.component';
+import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { PupilAddDialogComponent } from './pupils/pupil-add-dialog/pupil-add-dialog.component';
 import { PupilsListComponent } from './pupils/pupils-list/pupils-list.component';
-import { LoginPageComponent } from './login-page/login-page.component';
-import { MainPageComponent } from './main-page/main-page.component';
-import { RegisterPageComponent } from './register-page/register-page.component';
-import { AuthInterceptor } from './auth/auth.interceptor';
+import { SidenavContentComponent } from './shared/sidenav-content/sidenav-content.component';
+import { ToolbarComponent } from './shared/toolbar/toolbar.component';
+import { UsersListComponent } from './users/users-list/users-list.component';
+import { UsersPageComponent } from './users/users-page/users-page.component';
+import { UserDeleteConfirmDialogComponent } from './users/user-delete-confirm-dialog/user-delete-confirm-dialog.component';
+import { UserAddDialogComponent } from './users/user-add-dialog/user-add-dialog.component';
 
 @NgModule({
     declarations: [
@@ -21,7 +27,13 @@ import { AuthInterceptor } from './auth/auth.interceptor';
         PupilAddDialogComponent,
         LoginPageComponent,
         MainPageComponent,
-        RegisterPageComponent
+        RegisterPageComponent,
+        UsersPageComponent,
+        UsersListComponent,
+        ToolbarComponent,
+        SidenavContentComponent,
+        UserDeleteConfirmDialogComponent,
+        UserAddDialogComponent
     ],
     imports: [BrowserModule, AppRoutingModule, HttpClientModule, MaterialModule, FormsModule, ReactiveFormsModule, BrowserAnimationsModule],
     providers: [
