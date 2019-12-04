@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { User } from '../auth/user/user';
 
 @Injectable({
@@ -10,46 +11,25 @@ export class UsersService {
 
     constructor(private http: HttpClient) {}
 
-    getUsers(): Promise<void | User[]> {
-        return this.http
-            .get(this.usersUrl)
-            .toPromise()
-            .then((response) => response as User[])
-            .catch(this.handleError);
+    getUsers(): Observable<User[]> {
+        return this.http.get<User[]>(this.usersUrl);
     }
 
     // post("/api/users")
-    createUser(newUser: User): Promise<void | User> {
-        return this.http
-            .post(this.usersUrl, newUser)
-            .toPromise()
-            .then((response) => response as User)
-            .catch(this.handleError);
+    createUser(newUser: User): Observable<User> {
+        return this.http.post<User>(this.usersUrl, newUser);
     }
 
     // get("/api/users/:id") endpoint not used by Angular app
 
     // delete("/api/users/:id")
-    deleteUser(delUserId: string): Promise<void | string> {
-        return this.http
-            .delete(this.usersUrl + '/' + delUserId)
-            .toPromise()
-            .then((response) => response as string)
-            .catch(this.handleError);
+    deleteUser(delUserId: string): Observable<string> {
+        return this.http.delete<string>(this.usersUrl + '/' + delUserId);
     }
 
     // put("/api/users/:id")
-    updateUser(putUser: User): Promise<void | User> {
+    updateUser(putUser: User): Observable<User> {
         const putUrl = this.usersUrl + '/' + putUser._id;
-        return this.http
-            .put(putUrl, putUser)
-            .toPromise()
-            .then((response) => response as User)
-            .catch(this.handleError);
-    }
-
-    private handleError(error: any) {
-        const errMsg = error.message ? error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-        console.error(errMsg); // log to console instead
+        return this.http.put<User>(putUrl, putUser);
     }
 }

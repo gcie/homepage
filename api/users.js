@@ -57,12 +57,39 @@ module.exports = function(db) {
         var updateDoc = req.body;
         delete updateDoc._id;
 
-        db.collection(USERS_COLLECTION).updateOne({ _id: new ObjectID(req.params.id) }, updateDoc, function(err, doc) {
+        db.collection(USERS_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, (err, user) => {
             if (err) {
-                handleError(res, err.message, 'Failed to update user');
+                return res.status(500).json({ error: 'Server error', raw: err });
+            } else if (!user) {
+                return res.status(400).json({ error: `User not found.` });
+            } else if (!updateDoc.name || !updateDoc.surname || !updateDoc.email || !updateDoc.group) {
+                return res.status(400).json({ error: 'Incomplete credentials.' });
+            } else if (updateDoc.password) {
+                bcrypt.genSalt(10, (err, salt) => {
+                    if (err) throw err;
+                    bcrypt.hash(updateDoc.password, salt, (err, hash) => {
+                        if (err) throw err;
+                        updateDoc.password = hash;
+                        db.collection(USERS_COLLECTION).updateOne({ _id: new ObjectID(req.params.id) }, { $set: updateDoc }, (err, doc) => {
+                            if (err) {
+                                res.status(500).json({ error: 'Failed to update user.', raw: err });
+                            } else {
+                                updateDoc._id = req.params.id;
+                                res.status(200).json(updateDoc);
+                            }
+                        });
+                    });
+                });
             } else {
-                updateDoc._id = req.params.id;
-                res.status(200).json(updateDoc);
+                updateDoc.password = user.password;
+                db.collection(USERS_COLLECTION).updateOne({ _id: new ObjectID(req.params.id) }, { $set: updateDoc }, (err, doc) => {
+                    if (err) {
+                        res.status(500).json({ error: 'Failed to update user', raw: err });
+                    } else {
+                        updateDoc._id = req.params.id;
+                        res.status(200).json(updateDoc);
+                    }
+                });
             }
         });
     });

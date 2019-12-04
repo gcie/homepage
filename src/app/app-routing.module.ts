@@ -9,6 +9,7 @@ import { AdminGuard } from './auth/admin.guard';
 import { UsersPageComponent } from './users/users-page/users-page.component';
 import { UserDeleteConfirmDialogComponent } from './users/user-delete-confirm-dialog/user-delete-confirm-dialog.component';
 import { UserAddDialogComponent } from './users/user-add-dialog/user-add-dialog.component';
+import { UserEditDialogComponent } from './users/user-edit-dialog/user-edit-dialog.component';
 
 const routes: Routes = [
     { path: '', component: MainPageComponent, canActivate: [AuthGuard] },
@@ -20,6 +21,6 @@ const routes: Routes = [
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule],
-    entryComponents: [PupilAddDialogComponent, UserDeleteConfirmDialogComponent, UserAddDialogComponent]
+    entryComponents: [PupilAddDialogComponent, UserDeleteConfirmDialogComponent, UserAddDialogComponent, UserEditDialogComponent]
 })
 export class AppRoutingModule {}

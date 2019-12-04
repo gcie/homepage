@@ -27,6 +27,9 @@
             <ng-container matColumnDef="options">
                 <th mat-header-cell *matHeaderCellDef></th>
                 <td mat-cell class="options-cell" *matCellDef="let user">
+                    <button mat-icon-button (click)="editUser(user)">
+                        <mat-icon svgIcon="pencil"></mat-icon>
+                    </button>
                     <button mat-icon-button (click)="deleteUser(user)">
                         <mat-icon svgIcon="delete"></mat-icon>
                     </button>

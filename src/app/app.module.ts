@@ -19,6 +19,7 @@ import { UsersListComponent } from './users/users-list/users-list.component';
 import { UsersPageComponent } from './users/users-page/users-page.component';
 import { UserDeleteConfirmDialogComponent } from './users/user-delete-confirm-dialog/user-delete-confirm-dialog.component';
 import { UserAddDialogComponent } from './users/user-add-dialog/user-add-dialog.component';
+import { UserEditDialogComponent } from './users/user-edit-dialog/user-edit-dialog.component';
 
 @NgModule({
     declarations: [
@@ -33,7 +34,8 @@ import { UserAddDialogComponent } from './users/user-add-dialog/user-add-dialog.
         ToolbarComponent,
         SidenavContentComponent,
         UserDeleteConfirmDialogComponent,
-        UserAddDialogComponent
+        UserAddDialogComponent,
+        UserEditDialogComponent
     ],
     imports: [BrowserModule, AppRoutingModule, HttpClientModule, MaterialModule, FormsModule, ReactiveFormsModule, BrowserAnimationsModule],
     providers: [

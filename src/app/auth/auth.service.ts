@@ -7,13 +7,12 @@ import { AuthResult } from './auth-result';
 import { User } from './user/user';
 import { UserLoginData } from './user/user-login-data';
 import { UserRegisterData } from './user/user-register-data';
+import { PermissionGroup } from './user/permission-group.enum';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
-    currentUser: User | null;
-
     constructor(private http: HttpClient, private router: Router) {}
 
     public login(credentials: UserLoginData) {
@@ -27,8 +26,7 @@ export class AuthService {
     private setSession(authResult: AuthResult) {
         const expiresAt = moment().add(authResult.expiresIn, 'second');
 
-        this.currentUser = authResult.user;
-        localStorage.setItem('user', JSON.stringify(this.currentUser));
+        localStorage.setItem('user', JSON.stringify(authResult.user));
         localStorage.setItem('id_token', authResult.token);
         localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
     }
@@ -56,7 +54,7 @@ export class AuthService {
     }
 
     public hasAdmin(): boolean {
-        return this.getGroup() === 'admin';
+        return this.getGroup() === PermissionGroup.admin;
     }
 
     public getUser(): User | null {
