@@ -20,6 +20,7 @@ import { UsersPageComponent } from './users/users-page/users-page.component';
 import { UserDeleteConfirmDialogComponent } from './users/user-delete-confirm-dialog/user-delete-confirm-dialog.component';
 import { UserAddDialogComponent } from './users/user-add-dialog/user-add-dialog.component';
 import { UserEditDialogComponent } from './users/user-edit-dialog/user-edit-dialog.component';
+import { PupilDeleteConfirmDialogComponent } from './pupils/pupil-delete-confirm-dialog/pupil-delete-confirm-dialog.component';
 
 @NgModule({
     declarations: [
@@ -35,7 +36,8 @@ import { UserEditDialogComponent } from './users/user-edit-dialog/user-edit-dial
         SidenavContentComponent,
         UserDeleteConfirmDialogComponent,
         UserAddDialogComponent,
-        UserEditDialogComponent
+        UserEditDialogComponent,
+        PupilDeleteConfirmDialogComponent
     ],
     imports: [BrowserModule, AppRoutingModule, HttpClientModule, MaterialModule, FormsModule, ReactiveFormsModule, BrowserAnimationsModule],
     providers: [

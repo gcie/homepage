@@ -19,12 +19,7 @@ export class UsersListComponent implements OnInit {
     constructor(private usersService: UsersService, private dialog: MatDialog, private error: ErrorsService) {}
 
     ngOnInit() {
-        this.usersService.getUsers().subscribe({
-            next: (users: User[]) => {
-                this.users = users;
-            },
-            error: this.error.snack
-        });
+        this.refreshUsersList();
     }
 
     private refreshUsersList = () => {

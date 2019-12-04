@@ -1,10 +1,4 @@
-<!-- <mat-toolbar-row>
-        <span></span>
-        <span class="spacer"></span>
-        <mat-icon svgIcon="account"></mat-icon>
-    </mat-toolbar-row> -->
 <mat-toolbar>
-
     <mat-toolbar-row>
         <h2 class="mat-h2">
             {{ username }}
@@ -19,7 +13,7 @@
         </span>
         <span fxFlex></span>
     </a>
-    <a *ngIf="authService.hasAdmin()" mat-list-item (click)="usersRedirect()">
+    <a *ngIf="authService.isAdmin()" mat-list-item (click)="usersRedirect()">
         <mat-icon svgIcon="account-details"></mat-icon>
         <span style="padding-left: 15px;">
             Zarządzaj użytkownikami

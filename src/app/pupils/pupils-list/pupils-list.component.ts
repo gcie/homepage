@@ -3,6 +3,9 @@ import { PupilsService } from '../pupils.service';
 import { Pupil } from '../pupil';
 import { MatDialog } from '@angular/material/dialog';
 import { PupilAddDialogComponent } from '../pupil-add-dialog/pupil-add-dialog.component';
+import { AuthService } from 'src/app/auth/auth.service';
+import { PupilDeleteConfirmDialogComponent } from '../pupil-delete-confirm-dialog/pupil-delete-confirm-dialog.component';
+import { ErrorsService } from 'src/app/utils/errors.service';
 
 @Component({
     selector: 'app-pupils-list',
@@ -13,24 +16,54 @@ export class PupilsListComponent implements OnInit {
     pupils: Pupil[] = [];
     displayedColumns: string[] = ['name', 'email', 'phone', 'needs', 'class'];
 
-    constructor(private pupilsService: PupilsService, private dialog: MatDialog) {}
+    constructor(
+        private authService: AuthService,
+        private pupilsService: PupilsService,
+        private dialog: MatDialog,
+        private error: ErrorsService
+    ) {
+        if (this.authService.isManager()) this.displayedColumns.push('options');
+    }
 
     ngOnInit() {
-        this.pupilsService.getPupils().then((pupils: Pupil[]) => {
-            this.pupils = pupils;
-        });
+        this.refreshPupilsList();
     }
+
+    private refreshPupilsList = () => {
+        this.pupilsService.getPupils().subscribe({
+            next: (pupils: Pupil[]) => (this.pupils = pupils),
+            error: this.error.snack
+        });
+    };
 
     addPupilDialog() {
         const addPupilDialogRef = this.dialog.open(PupilAddDialogComponent, {
             width: '700px'
         });
-        addPupilDialogRef.afterClosed().subscribe((result) => {
-            console.log(result);
 
-            this.pupilsService.getPupils().then((pupils: Pupil[]) => {
-                this.pupils = pupils;
-            });
+        addPupilDialogRef
+            .afterClosed()
+            .toPromise()
+            .then(this.refreshPupilsList);
+    }
+
+    editPupil(pupil: Pupil) {
+        // TODO
+    }
+
+    deletePupil(pupil) {
+        const dialogRef = this.dialog.open(PupilDeleteConfirmDialogComponent, {
+            width: '300px',
+            data: pupil
         });
+
+        dialogRef
+            .afterClosed()
+            .toPromise()
+            .then((result) => {
+                if (result) return this.pupilsService.deletePupil(pupil._id).toPromise();
+                else return '';
+            })
+            .then(this.refreshPupilsList);
     }
 }
