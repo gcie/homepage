@@ -53,8 +53,13 @@ export class AuthService {
         return moment(expiresAt);
     }
 
-    public hasAdmin(): boolean {
+    public isAdmin(): boolean {
         return this.getGroup() === PermissionGroup.admin;
+    }
+
+    public isManager(): boolean {
+        const group = this.getGroup();
+        return group === PermissionGroup.admin || group === PermissionGroup.manager;
     }
 
     public getUser(): User | null {

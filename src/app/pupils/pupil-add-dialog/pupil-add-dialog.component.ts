@@ -29,9 +29,9 @@ export class PupilAddDialogComponent {
 
     onSubmit(pupilData) {
         if (this.pupilForm.valid) {
-            console.log(pupilData as Pupil);
-            this.pupilsService.createPupil(pupilData as Pupil);
-            this.dialogRef.close();
+            this.pupilsService.createPupil(pupilData).subscribe(() => {
+                this.dialogRef.close();
+            });
         }
     }
 }
