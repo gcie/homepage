@@ -10,7 +10,7 @@ function handleError(res, err, msg, status) {
     res.status(status).json({ error: msg, raw: err });
 }
 
-module.exports = function(db) {
+module.exports = function(db, guards) {
     router.get('', function(req, res) {
         db.collection(PUPILS_COLLECTION)
             .find({})
@@ -23,7 +23,7 @@ module.exports = function(db) {
             });
     });
 
-    router.post('', function(req, res) {
+    router.post('', guards.manager, function(req, res) {
         var newPupil = req.body;
         newPupil.createDate = new Date();
 
@@ -56,7 +56,7 @@ module.exports = function(db) {
         });
     });
 
-    router.put('/:id', function(req, res) {
+    router.put('/:id', guards.manager, function(req, res) {
         var updateDoc = req.body;
         delete updateDoc._id;
 
@@ -70,7 +70,7 @@ module.exports = function(db) {
         });
     });
 
-    router.delete('/:id', function(req, res) {
+    router.delete('/:id', guards.manager, function(req, res) {
         db.collection(PUPILS_COLLECTION).deleteOne({ _id: new ObjectID(req.params.id) }, function(err, result) {
             if (err) {
                 handleError(res, err.message, 'Failed to delete pupil');
