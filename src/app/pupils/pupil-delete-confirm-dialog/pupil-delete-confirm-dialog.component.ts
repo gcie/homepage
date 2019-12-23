@@ -9,8 +9,4 @@ import { Pupil } from '../pupil';
 })
 export class PupilDeleteConfirmDialogComponent {
     constructor(public dialogRef: MatDialogRef<PupilDeleteConfirmDialogComponent>, @Inject(MAT_DIALOG_DATA) public pupil: Pupil) {}
-
-    onNoClick() {
-        this.dialogRef.close();
-    }
 }
