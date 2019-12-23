@@ -44,7 +44,7 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-        <div class="fab-container">
+        <div *ngIf="authService.isManager()" class="fab-container">
             <button mat-fab class="add-fab" color="primary" (click)="addPupilDialog()">
                 <mat-icon svgIcon="plus"></mat-icon>
             </button>
