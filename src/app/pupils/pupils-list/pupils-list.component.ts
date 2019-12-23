@@ -6,6 +6,7 @@ import { PupilAddDialogComponent } from '../pupil-add-dialog/pupil-add-dialog.co
 import { AuthService } from 'src/app/auth/auth.service';
 import { PupilDeleteConfirmDialogComponent } from '../pupil-delete-confirm-dialog/pupil-delete-confirm-dialog.component';
 import { ErrorsService } from 'src/app/utils/errors.service';
+import { PupilEditDialogComponent } from '../pupil-edit-dialog/pupil-edit-dialog.component';
 
 @Component({
     selector: 'app-pupils-list',
@@ -48,7 +49,15 @@ export class PupilsListComponent implements OnInit {
     }
 
     editPupil(pupil: Pupil) {
-        // TODO
+        const dialogRef = this.dialog.open(PupilEditDialogComponent, {
+            width: '700px',
+            data: pupil
+        });
+
+        dialogRef
+            .afterClosed()
+            .toPromise()
+            .then(this.refreshPupilsList);
     }
 
     deletePupil(pupil) {

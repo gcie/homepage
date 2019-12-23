@@ -11,6 +11,7 @@ import { UserDeleteConfirmDialogComponent } from './users/user-delete-confirm-di
 import { UserAddDialogComponent } from './users/user-add-dialog/user-add-dialog.component';
 import { UserEditDialogComponent } from './users/user-edit-dialog/user-edit-dialog.component';
 import { PupilDeleteConfirmDialogComponent } from './pupils/pupil-delete-confirm-dialog/pupil-delete-confirm-dialog.component';
+import { PupilEditDialogComponent } from './pupils/pupil-edit-dialog/pupil-edit-dialog.component';
 
 const routes: Routes = [
     { path: '', component: MainPageComponent, canActivate: [AuthGuard] },
@@ -24,10 +25,11 @@ const routes: Routes = [
     exports: [RouterModule],
     entryComponents: [
         PupilAddDialogComponent,
-        UserDeleteConfirmDialogComponent,
+        PupilEditDialogComponent,
+        PupilDeleteConfirmDialogComponent,
         UserAddDialogComponent,
         UserEditDialogComponent,
-        PupilDeleteConfirmDialogComponent
+        UserDeleteConfirmDialogComponent
     ]
 })
 export class AppRoutingModule {}
