@@ -19,7 +19,6 @@ var USERS_COLLECTION = 'users';
 var app = express();
 
 app.use(bodyParser.json());
-app.use(passport.initialize());
 
 // Create a database variable outside of the database connection callback to reuse the connection pool in your app.
 var db;
@@ -38,17 +37,7 @@ passport.use(
     })
 );
 
-function group(group) {
-    return (req, res, next) => {
-        if (req.user.group === group) {
-            next();
-        } else {
-            res.status(401).json({
-                error: `Unauthorized, requires permission group "${group}", but you have group ${req.body.user.group}`
-            });
-        }
-    };
-}
+app.use(passport.initialize());
 
 // Connect to the database before starting the application server.
 mongodb.MongoClient.connect(
@@ -64,12 +53,15 @@ mongodb.MongoClient.connect(
         db = client.db();
         console.log('Database connection ready');
 
+        var permissions = require('./api/permissions');
+        var guards = permissions.createGuards(passport.authenticate('jwt', { session: false }));
+
         // Introduce routes
-        app.use('/api/pupils', passport.authenticate('jwt', { session: false }), require('./api/pupils')(db));
+        app.use('/api/pupils', passport.authenticate('jwt', { session: false }), require('./api/pupils')(db, guards));
         app.use('/api/auth', require('./api/auth')(db));
-        app.use('/api/users', passport.authenticate('jwt', { session: false }), group('admin'), require('./api/users')(db));
+        app.use('/api/users', guards.authenticated, guards.admin, require('./api/users')(db));
         app.use('/login', express.static(__dirname + '/dist'));
-        app.use('/register', passport.authenticate('jwt', { session: false }), express.static(__dirname + '/dist'));
+        app.use('/register', guards.authenticated, express.static(__dirname + '/dist'));
         app.use('/', express.static(__dirname + '/dist'));
 
         // Initialize the app.
