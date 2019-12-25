@@ -7,7 +7,7 @@ var PUPILS_COLLECTION = 'pupils';
 
 function handleError(res, err, msg, status) {
     if (status === null) status = 500;
-    res.status(status).json({ error: msg, raw: err });
+    res.status(status).json({ message: msg, raw: err });
 }
 
 module.exports = function(db, guards) {
@@ -16,7 +16,7 @@ module.exports = function(db, guards) {
             .find({})
             .toArray(function(err, docs) {
                 if (err) {
-                    handleError(res, err.message, 'Failed to get pupils.');
+                    handleError(res, err, 'Failed to get pupils.');
                 } else {
                     res.status(200).json(docs);
                 }
@@ -32,7 +32,7 @@ module.exports = function(db, guards) {
         } else {
             db.collection(PUPILS_COLLECTION).insertOne(newPupil, function(err, doc) {
                 if (err) {
-                    handleError(res, err.message, 'Failed to create new pupil.');
+                    handleError(res, err, 'Failed to create new pupil.');
                 } else {
                     res.status(201).json(doc.ops[0]);
                 }
@@ -49,7 +49,7 @@ module.exports = function(db, guards) {
     router.get('/:id', function(req, res) {
         db.collection(PUPILS_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
             if (err) {
-                handleError(res, err.message, 'Failed to get pupil');
+                handleError(res, err, 'Failed to get pupil');
             } else {
                 res.status(200).json(doc);
             }
@@ -62,7 +62,7 @@ module.exports = function(db, guards) {
 
         db.collection(PUPILS_COLLECTION).updateOne({ _id: new ObjectID(req.params.id) }, { $set: updateDoc }, function(err, doc) {
             if (err) {
-                handleError(res, err.message, 'Failed to update pupil');
+                handleError(res, err, 'Failed to update pupil');
             } else {
                 updateDoc._id = req.params.id;
                 res.status(200).json(updateDoc);
@@ -73,7 +73,7 @@ module.exports = function(db, guards) {
     router.delete('/:id', guards.manager, function(req, res) {
         db.collection(PUPILS_COLLECTION).deleteOne({ _id: new ObjectID(req.params.id) }, function(err, result) {
             if (err) {
-                handleError(res, err.message, 'Failed to delete pupil');
+                handleError(res, err, 'Failed to delete pupil');
             } else {
                 res.status(200).json(req.params.id);
             }

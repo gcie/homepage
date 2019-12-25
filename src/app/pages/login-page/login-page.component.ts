@@ -11,6 +11,7 @@ import { UserLoginData } from '../../auth/user/user-login-data';
 })
 export class LoginPageComponent {
     loginForm: FormGroup;
+    errorMessage: string;
 
     constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
         this.loginForm = this.formBuilder.group({
@@ -20,8 +21,13 @@ export class LoginPageComponent {
     }
 
     onSubmit(credentials: UserLoginData) {
-        this.authService.login(credentials).subscribe(() => {
-            this.router.navigateByUrl('/');
+        this.authService.login(credentials).subscribe({
+            next: () => {
+                this.router.navigateByUrl('/');
+            },
+            error: (err) => {
+                this.errorMessage = err.error.message;
+            }
         });
     }
 }

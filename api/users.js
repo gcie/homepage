@@ -12,7 +12,7 @@ module.exports = function(db) {
             .find({})
             .toArray(function(err, docs) {
                 if (err) {
-                    res.status(500).json({ error: 'Failed to get users', raw: err });
+                    res.status(500).json({ message: 'Failed to get users', raw: err });
                 } else {
                     res.status(200).json(docs);
                 }
@@ -22,11 +22,11 @@ module.exports = function(db) {
     router.post('', (req, res) => {
         db.collection(USERS_COLLECTION).findOne({ email: req.body.email }, (err, user) => {
             if (err) {
-                return res.status(500).json({ error: 'Server error', raw: err });
+                return res.status(500).json({ message: 'Server error', raw: err });
             } else if (user) {
-                return res.status(400).json({ error: `Email '${req.body.email}' is already in use.` });
+                return res.status(400).json({ message: `Email '${req.body.email}' is already in use.` });
             } else if (!req.body.name || !req.body.surname || !req.body.email || !req.body.password) {
-                return res.status(400).json({ error: 'Incomplete credentials.' });
+                return res.status(400).json({ message: 'Incomplete credentials.' });
             } else {
                 const newUser = {
                     name: req.body.name,
@@ -59,11 +59,11 @@ module.exports = function(db) {
 
         db.collection(USERS_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, (err, user) => {
             if (err) {
-                return res.status(500).json({ error: 'Server error', raw: err });
+                return res.status(500).json({ message: 'Server error', raw: err });
             } else if (!user) {
-                return res.status(400).json({ error: `User not found.` });
+                return res.status(400).json({ message: `User not found.` });
             } else if (!updateDoc.name || !updateDoc.surname || !updateDoc.email || !updateDoc.group) {
-                return res.status(400).json({ error: 'Incomplete credentials.' });
+                return res.status(400).json({ message: 'Incomplete credentials.' });
             } else if (updateDoc.password) {
                 bcrypt.genSalt(10, (err, salt) => {
                     if (err) throw err;
@@ -72,7 +72,7 @@ module.exports = function(db) {
                         updateDoc.password = hash;
                         db.collection(USERS_COLLECTION).updateOne({ _id: new ObjectID(req.params.id) }, { $set: updateDoc }, (err, doc) => {
                             if (err) {
-                                res.status(500).json({ error: 'Failed to update user.', raw: err });
+                                res.status(500).json({ message: 'Failed to update user.', raw: err });
                             } else {
                                 updateDoc._id = req.params.id;
                                 res.status(200).json(updateDoc);
@@ -84,7 +84,7 @@ module.exports = function(db) {
                 updateDoc.password = user.password;
                 db.collection(USERS_COLLECTION).updateOne({ _id: new ObjectID(req.params.id) }, { $set: updateDoc }, (err, doc) => {
                     if (err) {
-                        res.status(500).json({ error: 'Failed to update user', raw: err });
+                        res.status(500).json({ message: 'Failed to update user', raw: err });
                     } else {
                         updateDoc._id = req.params.id;
                         res.status(200).json(updateDoc);
@@ -97,7 +97,7 @@ module.exports = function(db) {
     router.delete('/:id', function(req, res) {
         db.collection(USERS_COLLECTION).deleteOne({ _id: new ObjectID(req.params.id) }, function(err, result) {
             if (err) {
-                handleError(res, err.message, 'Failed to delete user');
+                res.status(500).json({ message: 'Failed to delete user', raw: err });
             } else {
                 res.status(200).json(req.params.id);
             }

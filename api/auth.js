@@ -10,11 +10,11 @@ module.exports = function(db) {
     router.post('/register', (req, res) => {
         db.collection(USERS_COLLECTION).findOne({ email: req.body.email }, (err, user) => {
             if (err) {
-                return res.status(500).json({ error: 'Server error', raw: err });
+                return res.status(500).json({ message: 'Server error', raw: err });
             } else if (user) {
-                return res.status(400).json({ error: `Adres email '${req.body.email}' jest już w użyciu.` });
+                return res.status(400).json({ message: `Adres email '${req.body.email}' jest już w użyciu.` });
             } else if (!req.body.name || !req.body.surname || !req.body.email || !req.body.password) {
-                return res.status(400).json({ error: 'Niekompletne dane logowania.' });
+                return res.status(400).json({ message: 'Niekompletne dane logowania.' });
             } else {
                 const newUser = {
                     name: req.body.name,
@@ -46,10 +46,10 @@ module.exports = function(db) {
         const password = req.body.password;
         db.collection(USERS_COLLECTION).findOne({ email }, (err, user) => {
             if (err) {
-                return res.status(500).json({ error: 'Server error', raw: err });
+                return res.status(500).json({ message: 'Server error', raw: err });
             }
             if (!user) {
-                return res.status(404).json({ error: 'Nie znaleziono konta o podanym adresie email' });
+                return res.status(401).json({ message: 'Nie znaleziono konta o podanym adresie email' });
             }
             bcrypt.compare(password, user.password).then((isMatch) => {
                 if (isMatch) {
@@ -58,7 +58,7 @@ module.exports = function(db) {
                         email: user.email
                     };
                     jwt.sign(payload, secret, { expiresIn: 36000 }, (err, token) => {
-                        if (err) res.status(500).json({ error: 'Error signing token', raw: err });
+                        if (err) res.status(500).json({ message: 'Error signing token', raw: err });
                         res.json({
                             user: {
                                 name: user.name,
@@ -72,7 +72,7 @@ module.exports = function(db) {
                         });
                     });
                 } else {
-                    res.status(400).json({ error: 'Niepoprawne hasło / adres email' });
+                    res.status(401).json({ message: 'Niepoprawne hasło / adres email' });
                 }
             });
         });

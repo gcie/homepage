@@ -11,6 +11,8 @@
                     <mat-form-field>
                         <input matInput type="password" placeholder="Hasło" formControlName="password" required>
                     </mat-form-field>
+                    <mat-error *ngIf="errorMessage" style="padding-bottom: 10px;"><strong>{{ errorMessage }}</strong>
+                    </mat-error>
                     <button mat-raised-button color="primary" type="submit">Zaloguj</button>
                 </form>
             </mat-card-content>

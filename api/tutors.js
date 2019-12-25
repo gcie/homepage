@@ -7,7 +7,7 @@ var TUTORS_COLLECTION = 'tutors';
 
 function handleError(res, err, msg, status) {
     if (status === null) status = 500;
-    res.status(status).json({ error: msg, raw: err });
+    res.status(status).json({ message: msg, raw: err });
 }
 
 module.exports = function(db, guards) {
@@ -16,7 +16,7 @@ module.exports = function(db, guards) {
             .find({})
             .toArray(function(err, docs) {
                 if (err) {
-                    handleError(res, err.message, 'Failed to get tutors.');
+                    handleError(res, err, 'Failed to get tutors.');
                 } else {
                     res.status(200).json(docs);
                 }
@@ -32,7 +32,7 @@ module.exports = function(db, guards) {
         } else {
             db.collection(TUTORS_COLLECTION).insertOne(newTutor, function(err, doc) {
                 if (err) {
-                    handleError(res, err.message, 'Failed to create new tutor.');
+                    handleError(res, err, 'Failed to create new tutor.');
                 } else {
                     res.status(201).json(doc.ops[0]);
                 }
@@ -49,7 +49,7 @@ module.exports = function(db, guards) {
     router.get('/:id', function(req, res) {
         db.collection(TUTORS_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
             if (err) {
-                handleError(res, err.message, 'Failed to get tutor');
+                handleError(res, err, 'Failed to get tutor');
             } else {
                 res.status(200).json(doc);
             }
@@ -62,7 +62,7 @@ module.exports = function(db, guards) {
 
         db.collection(TUTORS_COLLECTION).updateOne({ _id: new ObjectID(req.params.id) }, { $set: updateDoc }, function(err, doc) {
             if (err) {
-                handleError(res, err.message, 'Failed to update tutor');
+                handleError(res, err, 'Failed to update tutor');
             } else {
                 updateDoc._id = req.params.id;
                 res.status(200).json(updateDoc);
@@ -73,7 +73,7 @@ module.exports = function(db, guards) {
     router.delete('/:id', guards.manager, function(req, res) {
         db.collection(TUTORS_COLLECTION).deleteOne({ _id: new ObjectID(req.params.id) }, function(err, result) {
             if (err) {
-                handleError(res, err.message, 'Failed to delete tutor');
+                handleError(res, err, 'Failed to delete tutor');
             } else {
                 res.status(200).json(req.params.id);
             }
