@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { PupilsService } from '../pupils.service';
-import { Pupil } from '../pupil';
 import { MatDialog } from '@angular/material/dialog';
-import { PupilAddDialogComponent } from '../pupil-add-dialog/pupil-add-dialog.component';
 import { AuthService } from 'src/app/auth/auth.service';
-import { PupilDeleteConfirmDialogComponent } from '../pupil-delete-confirm-dialog/pupil-delete-confirm-dialog.component';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { ErrorsService } from 'src/app/utils/errors.service';
+import { Pupil } from '../pupil';
+import { PupilAddDialogComponent } from '../pupil-add-dialog/pupil-add-dialog.component';
 import { PupilEditDialogComponent } from '../pupil-edit-dialog/pupil-edit-dialog.component';
+import { PupilsService } from '../pupils.service';
 
 @Component({
     selector: 'app-pupils-list',
@@ -61,9 +61,11 @@ export class PupilsListComponent implements OnInit {
     }
 
     deletePupil(pupil) {
-        const dialogRef = this.dialog.open(PupilDeleteConfirmDialogComponent, {
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, {
             width: '300px',
-            data: pupil
+            data: {
+                message: `Czy na pewno chcesz usunąć ucznia ${pupil.name}?`
+            }
         });
 
         dialogRef

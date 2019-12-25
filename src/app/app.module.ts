@@ -12,16 +12,15 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { PupilAddDialogComponent } from './pupils/pupil-add-dialog/pupil-add-dialog.component';
+import { PupilEditDialogComponent } from './pupils/pupil-edit-dialog/pupil-edit-dialog.component';
 import { PupilsListComponent } from './pupils/pupils-list/pupils-list.component';
 import { SidenavContentComponent } from './shared/sidenav-content/sidenav-content.component';
 import { ToolbarComponent } from './shared/toolbar/toolbar.component';
-import { UsersListComponent } from './users/users-list/users-list.component';
-import { UsersPageComponent } from './users/users-page/users-page.component';
-import { UserDeleteConfirmDialogComponent } from './users/user-delete-confirm-dialog/user-delete-confirm-dialog.component';
 import { UserAddDialogComponent } from './users/user-add-dialog/user-add-dialog.component';
 import { UserEditDialogComponent } from './users/user-edit-dialog/user-edit-dialog.component';
-import { PupilDeleteConfirmDialogComponent } from './pupils/pupil-delete-confirm-dialog/pupil-delete-confirm-dialog.component';
-import { PupilEditDialogComponent } from './pupils/pupil-edit-dialog/pupil-edit-dialog.component';
+import { UsersListComponent } from './users/users-list/users-list.component';
+import { UsersPageComponent } from './users/users-page/users-page.component';
+import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
     declarations: [
@@ -35,11 +34,10 @@ import { PupilEditDialogComponent } from './pupils/pupil-edit-dialog/pupil-edit-
         UsersListComponent,
         ToolbarComponent,
         SidenavContentComponent,
-        UserDeleteConfirmDialogComponent,
         UserAddDialogComponent,
         UserEditDialogComponent,
-        PupilDeleteConfirmDialogComponent,
-        PupilEditDialogComponent
+        PupilEditDialogComponent,
+        ConfirmDialogComponent
     ],
     imports: [BrowserModule, AppRoutingModule, HttpClientModule, MaterialModule, FormsModule, ReactiveFormsModule, BrowserAnimationsModule],
     providers: [

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { User } from 'src/app/auth/user/user';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { ErrorsService } from 'src/app/utils/errors.service';
 import { UserAddDialogComponent } from '../user-add-dialog/user-add-dialog.component';
-import { UserDeleteConfirmDialogComponent } from '../user-delete-confirm-dialog/user-delete-confirm-dialog.component';
 import { UserEditDialogComponent } from '../user-edit-dialog/user-edit-dialog.component';
 import { UsersService } from '../users.service';
 
@@ -53,9 +53,11 @@ export class UsersListComponent implements OnInit {
     }
 
     deleteUser(user) {
-        const dialogRef = this.dialog.open(UserDeleteConfirmDialogComponent, {
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, {
             width: '300px',
-            data: user
+            data: {
+                message: `Czy na pewno chcesz usunąć użytkownika ${user.name} ${user.surname}?`
+            }
         });
 
         dialogRef

@@ -1,6 +1,5 @@
 export class Pupil {
     _id?: string;
-    // registered: Date;
     name: string;
     email: string;
     phone: string;

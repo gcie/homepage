@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { PupilAddDialogComponent } from './pupils/pupil-add-dialog/pupil-add-dialog.component';
+import { RouterModule, Routes } from '@angular/router';
+import { AdminGuard } from './auth/admin.guard';
+import { AuthGuard } from './auth/auth.guard';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
-import { AuthGuard } from './auth/auth.guard';
-import { AdminGuard } from './auth/admin.guard';
-import { UsersPageComponent } from './users/users-page/users-page.component';
-import { UserDeleteConfirmDialogComponent } from './users/user-delete-confirm-dialog/user-delete-confirm-dialog.component';
+import { PupilAddDialogComponent } from './pupils/pupil-add-dialog/pupil-add-dialog.component';
+import { PupilEditDialogComponent } from './pupils/pupil-edit-dialog/pupil-edit-dialog.component';
+import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 import { UserAddDialogComponent } from './users/user-add-dialog/user-add-dialog.component';
 import { UserEditDialogComponent } from './users/user-edit-dialog/user-edit-dialog.component';
-import { PupilDeleteConfirmDialogComponent } from './pupils/pupil-delete-confirm-dialog/pupil-delete-confirm-dialog.component';
-import { PupilEditDialogComponent } from './pupils/pupil-edit-dialog/pupil-edit-dialog.component';
+import { UsersPageComponent } from './users/users-page/users-page.component';
 
 const routes: Routes = [
     { path: '', component: MainPageComponent, canActivate: [AuthGuard] },
@@ -24,12 +23,11 @@ const routes: Routes = [
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule],
     entryComponents: [
+        ConfirmDialogComponent,
         PupilAddDialogComponent,
         PupilEditDialogComponent,
-        PupilDeleteConfirmDialogComponent,
         UserAddDialogComponent,
-        UserEditDialogComponent,
-        UserDeleteConfirmDialogComponent
+        UserEditDialogComponent
     ]
 })
 export class AppRoutingModule {}
