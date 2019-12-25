@@ -15,7 +15,7 @@ import { PupilsService } from '../pupils.service';
 })
 export class PupilsListComponent implements OnInit {
     pupils: Pupil[] = [];
-    displayedColumns: string[] = ['name', 'email', 'phone', 'needs', 'class'];
+    displayedColumns: string[] = ['name', 'email', 'needs', 'class', 'notes'];
 
     constructor(
         private authService: AuthService,

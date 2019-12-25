@@ -24,6 +24,7 @@ import { UsersListComponent } from './users/users-list/users-list.component';
 import { UsersPageComponent } from './users/users-page/users-page.component';
 import { TutorAddDialogComponent } from './tutors/tutor-add-dialog/tutor-add-dialog.component';
 import { TutorEditDialogComponent } from './tutors/tutor-edit-dialog/tutor-edit-dialog.component';
+import { ShortenPipe } from './pipes/shorten.pipe';
 
 @NgModule({
     declarations: [
@@ -43,7 +44,8 @@ import { TutorEditDialogComponent } from './tutors/tutor-edit-dialog/tutor-edit-
         TutorsListComponent,
         ConfirmDialogComponent,
         TutorAddDialogComponent,
-        TutorEditDialogComponent
+        TutorEditDialogComponent,
+        ShortenPipe
     ],
     imports: [BrowserModule, AppRoutingModule, HttpClientModule, MaterialModule, FormsModule, ReactiveFormsModule, BrowserAnimationsModule],
     providers: [

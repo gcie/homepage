@@ -15,7 +15,7 @@ import { TutorEditDialogComponent } from '../tutor-edit-dialog/tutor-edit-dialog
 })
 export class TutorsListComponent implements OnInit {
     tutors: Tutor[] = [];
-    displayedColumns: string[] = ['name', 'email', 'phone', 'teaches'];
+    displayedColumns: string[] = ['name', 'email', 'teaches', 'notes'];
 
     constructor(
         private authService: AuthService,
