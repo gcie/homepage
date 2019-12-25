@@ -49,7 +49,7 @@ module.exports = function(db) {
                 return res.status(500).json({ message: 'Server error', raw: err });
             }
             if (!user) {
-                return res.status(401).json({ message: 'Nie znaleziono konta o podanym adresie email' });
+                return res.status(400).json({ message: 'Nie znaleziono konta o podanym adresie email' });
             }
             bcrypt.compare(password, user.password).then((isMatch) => {
                 if (isMatch) {
@@ -72,7 +72,7 @@ module.exports = function(db) {
                         });
                     });
                 } else {
-                    res.status(401).json({ message: 'Niepoprawne hasło / adres email' });
+                    res.status(400).json({ message: 'Niepoprawne hasło / adres email' });
                 }
             });
         });
