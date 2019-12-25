@@ -1,5 +1,6 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
@@ -11,20 +12,20 @@ import { MaterialModule } from './material/material.module';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
+import { ShortenPipe } from './pipes/shorten.pipe';
 import { PupilAddDialogComponent } from './pupils/pupil-add-dialog/pupil-add-dialog.component';
 import { PupilEditDialogComponent } from './pupils/pupil-edit-dialog/pupil-edit-dialog.component';
 import { PupilsListComponent } from './pupils/pupils-list/pupils-list.component';
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 import { SidenavContentComponent } from './shared/sidenav-content/sidenav-content.component';
 import { ToolbarComponent } from './shared/toolbar/toolbar.component';
+import { TutorAddDialogComponent } from './tutors/tutor-add-dialog/tutor-add-dialog.component';
+import { TutorEditDialogComponent } from './tutors/tutor-edit-dialog/tutor-edit-dialog.component';
 import { TutorsListComponent } from './tutors/tutors-list/tutors-list.component';
 import { UserAddDialogComponent } from './users/user-add-dialog/user-add-dialog.component';
 import { UserEditDialogComponent } from './users/user-edit-dialog/user-edit-dialog.component';
 import { UsersListComponent } from './users/users-list/users-list.component';
 import { UsersPageComponent } from './users/users-page/users-page.component';
-import { TutorAddDialogComponent } from './tutors/tutor-add-dialog/tutor-add-dialog.component';
-import { TutorEditDialogComponent } from './tutors/tutor-edit-dialog/tutor-edit-dialog.component';
-import { ShortenPipe } from './pipes/shorten.pipe';
 
 @NgModule({
     declarations: [
@@ -47,7 +48,16 @@ import { ShortenPipe } from './pipes/shorten.pipe';
         TutorEditDialogComponent,
         ShortenPipe
     ],
-    imports: [BrowserModule, AppRoutingModule, HttpClientModule, MaterialModule, FormsModule, ReactiveFormsModule, BrowserAnimationsModule],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        MaterialModule,
+        FormsModule,
+        FlexLayoutModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule
+    ],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,
