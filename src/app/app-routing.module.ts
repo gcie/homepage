@@ -11,6 +11,8 @@ import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.c
 import { UserAddDialogComponent } from './users/user-add-dialog/user-add-dialog.component';
 import { UserEditDialogComponent } from './users/user-edit-dialog/user-edit-dialog.component';
 import { UsersPageComponent } from './users/users-page/users-page.component';
+import { TutorAddDialogComponent } from './tutors/tutor-add-dialog/tutor-add-dialog.component';
+import { TutorEditDialogComponent } from './tutors/tutor-edit-dialog/tutor-edit-dialog.component';
 
 const routes: Routes = [
     { path: '', component: MainPageComponent, canActivate: [AuthGuard] },
@@ -27,7 +29,9 @@ const routes: Routes = [
         PupilAddDialogComponent,
         PupilEditDialogComponent,
         UserAddDialogComponent,
-        UserEditDialogComponent
+        UserEditDialogComponent,
+        TutorAddDialogComponent,
+        TutorEditDialogComponent
     ]
 })
 export class AppRoutingModule {}

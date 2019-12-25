@@ -1,0 +1,53 @@
+<mat-card>
+    <mat-card-title>
+        Korepetytorzy
+    </mat-card-title>
+    <mat-card-content>
+        <table mat-table [dataSource]="tutors">
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Imię i nazwisko</th>
+                <td mat-cell *matCellDef="let tutor">{{ tutor.name }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef>Email</th>
+                <td mat-cell *matCellDef="let tutor">{{ tutor.email }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="phone">
+                <th mat-header-cell *matHeaderCellDef>Telefon</th>
+                <td mat-cell *matCellDef="let tutor">{{ tutor.phone }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="teaches">
+                <th mat-header-cell *matHeaderCellDef>Naucza</th>
+                <td mat-cell *matCellDef="let tutor">{{ tutor.teaches }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="class">
+                <th mat-header-cell *matHeaderCellDef>Klasa</th>
+                <td mat-cell *matCellDef="let tutor">{{ tutor.class }}</td>
+            </ng-container>
+
+            <ng-container *ngIf="authService.isManager()" matColumnDef="options">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell class="options-cell" *matCellDef="let tutor">
+                    <button mat-icon-button (click)="editTutor(tutor)">
+                        <mat-icon svgIcon="pencil"></mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="deleteTutor(tutor)">
+                        <mat-icon svgIcon="delete"></mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <div *ngIf="authService.isManager()" class="fab-container">
+            <button mat-fab class="add-fab" color="primary" (click)="addTutorDialog()">
+                <mat-icon svgIcon="plus"></mat-icon>
+            </button>
+        </div>
+    </mat-card-content>
+</mat-card>

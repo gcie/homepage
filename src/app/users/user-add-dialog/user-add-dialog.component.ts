@@ -25,7 +25,7 @@ export class UserAddDialogComponent {
     }
 
     onSubmit(data: { name: string; surname: string; email: string; password: string }) {
-        this.authService.register(data).subscribe((result) => {
+        this.authService.register(data).subscribe((_result) => {
             this.dialogRef.close();
         });
     }

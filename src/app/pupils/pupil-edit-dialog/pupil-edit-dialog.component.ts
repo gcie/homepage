@@ -1,9 +1,9 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, Inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserEditDialogComponent } from 'src/app/users/user-edit-dialog/user-edit-dialog.component';
-import { UsersService } from 'src/app/users/users.service';
 import { PupilsService } from '../pupils.service';
+import { Pupil } from '../pupil';
 
 @Component({
     selector: 'app-pupil-edit-dialog',
@@ -17,11 +17,10 @@ export class PupilEditDialogComponent {
         private dialogRef: MatDialogRef<UserEditDialogComponent>,
         private formBuilder: FormBuilder,
         private pupilsService: PupilsService,
-        @Inject(MAT_DIALOG_DATA) public pupil: any
+        @Inject(MAT_DIALOG_DATA) public pupil: Pupil
     ) {
         this.editForm = this.formBuilder.group({
             name: [pupil.name, Validators.required],
-            surname: [pupil.surname, Validators.required],
             email: [pupil.email, Validators.email],
             phone: [pupil.phone, Validators.pattern('[0-9]*')],
             class: pupil.class,

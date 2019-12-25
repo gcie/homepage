@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Pupil } from '../pupil';
+import { MatDialogRef } from '@angular/material/dialog';
 import { PupilsService } from '../pupils.service';
 
 @Component({
@@ -27,9 +26,9 @@ export class PupilAddDialogComponent {
         });
     }
 
-    onSubmit(pupilData) {
+    onSubmit() {
         if (this.pupilForm.valid) {
-            this.pupilsService.createPupil(pupilData).subscribe(() => {
+            this.pupilsService.createPupil(this.pupilForm.value).subscribe(() => {
                 this.dialogRef.close();
             });
         }

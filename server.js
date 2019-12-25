@@ -58,6 +58,7 @@ mongodb.MongoClient.connect(
 
         // Introduce routes
         app.use('/api/pupils', passport.authenticate('jwt', { session: false }), require('./api/pupils')(db, guards));
+        app.use('/api/tutors', passport.authenticate('jwt', { session: false }), require('./api/tutors')(db, guards));
         app.use('/api/auth', require('./api/auth')(db));
         app.use('/api/users', guards.authenticated, guards.admin, require('./api/users')(db));
         app.use('/login', express.static(__dirname + '/dist'));

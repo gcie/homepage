@@ -14,13 +14,16 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
 import { PupilAddDialogComponent } from './pupils/pupil-add-dialog/pupil-add-dialog.component';
 import { PupilEditDialogComponent } from './pupils/pupil-edit-dialog/pupil-edit-dialog.component';
 import { PupilsListComponent } from './pupils/pupils-list/pupils-list.component';
+import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 import { SidenavContentComponent } from './shared/sidenav-content/sidenav-content.component';
 import { ToolbarComponent } from './shared/toolbar/toolbar.component';
+import { TutorsListComponent } from './tutors/tutors-list/tutors-list.component';
 import { UserAddDialogComponent } from './users/user-add-dialog/user-add-dialog.component';
 import { UserEditDialogComponent } from './users/user-edit-dialog/user-edit-dialog.component';
 import { UsersListComponent } from './users/users-list/users-list.component';
 import { UsersPageComponent } from './users/users-page/users-page.component';
-import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
+import { TutorAddDialogComponent } from './tutors/tutor-add-dialog/tutor-add-dialog.component';
+import { TutorEditDialogComponent } from './tutors/tutor-edit-dialog/tutor-edit-dialog.component';
 
 @NgModule({
     declarations: [
@@ -37,7 +40,10 @@ import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.c
         UserAddDialogComponent,
         UserEditDialogComponent,
         PupilEditDialogComponent,
-        ConfirmDialogComponent
+        TutorsListComponent,
+        ConfirmDialogComponent,
+        TutorAddDialogComponent,
+        TutorEditDialogComponent
     ],
     imports: [BrowserModule, AppRoutingModule, HttpClientModule, MaterialModule, FormsModule, ReactiveFormsModule, BrowserAnimationsModule],
     providers: [

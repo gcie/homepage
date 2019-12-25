@@ -16,7 +16,7 @@
         </mat-form-field>
         <mat-form-field>
             <mat-select formControlName="group">
-                <mat-option *ngFor="let perm of availablePermissions" [value]="perm">{{ perm }}
+                <mat-option matInput *ngFor="let perm of availablePermissions" [value]="perm">{{ perm }}
                 </mat-option>
             </mat-select>
         </mat-form-field>

@@ -1,19 +1,19 @@
+import { HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { PupilAddDialogComponent } from './pupil-add-dialog.component';
-import { HttpClientModule } from '@angular/common/http';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TutorAddDialogComponent } from './tutor-add-dialog.component';
 
-describe('PupilAddDialogComponent', () => {
-    let component: PupilAddDialogComponent;
-    let fixture: ComponentFixture<PupilAddDialogComponent>;
+describe('TutorAddDialogComponent', () => {
+    let component: TutorAddDialogComponent;
+    let fixture: ComponentFixture<TutorAddDialogComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [PupilAddDialogComponent],
+            declarations: [TutorAddDialogComponent],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
-            imports: [ReactiveFormsModule, MatDialogModule, HttpClientModule],
+            imports: [ReactiveFormsModule, HttpClientModule],
             providers: [
                 { provide: MatDialogRef, useValue: {} },
                 { provide: MAT_DIALOG_DATA, useValue: {} }
@@ -22,7 +22,7 @@ describe('PupilAddDialogComponent', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(PupilAddDialogComponent);
+        fixture = TestBed.createComponent(TutorAddDialogComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
