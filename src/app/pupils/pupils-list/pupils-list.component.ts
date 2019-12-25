@@ -18,7 +18,7 @@ export class PupilsListComponent implements OnInit {
     displayedColumns: string[] = ['name', 'email', 'needs', 'class', 'notes'];
 
     constructor(
-        private authService: AuthService,
+        public authService: AuthService,
         private pupilsService: PupilsService,
         private dialog: MatDialog,
         private error: ErrorsService

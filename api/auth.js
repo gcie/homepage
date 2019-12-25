@@ -7,7 +7,7 @@ var USERS_COLLECTION = 'users';
 const secret = process.env.SECRET || 'default secret';
 
 module.exports = function(db) {
-    router.post('/register', (req, res) => {
+    /* router.post('/register', (req, res) => {
         db.collection(USERS_COLLECTION).findOne({ email: req.body.email }, (err, user) => {
             if (err) {
                 return res.status(500).json({ message: 'Server error', raw: err });
@@ -39,7 +39,7 @@ module.exports = function(db) {
                 });
             }
         });
-    });
+    }); */
 
     router.post('/login', (req, res) => {
         const email = req.body.email;

@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class SidenavContentComponent {
     username: string;
 
-    constructor(private authService: AuthService, private router: Router) {
+    constructor(public authService: AuthService, private router: Router) {
         this.username = authService.getFullName() || '';
     }
 

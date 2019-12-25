@@ -62,7 +62,7 @@ mongodb.MongoClient.connect(
         app.use('/api/auth', require('./api/auth')(db));
         app.use('/api/users', guards.authenticated, guards.admin, require('./api/users')(db));
         app.use('/login', express.static(__dirname + '/dist'));
-        app.use('/register', guards.authenticated, express.static(__dirname + '/dist'));
+        // app.use('/register', guards.authenticated, express.static(__dirname + '/dist'));
         app.use('/', express.static(__dirname + '/dist'));
 
         // Initialize the app.
