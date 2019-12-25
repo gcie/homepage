@@ -31,7 +31,7 @@
 
             <ng-container matColumnDef="notes">
                 <th mat-header-cell *matHeaderCellDef>Notatki</th>
-                <td mat-cell *matCellDef="let pupil">{{ pupil.notes | shorten }}</td>
+                <td mat-cell *matCellDef="let pupil" [innerHTML]="pupil.notes.replace('\n', '<br />')"></td>
             </ng-container>
 
             <ng-container *ngIf="authService.isManager()" matColumnDef="options">
