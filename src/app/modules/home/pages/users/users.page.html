@@ -1,0 +1,9 @@
+<mat-sidenav-container>
+    <mat-sidenav #sidenav>
+        <app-sidenav-content></app-sidenav-content>
+    </mat-sidenav>
+    <app-header [sidenav]="sidenav"></app-header>
+    <div class="app-content">
+        <app-users-list></app-users-list>
+    </div>
+</mat-sidenav-container>
