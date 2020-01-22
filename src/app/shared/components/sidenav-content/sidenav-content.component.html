@@ -13,7 +13,7 @@
         </span>
         <span fxFlex></span>
     </a>
-    <a *ngIf="authService.isAdmin()" mat-list-item (click)="usersRedirect()">
+    <a *appAuthAdmin mat-list-item (click)="usersRedirect()">
         <mat-icon svgIcon="account-details"></mat-icon>
         <span style="padding-left: 15px;">
             Zarządzaj użytkownikami

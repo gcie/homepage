@@ -30,7 +30,7 @@
                 </td>
             </ng-container>
 
-            <ng-container *ngIf="authService.isManager()" matColumnDef="options">
+            <ng-container *appAuthManager matColumnDef="options">
                 <th mat-header-cell *matHeaderCellDef></th>
                 <td mat-cell class="options-cell" *matCellDef="let tutor">
                     <button mat-icon-button (click)="editTutor(tutor)">
@@ -45,7 +45,7 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-        <div *ngIf="authService.isManager()" class="fab-container">
+        <div *appAuthManager class="fab-container">
             <button mat-fab class="add-fab" color="primary" (click)="addTutorDialog()">
                 <mat-icon svgIcon="plus"></mat-icon>
             </button>
