@@ -6,6 +6,8 @@ import { ConfirmDialogComponent } from 'src/app/shared/components';
 import { Tutor } from 'src/app/shared/models';
 import { TutorAddDialogComponent } from '../tutor-add-dialog/tutor-add-dialog.component';
 import { TutorEditDialogComponent } from '../tutor-edit-dialog/tutor-edit-dialog.component';
+import { flatMap } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
 
 @Component({
     selector: 'app-tutors-list',
@@ -47,10 +49,7 @@ export class TutorsListComponent implements OnInit {
             width: '700px'
         });
 
-        addTutorDialogRef
-            .afterClosed()
-            .toPromise()
-            .then(this.refreshTutorsList);
+        addTutorDialogRef.afterClosed().subscribe(this.refreshTutorsList);
     }
 
     editTutor(tutor: Tutor) {
@@ -59,10 +58,7 @@ export class TutorsListComponent implements OnInit {
             data: tutor
         });
 
-        dialogRef
-            .afterClosed()
-            .toPromise()
-            .then(this.refreshTutorsList);
+        dialogRef.afterClosed().subscribe(this.refreshTutorsList);
     }
 
     deleteTutor(tutor) {
@@ -75,11 +71,12 @@ export class TutorsListComponent implements OnInit {
 
         dialogRef
             .afterClosed()
-            .toPromise()
-            .then((result) => {
-                if (result) return this.tutorsService.deleteTutor(tutor._id).toPromise();
-                else return '';
-            })
-            .then(this.refreshTutorsList);
+            .pipe(
+                flatMap((result) => {
+                    if (result) return this.tutorsService.deleteTutor(tutor._id).toPromise();
+                    else return EMPTY;
+                })
+            )
+            .subscribe(this.refreshTutorsList);
     }
 }

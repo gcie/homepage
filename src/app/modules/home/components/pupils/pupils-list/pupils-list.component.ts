@@ -6,6 +6,8 @@ import { ConfirmDialogComponent } from 'src/app/shared/components';
 import { Pupil } from 'src/app/shared/models';
 import { PupilAddDialogComponent } from '../pupil-add-dialog/pupil-add-dialog.component';
 import { PupilEditDialogComponent } from '../pupil-edit-dialog/pupil-edit-dialog.component';
+import { flatMap } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
 
 @Component({
     selector: 'app-pupils-list',
@@ -47,10 +49,7 @@ export class PupilsListComponent implements OnInit {
             width: '700px'
         });
 
-        addPupilDialogRef
-            .afterClosed()
-            .toPromise()
-            .then(this.refreshPupilsList);
+        addPupilDialogRef.afterClosed().subscribe(this.refreshPupilsList);
     }
 
     editPupil(pupil: Pupil) {
@@ -59,10 +58,7 @@ export class PupilsListComponent implements OnInit {
             data: pupil
         });
 
-        dialogRef
-            .afterClosed()
-            .toPromise()
-            .then(this.refreshPupilsList);
+        dialogRef.afterClosed().subscribe(this.refreshPupilsList);
     }
 
     deletePupil(pupil) {
@@ -75,11 +71,12 @@ export class PupilsListComponent implements OnInit {
 
         dialogRef
             .afterClosed()
-            .toPromise()
-            .then((result) => {
-                if (result) return this.pupilsService.deletePupil(pupil._id).toPromise();
-                else return '';
-            })
-            .then(this.refreshPupilsList);
+            .pipe(
+                flatMap((result) => {
+                    if (result) return this.pupilsService.deletePupil(pupil._id);
+                    else return EMPTY;
+                })
+            )
+            .subscribe(this.refreshPupilsList);
     }
 }
