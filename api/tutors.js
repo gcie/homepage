@@ -16,7 +16,7 @@ module.exports = function(db, guards) {
             .find({})
             .toArray(function(err, docs) {
                 if (err) {
-                    handleError(res, err, 'Failed to get tutors.');
+                    handleError(res, err, 'Failed to get tutors');
                 } else {
                     res.status(200).json(docs);
                 }
@@ -28,11 +28,11 @@ module.exports = function(db, guards) {
         newTutor.createDate = new Date();
 
         if (!req.body.name) {
-            handleError(res, 'Invalid tutor input', 'Must provide a name.', 400);
+            handleError(res, 'Invalid user input', "Pole 'imię i nazwisko' jest wymagane", 400);
         } else {
             db.collection(TUTORS_COLLECTION).insertOne(newTutor, function(err, doc) {
                 if (err) {
-                    handleError(res, err, 'Failed to create new tutor.');
+                    handleError(res, err, 'Nie udało się zapisać nowego korepetytora');
                 } else {
                     res.status(201).json(doc.ops[0]);
                 }
@@ -49,7 +49,7 @@ module.exports = function(db, guards) {
     router.get('/:id', function(req, res) {
         db.collection(TUTORS_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
             if (err) {
-                handleError(res, err, 'Failed to get tutor');
+                handleError(res, err, 'Nie udalo się pobrać danych wybranego korepetytora');
             } else {
                 res.status(200).json(doc);
             }
@@ -62,7 +62,7 @@ module.exports = function(db, guards) {
 
         db.collection(TUTORS_COLLECTION).updateOne({ _id: new ObjectID(req.params.id) }, { $set: updateDoc }, function(err, doc) {
             if (err) {
-                handleError(res, err, 'Failed to update tutor');
+                handleError(res, err, 'Nie udało się zaktualizować danych wybranego korepetytora');
             } else {
                 updateDoc._id = req.params.id;
                 res.status(200).json(updateDoc);
@@ -73,7 +73,7 @@ module.exports = function(db, guards) {
     router.delete('/:id', guards.manager, function(req, res) {
         db.collection(TUTORS_COLLECTION).deleteOne({ _id: new ObjectID(req.params.id) }, function(err, result) {
             if (err) {
-                handleError(res, err, 'Failed to delete tutor');
+                handleError(res, err, 'Nie udało się usunąć danych wybranego korepetytora');
             } else {
                 res.status(200).json(req.params.id);
             }
