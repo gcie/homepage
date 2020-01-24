@@ -21,4 +21,8 @@ export class SidenavMenuComponent {
     usersRedirect() {
         this.router.navigate(['/users']);
     }
+
+    logout() {
+        this.authService.logout();
+    }
 }
