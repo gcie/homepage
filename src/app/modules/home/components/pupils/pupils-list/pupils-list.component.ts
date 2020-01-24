@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/core/auth';
 import { ErrorsService, PupilsService } from 'src/app/core/services';
@@ -13,6 +13,8 @@ import { PupilEditDialogComponent } from '../pupil-edit-dialog/pupil-edit-dialog
     styleUrls: ['./pupils-list.component.scss']
 })
 export class PupilsListComponent implements OnInit {
+    @Output() pupilClicked = new EventEmitter<Pupil>();
+
     pupils: Pupil[] = [];
     displayedColumns: string[] = ['name', 'email', 'needs', 'class', 'notes'];
 
@@ -27,6 +29,10 @@ export class PupilsListComponent implements OnInit {
 
     ngOnInit() {
         this.refreshPupilsList();
+    }
+
+    rowClicked(pupil: Pupil) {
+        this.pupilClicked.emit(pupil);
     }
 
     private refreshPupilsList = () => {

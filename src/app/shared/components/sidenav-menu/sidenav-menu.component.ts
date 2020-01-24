@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/auth';
 
 @Component({
-    selector: 'app-sidenav-content',
-    templateUrl: './sidenav-content.component.html',
-    styleUrls: ['./sidenav-content.component.scss']
+    selector: 'app-sidenav-menu',
+    templateUrl: './sidenav-menu.component.html',
+    styleUrls: ['./sidenav-menu.component.scss']
 })
-export class SidenavContentComponent {
+export class SidenavMenuComponent {
     username: string;
 
     constructor(public authService: AuthService, private router: Router) {

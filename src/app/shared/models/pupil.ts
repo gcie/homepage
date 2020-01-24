@@ -7,4 +7,6 @@ export class Pupil {
     class: string;
     tutorId?: string;
     notes: string;
+    parentName?: string;
+    parentEmail?: string;
 }

@@ -17,7 +17,7 @@ export class PupilAddDialogComponent {
         private pupilsService: PupilsService
     ) {
         this.pupilForm = this.formBuilder.group({
-            name: ['Adam Adamowski', Validators.required],
+            name: ['', Validators.required],
             email: ['', Validators.email],
             phone: ['', Validators.pattern('[0-9]*')],
             class: '',

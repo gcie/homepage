@@ -1,10 +1,14 @@
 <mat-sidenav-container>
     <mat-sidenav #sidenav>
-        <app-sidenav-content></app-sidenav-content>
+        <app-sidenav-menu></app-sidenav-menu>
     </mat-sidenav>
     <app-header [sidenav]="sidenav"></app-header>
     <div class="app-content" fxLayout="column" fxLayoutGap="10px">
-        <app-pupils-list></app-pupils-list>
+        <app-pupils-list (pupilClicked)="showPupilDetails($event)"></app-pupils-list>
         <app-tutors-list></app-tutors-list>
     </div>
+    <button mat-button (click)="detailsSidenav.toggle()">Toggle right sidenav</button>
+    <mat-sidenav #detailsSidenav position="end">
+        <app-pupil-detailed-view *ngIf="selectedPupil" [pupil]="selectedPupil"></app-pupil-detailed-view>
+    </mat-sidenav>
 </mat-sidenav-container>

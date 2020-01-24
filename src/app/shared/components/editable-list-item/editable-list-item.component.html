@@ -1,0 +1,16 @@
+<mat-list-item>
+    <h4 matLine class="mat-body-2 list-item-caption">
+        <ng-content></ng-content>
+    </h4>
+    <p *ngIf="!editMode" class="mat-body-1 list-item-content">{{ data }}</p>
+    <button *ngIf="!editMode" mat-icon-button (click)="editData()">
+        <mat-icon svgIcon="pencil"></mat-icon>
+    </button>
+    <mat-form-field *ngIf="editMode" style="width: 100%">
+        <input *ngIf="type !== 'textarea'" matInput class="list-item-content" [formControl]="dataControl">
+        <textarea *ngIf="type === 'textarea'" matInput class="list-item-content" [formControl]="dataControl"></textarea>
+    </mat-form-field>
+    <button *ngIf="editMode" mat-icon-button (click)="saveData()">
+        <mat-icon svgIcon="check"></mat-icon>
+    </button>
+</mat-list-item>
