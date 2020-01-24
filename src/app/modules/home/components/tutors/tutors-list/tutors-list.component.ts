@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/core/auth';
 import { ErrorsService, TutorsService } from 'src/app/core/services';
@@ -13,6 +13,8 @@ import { TutorEditDialogComponent } from '../tutor-edit-dialog/tutor-edit-dialog
     styleUrls: ['./tutors-list.component.scss']
 })
 export class TutorsListComponent implements OnInit {
+    @Output() tutorClicked = new EventEmitter<Tutor>();
+
     tutors: Tutor[] = [];
     displayedColumns: string[] = ['name', 'email', 'teaches', 'notes'];
 
@@ -29,7 +31,11 @@ export class TutorsListComponent implements OnInit {
         this.refreshTutorsList();
     }
 
-    private refreshTutorsList = () => {
+    rowClicked(tutor: Tutor) {
+        this.tutorClicked.emit(tutor);
+    }
+
+    refreshTutorsList = () => {
         this.tutorsService.getTutors().subscribe({
             next: (tutors: Tutor[]) => (this.tutors = tutors),
             error: this.error.snack

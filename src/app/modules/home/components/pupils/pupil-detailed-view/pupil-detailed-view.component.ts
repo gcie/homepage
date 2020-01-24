@@ -1,7 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Pupil } from 'src/app/shared/models';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { PupilsService } from 'src/app/core/services';
+import { Pupil } from 'src/app/shared/models';
 
 @Component({
     selector: 'app-pupil-detailed-view',
@@ -9,9 +8,8 @@ import { PupilsService } from 'src/app/core/services';
     styleUrls: ['./pupil-detailed-view.component.scss']
 })
 export class PupilDetailedViewComponent {
-    edited: string;
-
     @Input() pupil: Pupil;
+    @Output() pupilChange = new EventEmitter<void>();
 
     constructor(private pupilsService: PupilsService) {}
 
@@ -39,6 +37,10 @@ export class PupilDetailedViewComponent {
                 this.pupil.notes = data;
                 break;
         }
-        this.pupilsService.updatePupil(this.pupil).subscribe((pupil) => (this.pupil = pupil));
+
+        this.pupilsService.updatePupil(this.pupil).subscribe((pupil) => {
+            this.pupil = pupil;
+            this.pupilChange.emit();
+        });
     }
 }

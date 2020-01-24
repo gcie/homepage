@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { FormControl, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
@@ -15,6 +15,7 @@ export class EditableListItemComponent {
     _data: string;
     dataControl: FormControl;
     editMode = false;
+    wasInsideClick = false;
 
     @Input() set data(data: string) {
         this.editMode = false;
@@ -50,6 +51,24 @@ export class EditableListItemComponent {
 
     saveData() {
         this.editMode = false;
+        console.log('save()');
         this.save.emit(this.dataControl.value);
+    }
+
+    @HostListener('click')
+    clickInside() {
+        this.wasInsideClick = true;
+    }
+
+    @HostListener('document:click')
+    clickout() {
+        if (!this.wasInsideClick) {
+            this.cancel();
+        }
+        this.wasInsideClick = false;
+    }
+
+    cancel() {
+        this.editMode = false;
     }
 }

@@ -2,7 +2,8 @@
     <h4 matLine class="mat-body-2 list-item-caption">
         <ng-content></ng-content>
     </h4>
-    <p *ngIf="!editMode" class="mat-body-1 list-item-content">{{ data }}</p>
+    <p *ngIf="!editMode" class="mat-body-1 list-item-content" [innerHTML]="data?.replace('\n', '<br />')">
+    </p>
     <button *ngIf="!editMode" mat-icon-button (click)="editData()">
         <mat-icon svgIcon="pencil"></mat-icon>
     </button>

@@ -1,0 +1,22 @@
+<div class="tutor-detailed-view-content-wrapper">
+    <span class="mat-display-1 tutor-name">
+        <mat-icon svgIcon="account-card-details" class="account-icon"></mat-icon>
+        {{ tutor?.name }}
+    </span>
+    <mat-divider></mat-divider>
+
+    <mat-list>
+        <app-editable-list-item [data]="tutor?.email" (save)="updateTutor($event, 'email')" validator="email">
+            Email
+        </app-editable-list-item>
+        <app-editable-list-item [data]="tutor?.phone" (save)="updateTutor($event, 'phone')">
+            Numer telefonu
+        </app-editable-list-item>
+        <app-editable-list-item [data]="tutor?.teaches" (save)="updateTutor($event, 'teaches')">
+            Naucza
+        </app-editable-list-item>
+        <app-editable-list-item [data]="tutor?.notes" (save)="updateTutor($event, 'notes')" type="textarea">
+            Notatki
+        </app-editable-list-item>
+    </mat-list>
+</div>

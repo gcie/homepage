@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/core/auth';
 import { ErrorsService, PupilsService } from 'src/app/core/services';
@@ -35,7 +35,7 @@ export class PupilsListComponent implements OnInit {
         this.pupilClicked.emit(pupil);
     }
 
-    private refreshPupilsList = () => {
+    refreshPupilsList = () => {
         this.pupilsService.getPupils().subscribe({
             next: (pupils: Pupil[]) => (this.pupils = pupils),
             error: this.error.snack

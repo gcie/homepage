@@ -17,6 +17,7 @@ import {
 import { HomeRoutingModule } from './home-routing.module';
 import { HomePageComponent, UsersPageComponent } from './pages';
 import { PupilDetailedViewComponent } from './components/pupils/pupil-detailed-view/pupil-detailed-view.component';
+import { TutorDetailedViewComponent } from './components/tutors/tutor-detailed-view/tutor-detailed-view.component';
 
 @NgModule({
     declarations: [
@@ -31,7 +32,8 @@ import { PupilDetailedViewComponent } from './components/pupils/pupil-detailed-v
         UserAddDialogComponent,
         UserEditDialogComponent,
         UsersListComponent,
-        PupilDetailedViewComponent
+        PupilDetailedViewComponent,
+        TutorDetailedViewComponent
     ],
     imports: [CommonModule, SharedModule, MaterialModule, FormsModule, ReactiveFormsModule, HomeRoutingModule]
 })
