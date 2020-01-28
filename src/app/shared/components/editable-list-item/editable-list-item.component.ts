@@ -50,9 +50,10 @@ export class EditableListItemComponent {
     }
 
     saveData() {
-        this.editMode = false;
-        console.log('save()');
-        this.save.emit(this.dataControl.value);
+        if (this.dataControl.valid) {
+            this.editMode = false;
+            this.save.emit(this.dataControl.value);
+        }
     }
 
     @HostListener('click')
