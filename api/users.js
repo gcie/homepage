@@ -33,6 +33,7 @@ module.exports = function(db) {
                     surname: req.body.surname,
                     email: req.body.email,
                     password: req.body.password,
+                    createDate: new Date(),
                     group: 'user'
                 };
                 bcrypt.genSalt(10, (err, salt) => {

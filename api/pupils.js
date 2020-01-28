@@ -25,6 +25,7 @@ module.exports = function(db, guards) {
 
     router.post('', guards.manager, function(req, res) {
         var newPupil = req.body;
+        delete newPupil._id;
         newPupil.createDate = new Date();
 
         if (!req.body.name) {
@@ -39,12 +40,6 @@ module.exports = function(db, guards) {
             });
         }
     });
-
-    /*  "/:id"
-     *    GET: find contact by id
-     *    PUT: update contact by id
-     *    DELETE: deletes contact by id
-     */
 
     router.get('/:id', function(req, res) {
         db.collection(PUPILS_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
