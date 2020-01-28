@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { UserEditDialogComponent } from '../..';
+import { UserEditDialogComponent } from '..';
 import { TutorsService } from 'src/app/core/services';
 import { Tutor } from 'src/app/shared/models';
 

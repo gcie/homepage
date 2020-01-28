@@ -16,8 +16,8 @@ import {
 } from './components';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomePageComponent, UsersPageComponent } from './pages';
-import { PupilDetailedViewComponent } from './components/pupils/pupil-detailed-view/pupil-detailed-view.component';
-import { TutorDetailedViewComponent } from './components/tutors/tutor-detailed-view/tutor-detailed-view.component';
+import { PupilDetailedViewComponent } from './components/pupil-detailed-view/pupil-detailed-view.component';
+import { TutorDetailedViewComponent } from './components/tutor-detailed-view/tutor-detailed-view.component';
 
 @NgModule({
     declarations: [
