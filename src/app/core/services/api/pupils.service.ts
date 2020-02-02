@@ -11,26 +11,43 @@ export class PupilsService {
 
     constructor(private http: HttpClient) {}
 
-    // get("/api/pupils")
+    /**
+     * Get list of all pupils.
+     */
     getPupils(): Observable<Pupil[]> {
         return this.http.get<Pupil[]>(this.pupilsUrl);
     }
 
-    // post("/api/pupils")
-    createPupil(newPupil: Pupil): Observable<Pupil> {
-        return this.http.post<Pupil>(this.pupilsUrl, newPupil);
+    /**
+     * Create new pupil.
+     * @param pupil pupil data
+     */
+    createPupil(pupil: Pupil): Observable<Pupil> {
+        return this.http.post<Pupil>(this.pupilsUrl, pupil);
     }
 
-    // get("/api/pupils/:id") endpoint not used by Angular app
-
-    // delete("/api/pupils/:id")
-    deletePupil(delPupilId: string): Observable<string> {
-        return this.http.delete<string>(this.pupilsUrl + '/' + delPupilId);
+    /**
+     * Get pupil by id.
+     * @param pupilId pupil id
+     */
+    getPupilById(pupilId: string): Observable<Pupil> {
+        return this.http.get<Pupil>(this.pupilsUrl + '/' + pupilId);
     }
 
-    // put("/api/pupils/:id")
-    updatePupil(putPupil: Pupil): Observable<Pupil> {
-        const putUrl = this.pupilsUrl + '/' + putPupil._id;
-        return this.http.put<Pupil>(putUrl, putPupil);
+    /**
+     * Delete pupil by id.
+     * @param pupilId pupil id
+     */
+    deletePupil(pupilId: string): Observable<string> {
+        return this.http.delete<string>(this.pupilsUrl + '/' + pupilId);
+    }
+
+    /**
+     * Update pupil data.
+     * @param pupil pupil data
+     */
+    updatePupil(pupil: Pupil): Observable<Pupil> {
+        const putUrl = this.pupilsUrl + '/' + pupil._id;
+        return this.http.put<Pupil>(putUrl, pupil);
     }
 }

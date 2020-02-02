@@ -11,26 +11,43 @@ export class TutorsService {
 
     constructor(private http: HttpClient) {}
 
-    // get("/api/tutors")
+    /**
+     * Get list of all tutors.
+     */
     getTutors(): Observable<Tutor[]> {
         return this.http.get<Tutor[]>(this.tutorsUrl);
     }
 
-    // post("/api/tutors")
-    createTutor(newTutor: Tutor): Observable<Tutor> {
-        return this.http.post<Tutor>(this.tutorsUrl, newTutor);
+    /**
+     * Create new tutor.
+     * @param tutor tutor data
+     */
+    createTutor(tutor: Tutor): Observable<Tutor> {
+        return this.http.post<Tutor>(this.tutorsUrl, tutor);
     }
 
-    // get("/api/tutors/:id") endpoint not used by Angular app
-
-    // delete("/api/tutors/:id")
-    deleteTutor(delTutorId: string): Observable<string> {
-        return this.http.delete<string>(this.tutorsUrl + '/' + delTutorId);
+    /**
+     * Get tutor by id.
+     * @param tutorId tutor id
+     */
+    getTutorById(tutorId: string): Observable<Tutor> {
+        return this.http.get<Tutor>(this.tutorsUrl + '/' + tutorId);
     }
 
-    // put("/api/tutors/:id")
-    updateTutor(putTutor: Tutor): Observable<Tutor> {
-        const putUrl = this.tutorsUrl + '/' + putTutor._id;
-        return this.http.put<Tutor>(putUrl, putTutor);
+    /**
+     * Delete tutor by id.
+     * @param tutorId tutor id
+     */
+    deleteTutor(tutorId: string): Observable<string> {
+        return this.http.delete<string>(this.tutorsUrl + '/' + tutorId);
+    }
+
+    /**
+     * Update tutor data.
+     * @param tutor tutor data
+     */
+    updateTutor(tutor: Tutor): Observable<Tutor> {
+        const putUrl = this.tutorsUrl + '/' + tutor._id;
+        return this.http.put<Tutor>(putUrl, tutor);
     }
 }
