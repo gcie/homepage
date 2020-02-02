@@ -37,19 +37,19 @@ export class TutorsListComponent implements OnInit {
         this.tutorClicked.emit(tutor);
     }
 
-    refreshTutorsList = () => {
+    refreshTutorsList() {
         this.tutorsService.getTutors().subscribe({
             next: (tutors: Tutor[]) => (this.tutors = tutors),
             error: this.error.snack
         });
-    };
+    }
 
     addTutorDialog() {
         const addTutorDialogRef = this.dialog.open(TutorAddDialogComponent, {
             width: '700px'
         });
 
-        addTutorDialogRef.afterClosed().subscribe(this.refreshTutorsList);
+        addTutorDialogRef.afterClosed().subscribe(this.refreshTutorsList.bind(this));
     }
 
     editTutor(tutor: Tutor) {
@@ -58,7 +58,7 @@ export class TutorsListComponent implements OnInit {
             data: tutor
         });
 
-        dialogRef.afterClosed().subscribe(this.refreshTutorsList);
+        dialogRef.afterClosed().subscribe(this.refreshTutorsList.bind(this));
     }
 
     deleteTutor(tutor) {
@@ -77,6 +77,6 @@ export class TutorsListComponent implements OnInit {
                     else return EMPTY;
                 })
             )
-            .subscribe(this.refreshTutorsList);
+            .subscribe(this.refreshTutorsList.bind(this));
     }
 }

@@ -12,14 +12,15 @@ export class EditableListItemComponent {
 
     @Output() save = new EventEmitter<string>();
 
-    _data: string;
     dataControl: FormControl;
+
+    _value: string;
     editMode = false;
     wasInsideClick = false;
 
-    @Input() set data(data: string) {
+    @Input() set value(value: string) {
         this.editMode = false;
-        this._data = data;
+        this._value = value;
 
         let validators: ValidatorFn[] = [];
         if (this.validator) {
@@ -38,22 +39,22 @@ export class EditableListItemComponent {
                 validators = [this.validator];
             }
         }
-        this.dataControl = new FormControl(data, validators);
+        this.dataControl = new FormControl(value, validators);
     }
 
-    get data() {
-        return this._data;
+    get value() {
+        return this._value;
     }
 
-    editData() {
-        this.editMode = true;
-    }
-
-    saveData() {
+    submit() {
         if (this.dataControl.valid) {
             this.editMode = false;
             this.save.emit(this.dataControl.value);
         }
+    }
+
+    cancel() {
+        this.editMode = false;
     }
 
     @HostListener('click')
@@ -67,9 +68,5 @@ export class EditableListItemComponent {
             this.cancel();
         }
         this.wasInsideClick = false;
-    }
-
-    cancel() {
-        this.editMode = false;
     }
 }

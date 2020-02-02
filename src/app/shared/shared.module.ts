@@ -8,6 +8,7 @@ import { AuthAdminDirective } from './directives/auth-admin.directive';
 import { AuthManagerDirective } from './directives/auth-manager.directive';
 import { AuthDirective } from './directives/auth.directive';
 import { ShortenPipe } from './pipes/shorten.pipe';
+import { SelectableListItemComponent } from './components/selectable-list-item/selectable-list-item.component';
 
 @NgModule({
     declarations: [
@@ -16,6 +17,7 @@ import { ShortenPipe } from './pipes/shorten.pipe';
         SidenavMenuComponent,
         HeaderComponent,
         EditableListItemComponent,
+        SelectableListItemComponent,
         AuthDirective,
         AuthAdminDirective,
         AuthManagerDirective
@@ -27,6 +29,7 @@ import { ShortenPipe } from './pipes/shorten.pipe';
         SidenavMenuComponent,
         HeaderComponent,
         EditableListItemComponent,
+        SelectableListItemComponent,
         AuthDirective,
         AuthAdminDirective,
         AuthManagerDirective

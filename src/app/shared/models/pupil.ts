@@ -9,4 +9,7 @@ export class Pupil {
     notes: string;
     parentName?: string;
     parentEmail?: string;
+    parentPhone?: string;
+    lessonsStatus?: string;
+    assignedTutorId?: string;
 }

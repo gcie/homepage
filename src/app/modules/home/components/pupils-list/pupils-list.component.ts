@@ -37,19 +37,19 @@ export class PupilsListComponent implements OnInit {
         this.pupilClicked.emit(pupil);
     }
 
-    refreshPupilsList = () => {
+    refreshPupilsList() {
         this.pupilsService.getPupils().subscribe({
             next: (pupils: Pupil[]) => (this.pupils = pupils),
             error: this.error.snack
         });
-    };
+    }
 
     addPupilDialog() {
         const addPupilDialogRef = this.dialog.open(PupilAddDialogComponent, {
             width: '700px'
         });
 
-        addPupilDialogRef.afterClosed().subscribe(this.refreshPupilsList);
+        addPupilDialogRef.afterClosed().subscribe(this.refreshPupilsList.bind(this));
     }
 
     editPupil(pupil: Pupil) {
@@ -58,7 +58,7 @@ export class PupilsListComponent implements OnInit {
             data: pupil
         });
 
-        dialogRef.afterClosed().subscribe(this.refreshPupilsList);
+        dialogRef.afterClosed().subscribe(this.refreshPupilsList.bind(this));
     }
 
     deletePupil(pupil) {
@@ -77,6 +77,6 @@ export class PupilsListComponent implements OnInit {
                     else return EMPTY;
                 })
             )
-            .subscribe(this.refreshPupilsList);
+            .subscribe(this.refreshPupilsList.bind(this));
     }
 }
