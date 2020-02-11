@@ -11,7 +11,7 @@ import { Pupil, Tutor } from 'src/app/shared/models';
     styleUrls: ['./home.page.scss']
 })
 export class HomePageComponent {
-    @ViewChild('detailsSidenav', { static: false }) detailsSidenav: MatSidenav;
+    @ViewChild('detailsSidenav') detailsSidenav: MatSidenav;
 
     username: string | null;
     selectedPupil?: Pupil;
