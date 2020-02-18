@@ -4,7 +4,7 @@
   "description": "Konsola podprzęsłowego korepetycji Mostowych - serwer",
   "main": "dist/server.js",
   "scripts": {
-    "start": "tsc && cd .. && node server/dist/server.js",
+    "start": "tsc && cd .. && node korepetycje-server/dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Grzegorz Ciesielski",
