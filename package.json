@@ -3,7 +3,7 @@
   "version": "1.2.0",
   "description": "Konsola podprzęsłowego korepetycji Mostowych",
   "scripts": {
-    "start": "node server/dist/server.js",
+    "start": "node korepetycje-server/dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve-client": "cd korepetycje-client && ng build --watch",
     "setup-client": "cd korepetycje-client && npm install && ng build && cd ..",
@@ -21,6 +21,7 @@
     "tslint-config-standard": "^9.0.0"
   },
   "dependencies": {
+    "@angular/cli": "^9.0.0",
     "typescript": "^3.7.5"
   },
   "engines": {
