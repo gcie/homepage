@@ -22,7 +22,6 @@ export class UserEditDialogComponent {
     ) {
         this.editForm = this.formBuilder.group({
             name: [user.name, Validators.required],
-            surname: [user.surname, Validators.required],
             email: [user.email, Validators.email],
             password: [''],
             group: [user.group, Validators.required]

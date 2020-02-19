@@ -18,13 +18,12 @@ export class UserAddDialogComponent {
     ) {
         this.registerForm = this.formBuilder.group({
             name: ['', Validators.required],
-            surname: ['', Validators.required],
             email: ['', Validators.email],
             password: ['', Validators.required]
         });
     }
 
-    onSubmit(data: { name: string; surname: string; email: string; password: string }) {
+    onSubmit(data: { name: string; email: string; password: string }) {
         this.authService.register(data).subscribe((_result) => {
             this.dialogRef.close();
         });

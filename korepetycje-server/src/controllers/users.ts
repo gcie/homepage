@@ -19,9 +19,10 @@ export const postUsers = async (req: Request, res: Response, next: NextFunction)
 
     var userDoc = req.body;
     delete userDoc._id;
-    User.findOne({ email: req.body.email })
+    userDoc.group = 'user';
+    User.findOne({ email: userDoc.email })
         .then((user) => {
-            if (user) res.status(400).json({ message: `Użytkownik o adresie email '${req.body.email}' już istnieje` });
+            if (user) res.status(400).json({ message: `Użytkownik o adresie email '${userDoc.email}' już istnieje` });
             else return User.create(userDoc);
         })
         .then((doc) => res.json(doc))

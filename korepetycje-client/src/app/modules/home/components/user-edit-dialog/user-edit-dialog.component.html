@@ -2,13 +2,10 @@
 <div mat-dialog-content class="form-container">
     <form class="form-container" [formGroup]="editForm">
         <mat-form-field>
-            <input matInput placeholder="Imię" formControlName="name" required>
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="Nazwisko" formControlName="surname" required>
-        </mat-form-field>
-        <mat-form-field>
             <input matInput type="email" placeholder="Adres email" formControlName="email" required>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Imię i nazwisko" formControlName="name" required>
         </mat-form-field>
         <mat-form-field floatLabel="always">
             <mat-label>Hasło</mat-label>
