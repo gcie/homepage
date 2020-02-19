@@ -46,11 +46,6 @@ app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
 
 /**
- * Angular app host.
- */
-app.use(express.static(path.join(__dirname, '/../../client/dist'), { maxAge: 31557600000 }));
-
-/**
  * Authentication routes
  */
 app.post('/login', postLogin);
@@ -81,6 +76,14 @@ app.post('/api/users', isAdmin, postUsers);
 app.get('/api/users/:id', isAdmin, getUserById);
 app.put('/api/users/:id', isAdmin, putUserById);
 app.delete('/api/users/:id', isAdmin, delUserById);
+
+/**
+ * Angular app host.
+ */
+app.use(express.static(path.join(__dirname, '/../../korepetycje-client/dist'), { maxAge: 31557600000 }));
+app.all('/*', (req: Request, res: Response) => {
+    res.sendFile('index.html', { root: path.join(__dirname, '/../../korepetycje-client/dist') });
+});
 
 /**
  * Default error handler
