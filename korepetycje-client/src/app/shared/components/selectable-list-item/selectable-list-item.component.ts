@@ -31,7 +31,7 @@ export class SelectableListItemComponent implements OnInit {
 
     @Input() set data(data: { _id?: string; name: string }[]) {
         this.editMode = false;
-        this._data = data;
+        this._data = data?.concat({ name: '<brak>' });
         this.refreshDisplayValue();
     }
 

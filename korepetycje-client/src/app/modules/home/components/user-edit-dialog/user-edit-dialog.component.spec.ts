@@ -4,7 +4,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserEditDialogComponent } from './user-edit-dialog.component';
 import { HttpClientModule } from '@angular/common/http';
-import { PermissionGroup } from 'src/app/shared/models/permission-group.enum';
+import { PermissionGroup } from 'src/app/core/auth';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';

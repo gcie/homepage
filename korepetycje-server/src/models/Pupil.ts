@@ -12,6 +12,7 @@ export type PupilDocument = Document & {
     parentPhone: string;
     lessonsStatus: string;
     assignedTutorId: Types.ObjectId;
+    assignedTutorName: string;
 };
 
 const pupilSchema = new Schema(
@@ -26,7 +27,8 @@ const pupilSchema = new Schema(
         parentEmail: String,
         parentPhone: String,
         lessonsStatus: String,
-        assignedTutorId: Types.ObjectId
+        assignedTutorId: Types.ObjectId,
+        assignedTutorName: String
     },
     { timestamps: true }
 );

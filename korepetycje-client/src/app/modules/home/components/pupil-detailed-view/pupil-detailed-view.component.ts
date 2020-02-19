@@ -9,7 +9,7 @@ import { Pupil, Tutor } from 'src/app/shared/models';
     styleUrls: ['./pupil-detailed-view.component.scss']
 })
 export class PupilDetailedViewComponent implements OnInit {
-    $pupil: BehaviorSubject<Pupil>;
+    $pupil: BehaviorSubject<Pupil> = new BehaviorSubject(new Pupil());
 
     @Output() pupilChange = new EventEmitter<void>();
 

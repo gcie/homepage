@@ -12,4 +12,5 @@ export class Pupil {
     parentPhone?: string;
     lessonsStatus?: string;
     assignedTutorId?: string;
+    assignedTutorName?: string;
 }

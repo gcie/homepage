@@ -1,13 +1,13 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/core/auth';
-import { ErrorsService, PupilsService } from 'src/app/core/services';
+import { ErrorsService, PupilsService, TutorsService } from 'src/app/core/services';
 import { ConfirmDialogComponent } from 'src/app/shared/components';
 import { Pupil } from 'src/app/shared/models';
 import { PupilAddDialogComponent } from '../pupil-add-dialog/pupil-add-dialog.component';
 import { PupilEditDialogComponent } from '../pupil-edit-dialog/pupil-edit-dialog.component';
-import { flatMap } from 'rxjs/operators';
-import { EMPTY } from 'rxjs';
+import { flatMap, throttleTime, map, startWith, tap } from 'rxjs/operators';
+import { EMPTY, Observable, fromEvent, BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'app-pupils-list',
@@ -18,11 +18,13 @@ export class PupilsListComponent implements OnInit {
     @Output() pupilClicked = new EventEmitter<Pupil>();
 
     pupils: Pupil[] = [];
-    displayedColumns: string[] = ['name', 'email', 'needs', 'class', 'notes'];
+    displayedColumns: string[] = ['name', 'email', 'needs', 'class', 'assignedTutorName'];
+    mobileView: BehaviorSubject<boolean> = new BehaviorSubject(document.body.offsetWidth <= 960);
 
     constructor(
         public authService: AuthService,
         private pupilsService: PupilsService,
+        public tutorsService: TutorsService,
         private dialog: MatDialog,
         private error: ErrorsService
     ) {
@@ -31,6 +33,10 @@ export class PupilsListComponent implements OnInit {
 
     ngOnInit() {
         this.refreshPupilsList();
+        const checkScreenSize = () => document.body.offsetWidth <= 960;
+        fromEvent(window, 'resize')
+            .pipe(map(checkScreenSize))
+            .subscribe((mobileView) => this.mobileView.next(mobileView));
     }
 
     rowClicked(pupil: Pupil) {
