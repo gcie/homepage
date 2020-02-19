@@ -12,7 +12,7 @@ import { delPupilById, getPupilById, getPupils, postPupils, putPupilById } from 
 import { delTutorById, getTutorById, getTutors, postTutors, putTutorById } from './controllers/tutors';
 import { delUserById, getUserById, getUsers, postUsers, putUserById } from './controllers/users';
 import logger from './util/logger';
-import { MONGODB_URI, PORT } from './util/secrets';
+import { ENVIRONMENT, MONGODB_URI, PORT } from './util/secrets';
 
 // Create Express server
 const app = express();
@@ -90,7 +90,11 @@ app.all('/*', (req: Request, res: Response) => {
  */
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     logger.error('', err);
-    res.status(500).json({ message: 'Server error' });
+    if (ENVIRONMENT === 'production') {
+        res.status(500).json({ message: 'Server error' });
+    } else {
+        res.status(500).json({ message: 'Server error', raw: err });
+    }
 });
 
 export default app;
