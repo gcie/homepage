@@ -6,8 +6,8 @@ import { ConfirmDialogComponent } from 'src/app/shared/components';
 import { Tutor } from 'src/app/shared/models';
 import { TutorAddDialogComponent } from '../tutor-add-dialog/tutor-add-dialog.component';
 import { TutorEditDialogComponent } from '../tutor-edit-dialog/tutor-edit-dialog.component';
-import { flatMap } from 'rxjs/operators';
-import { EMPTY } from 'rxjs';
+import { flatMap, map } from 'rxjs/operators';
+import { EMPTY, BehaviorSubject, fromEvent } from 'rxjs';
 
 @Component({
     selector: 'app-tutors-list',
@@ -19,6 +19,7 @@ export class TutorsListComponent implements OnInit {
 
     tutors: Tutor[] = [];
     displayedColumns: string[] = ['name', 'email', 'teaches', 'assignedPupilName'];
+    mobileView: BehaviorSubject<boolean> = new BehaviorSubject(document.body.offsetWidth <= 960);
 
     constructor(
         public authService: AuthService,
@@ -31,6 +32,10 @@ export class TutorsListComponent implements OnInit {
 
     ngOnInit() {
         this.refreshTutorsList();
+        const checkScreenSize = () => document.body.offsetWidth <= 960;
+        fromEvent(window, 'resize')
+            .pipe(map(checkScreenSize))
+            .subscribe((mobileView) => this.mobileView.next(mobileView));
     }
 
     rowClicked(tutor: Tutor) {
