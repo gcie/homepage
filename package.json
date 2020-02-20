@@ -1,6 +1,6 @@
 {
   "name": "korepetycje",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Konsola podprzęsłowego korepetycji Mostowych",
   "scripts": {
     "start": "node korepetycje-server/dist/server.js",
