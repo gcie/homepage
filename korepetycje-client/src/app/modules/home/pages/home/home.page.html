@@ -8,10 +8,9 @@
         <app-tutors-list #tutorsList (tutorClicked)="showTutorDetails($event)"></app-tutors-list>
     </div>
     <mat-sidenav #detailsSidenav position="end">
-        <app-pupil-detailed-view *ngIf="selectedPupil" [pupil]="selectedPupil"
-            (pupilChange)="pupilsList.refreshPupilsList()">
+        <app-pupil-detailed-view *ngIf="selectedPupil" [pupil]="selectedPupil" (pupilChange)="refreshLists()">
         </app-pupil-detailed-view>
-        <app-tutor-detailed-view *ngIf="selectedTutor" [tutor]="selectedTutor"
-            (tutorChange)="tutorsList.refreshTutorsList()"></app-tutor-detailed-view>
+        <app-tutor-detailed-view *ngIf="selectedTutor" [tutor]="selectedTutor" (tutorChange)="refreshLists()">
+        </app-tutor-detailed-view>
     </mat-sidenav>
 </mat-sidenav-container>

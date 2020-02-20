@@ -16,7 +16,7 @@ export const postTutors = async (req: Request, res: Response, next: NextFunction
         .isLength({ min: 1 })
         .run(req);
 
-    var tutor = req.body;
+    const tutor = req.body;
     delete tutor._id;
     Tutor.create(tutor)
         .then((doc) => res.json(doc))
@@ -30,7 +30,7 @@ export const getTutorById = (req: Request, res: Response, next: NextFunction) =>
 };
 
 export const putTutorById = (req: Request, res: Response, next: NextFunction) => {
-    var tutor = req.body;
+    const tutor = req.body;
     delete tutor._id;
     Tutor.findByIdAndUpdate(req.params.id, tutor)
         .then(() => res.json(tutor))

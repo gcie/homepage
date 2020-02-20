@@ -6,7 +6,9 @@ export type TutorDocument = Document & {
     phone: string;
     teaches: string;
     notes: string;
-    assignedPupilId: Types.ObjectId;
+    lessonsStatus: string;
+    assignedPupilId?: Types.ObjectId;
+    assignedPupilName?: string;
 };
 
 const tutorSchema = new Schema(
@@ -16,7 +18,9 @@ const tutorSchema = new Schema(
         phone: String,
         teaches: String,
         notes: String,
-        assignedPupilId: Types.ObjectId
+        lessonsStatus: String,
+        assignedPupilId: Types.ObjectId,
+        assignedPupilName: String
     },
     { timestamps: true }
 );

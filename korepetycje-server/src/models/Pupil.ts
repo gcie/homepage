@@ -11,8 +11,8 @@ export type PupilDocument = Document & {
     parentEmail: string;
     parentPhone: string;
     lessonsStatus: string;
-    assignedTutorId: Types.ObjectId;
-    assignedTutorName: string;
+    assignedTutorId?: Types.ObjectId;
+    assignedTutorName?: string;
 };
 
 const pupilSchema = new Schema(

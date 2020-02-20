@@ -1,13 +1,13 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { BehaviorSubject, EMPTY, fromEvent } from 'rxjs';
+import { flatMap, map } from 'rxjs/operators';
 import { AuthService } from 'src/app/core/auth';
 import { ErrorsService, PupilsService, TutorsService } from 'src/app/core/services';
 import { ConfirmDialogComponent } from 'src/app/shared/components';
 import { Pupil } from 'src/app/shared/models';
 import { PupilAddDialogComponent } from '../pupil-add-dialog/pupil-add-dialog.component';
 import { PupilEditDialogComponent } from '../pupil-edit-dialog/pupil-edit-dialog.component';
-import { flatMap, throttleTime, map, startWith, tap } from 'rxjs/operators';
-import { EMPTY, Observable, fromEvent, BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'app-pupils-list',

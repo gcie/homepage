@@ -4,6 +4,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/auth';
 import { Pupil, Tutor } from 'src/app/shared/models';
+import { TutorsListComponent, PupilsListComponent } from '../../components';
 
 @Component({
     selector: 'app-home-page',
@@ -12,6 +13,8 @@ import { Pupil, Tutor } from 'src/app/shared/models';
 })
 export class HomePageComponent {
     @ViewChild('detailsSidenav') detailsSidenav: MatSidenav;
+    @ViewChild('tutorsList') tutorsList: TutorsListComponent;
+    @ViewChild('pupilsList') pupilsList: PupilsListComponent;
 
     username?: string;
     selectedPupil?: Pupil;
@@ -19,6 +22,11 @@ export class HomePageComponent {
 
     constructor(private authService: AuthService, private router: Router, private http: HttpClient) {
         this.username = this.authService.getName();
+    }
+
+    refreshLists() {
+        this.tutorsList.refreshTutorsList();
+        this.pupilsList.refreshPupilsList();
     }
 
     showPupilDetails(pupil: Pupil) {

@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { check } from 'express-validator';
 import { Pupil } from '../models/Pupil';
 import { Tutor } from '../models/Tutor';
-import { promisify } from 'bluebird';
+import { Types } from 'mongoose';
 
 export const getPupils = async (req: Request, res: Response, next: NextFunction) => {
     Pupil.find()
@@ -21,17 +21,8 @@ export const postPupils = async (req: Request, res: Response, next: NextFunction
 
         const pupil = req.body;
         delete pupil._id;
-        if (pupil.assignedTutorId) {
-            try {
-                const tutor = await Tutor.findById(pupil.assignedTutorId).exec();
-                pupil.assignedTutorName = tutor.name;
-            } catch {
-                pupil.assignedTutorName = null;
-                pupil.assignedTutorId = null;
-            }
-        } else {
-            pupil.assignedTutorName = null;
-        }
+        delete pupil.assignedTutorId;
+        delete pupil.assignedTutorName;
         const doc = await Pupil.create(pupil);
         return res.json(doc);
     } catch (err) {
@@ -51,28 +42,59 @@ export const putPupilById = async (req: Request, res: Response, next: NextFuncti
             .isLength({ min: 1 })
             .run(req);
 
-        const pupil = req.body;
-        delete pupil._id;
-        if (pupil.assignedTutorId) {
-            try {
+        const pupilDoc = req.body;
+        delete pupilDoc._id;
+        const pupil = await Pupil.findById(req.params.id).exec();
+        try {
+            if (pupil.assignedTutorId && !pupilDoc.assignedTutorId) {
                 const tutor = await Tutor.findById(pupil.assignedTutorId).exec();
-                pupil.assignedTutorName = tutor.name;
-            } catch {
-                pupil.assignedTutorName = null;
-                pupil.assignedTutorId = null;
+                tutor.assignedPupilId = undefined;
+                tutor.assignedPupilName = undefined;
+                await tutor.save();
+                pupilDoc.assignedTutorName = undefined;
+            } else if (!pupil.assignedTutorId && pupilDoc.assignedTutorId) {
+                const tutor = await Tutor.findById(pupilDoc.assignedTutorId).exec();
+                tutor.assignedPupilId = new Types.ObjectId(req.params.id);
+                tutor.assignedPupilName = pupilDoc.name;
+                await tutor.save();
+                pupilDoc.assignedTutorName = tutor.name;
+            } else if (pupil.assignedTutorId && pupilDoc.assignedTutorId && pupil.assignedTutorId !== pupilDoc.assignedTutorId) {
+                const currentTutor = await Tutor.findById(pupil.assignedTutorId).exec();
+                currentTutor.assignedPupilId = undefined;
+                currentTutor.assignedPupilName = undefined;
+                await currentTutor.save();
+
+                const tutor = await Tutor.findById(pupilDoc.assignedTutorId).exec();
+                tutor.assignedPupilId = new Types.ObjectId(req.params.id);
+                tutor.assignedPupilName = pupilDoc.name;
+                await tutor.save();
+                pupilDoc.assignedTutorName = tutor.name;
+            } else {
+                pupilDoc.assignedTutorName = undefined;
             }
-        } else {
-            pupil.assignedTutorName = null;
+        } catch (err) {
+            pupilDoc.assignedTutorId = undefined;
+            pupilDoc.assignedTutorName = undefined;
         }
-        await Pupil.findByIdAndUpdate(req.params.id, pupil).exec();
-        return res.json(pupil);
+        pupil.overwrite(pupilDoc);
+        await pupil.save();
+        return res.json(pupilDoc);
     } catch (err) {
         next(err);
     }
 };
 
-export const delPupilById = (req: Request, res: Response, next: NextFunction) => {
-    Pupil.findOneAndDelete(req.params.id)
-        .then((doc) => res.json(doc))
-        .catch(next);
+export const delPupilById = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const pupil = await Pupil.findById(req.params.id).exec();
+        if (pupil.assignedTutorId) {
+            const tutor = await Tutor.findById(pupil.assignedTutorId).exec();
+            tutor.assignedPupilId = undefined;
+            tutor.assignedPupilName = undefined;
+            await tutor.save();
+        }
+        return await pupil.remove();
+    } catch (err) {
+        next(err);
+    }
 };

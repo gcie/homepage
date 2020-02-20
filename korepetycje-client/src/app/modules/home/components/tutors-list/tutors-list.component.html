@@ -31,6 +31,13 @@
                 </td>
             </ng-container>
 
+            <ng-container matColumnDef="assignedPupilName">
+                <th mat-header-cell *matHeaderCellDef>Uczeń</th>
+                <td mat-cell data-label="Uczeń" *matCellDef="let tutor" (click)="rowClicked(tutor)">
+                    {{ tutor.assignedPupilName }}
+                </td>
+            </ng-container>
+
             <ng-container *appAuthManager matColumnDef="options">
                 <th mat-header-cell *matHeaderCellDef></th>
                 <td mat-cell class="options-cell" *matCellDef="let tutor">

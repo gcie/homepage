@@ -18,7 +18,7 @@ export class TutorsListComponent implements OnInit {
     @Output() tutorClicked = new EventEmitter<Tutor>();
 
     tutors: Tutor[] = [];
-    displayedColumns: string[] = ['name', 'email', 'teaches', 'notes'];
+    displayedColumns: string[] = ['name', 'email', 'teaches', 'assignedPupilName'];
 
     constructor(
         public authService: AuthService,
