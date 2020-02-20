@@ -1,0 +1,14 @@
+.title-short {
+    display: none;
+}
+
+
+@media screen and (max-width: 600px) {
+    .title-long {
+        display: none;
+    }
+
+    .title-short {
+        display: block;
+    }
+}
