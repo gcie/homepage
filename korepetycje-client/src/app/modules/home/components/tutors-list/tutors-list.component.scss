@@ -22,9 +22,13 @@ table {
     text-align: right;
 }
 
+.mat-table .mat-cell {
+    max-width: 15vw;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
 
-
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 1199px) {
     .mat-table {
         margin-bottom: 0;
     }
@@ -45,6 +49,7 @@ table {
         text-align: right;
         padding: 12px 8px 8px;
         min-height: 16px;
+        max-width: none;
     }
     
     .mat-table .mat-cell[data-label]:before {

@@ -19,7 +19,7 @@ export class PupilsListComponent implements OnInit {
 
     pupils: Pupil[] = [];
     displayedColumns: string[] = ['name', 'email', 'needs', 'class', 'assignedTutorName', 'lessonsStatus', 'notes'];
-    mobileView: BehaviorSubject<boolean> = new BehaviorSubject(document.body.offsetWidth <= 960);
+    mobileView: BehaviorSubject<boolean> = new BehaviorSubject(document.body.offsetWidth <= 1199);
 
     constructor(
         public authService: AuthService,
@@ -33,7 +33,7 @@ export class PupilsListComponent implements OnInit {
 
     ngOnInit() {
         this.refreshPupilsList();
-        const checkScreenSize = () => document.body.offsetWidth <= 960;
+        const checkScreenSize = () => document.body.offsetWidth <= 1199;
         fromEvent(window, 'resize')
             .pipe(map(checkScreenSize))
             .subscribe((mobileView) => this.mobileView.next(mobileView));
