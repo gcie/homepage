@@ -18,7 +18,7 @@ export class TutorsListComponent implements OnInit {
     @Output() tutorClicked = new EventEmitter<Tutor>();
 
     tutors: Tutor[] = [];
-    displayedColumns: string[] = ['name', 'email', 'teaches', 'assignedPupilName'];
+    displayedColumns: string[] = ['name', 'email', 'teaches', 'assignedPupilName', 'notes'];
     mobileView: BehaviorSubject<boolean> = new BehaviorSubject(document.body.offsetWidth <= 960);
 
     constructor(

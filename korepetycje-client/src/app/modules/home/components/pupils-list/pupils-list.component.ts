@@ -18,7 +18,7 @@ export class PupilsListComponent implements OnInit {
     @Output() pupilClicked = new EventEmitter<Pupil>();
 
     pupils: Pupil[] = [];
-    displayedColumns: string[] = ['name', 'email', 'needs', 'class', 'assignedTutorName'];
+    displayedColumns: string[] = ['name', 'email', 'needs', 'class', 'assignedTutorName', 'lessonsStatus', 'notes'];
     mobileView: BehaviorSubject<boolean> = new BehaviorSubject(document.body.offsetWidth <= 960);
 
     constructor(

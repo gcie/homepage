@@ -48,6 +48,13 @@
                     </td>
                 </ng-container>
 
+                <ng-container matColumnDef="lessonsStatus">
+                    <th mat-header-cell *matHeaderCellDef>Stan korepetycji</th>
+                    <td mat-cell data-label="Stan korepetycji" *matCellDef="let pupil" (click)="rowClicked(pupil)">
+                        {{ pupil.lessonsStatus }}
+                    </td>
+                </ng-container>
+
                 <ng-container *appAuthManager matColumnDef="options">
                     <th mat-header-cell *matHeaderCellDef></th>
                     <td mat-cell class="options-cell" *matCellDef="let pupil">
