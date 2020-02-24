@@ -24,6 +24,8 @@ export class PupilDetailedViewComponent implements OnInit {
         this.selectedTutor = pupil.assignedTutorId;
         if (pupil.assignedTutorId) {
             this.tutorsService.getTutorById(pupil.assignedTutorId).subscribe((tutor) => (this.assignedTutorName = tutor.name));
+        } else {
+            this.assignedTutorName = '<brak>';
         }
         if (this.$pupil) {
             this.$pupil.next(pupil);

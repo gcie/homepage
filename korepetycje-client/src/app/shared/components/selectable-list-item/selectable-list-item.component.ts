@@ -43,6 +43,8 @@ export class SelectableListItemComponent implements OnInit {
         if (this.data && this.value) {
             const elem = this.data.find((e) => e._id === this.value);
             if (elem) this.display = elem.name;
+        } else {
+            this.display = '<brak>';
         }
     }
 
