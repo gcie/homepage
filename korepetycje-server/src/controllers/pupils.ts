@@ -78,7 +78,7 @@ export const putPupilById = async (req: Request, res: Response, next: NextFuncti
         }
         pupil.overwrite(pupilDoc);
         await pupil.save();
-        return res.json(pupilDoc);
+        return res.json(pupil);
     } catch (err) {
         next(err);
     }
