@@ -1,14 +1,17 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, Response, Router } from 'express';
 import { check } from 'express-validator';
+import { isManager } from '../config/passport';
 import { Tutor } from '../models/Tutor';
 
-export const getTutors = async (req: Request, res: Response, next: NextFunction) => {
+export const tutors = Router();
+
+tutors.get('/', (req: Request, res: Response, next: NextFunction) => {
     Tutor.find()
         .then((doc) => res.status(200).json(doc))
         .catch(next);
-};
+});
 
-export const postTutors = async (req: Request, res: Response, next: NextFunction) => {
+tutors.post('/', isManager, async (req: Request, res: Response, next: NextFunction) => {
     await check('email', 'Email is not valid')
         .isEmail()
         .run(req);
@@ -21,24 +24,24 @@ export const postTutors = async (req: Request, res: Response, next: NextFunction
     Tutor.create(tutor)
         .then((doc) => res.json(doc))
         .catch(next);
-};
+});
 
-export const getTutorById = (req: Request, res: Response, next: NextFunction) => {
+tutors.get('/:id', (req: Request, res: Response, next: NextFunction) => {
     Tutor.findById(req.params.id)
         .then((doc) => res.json(doc))
         .catch(next);
-};
+});
 
-export const putTutorById = (req: Request, res: Response, next: NextFunction) => {
+tutors.put('/:id', isManager, (req: Request, res: Response, next: NextFunction) => {
     const tutor = req.body;
     delete tutor._id;
     Tutor.findByIdAndUpdate(req.params.id, tutor)
         .then(() => res.json(tutor))
         .catch(next);
-};
+});
 
-export const delTutorById = (req: Request, res: Response, next: NextFunction) => {
+tutors.delete('/:id', (req: Request, res: Response, next: NextFunction) => {
     Tutor.findOneAndDelete(req.params.id)
         .then((doc) => res.json(doc))
         .catch(next);
-};
+});

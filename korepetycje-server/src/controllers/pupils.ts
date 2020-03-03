@@ -1,16 +1,19 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, Response, Router } from 'express';
 import { check } from 'express-validator';
+import { Types } from 'mongoose';
+import { isManager } from '../config/passport';
 import { Pupil } from '../models/Pupil';
 import { Tutor } from '../models/Tutor';
-import { Types } from 'mongoose';
 
-export const getPupils = async (req: Request, res: Response, next: NextFunction) => {
+export const pupils = Router();
+
+pupils.get('/', (req: Request, res: Response, next: NextFunction) => {
     Pupil.find()
         .then((doc) => res.status(200).json(doc))
         .catch(next);
-};
+});
 
-export const postPupils = async (req: Request, res: Response, next: NextFunction) => {
+pupils.post('/', isManager, async (req: Request, res: Response, next: NextFunction) => {
     try {
         await check('email', 'Email is not valid')
             .isEmail()
@@ -28,15 +31,28 @@ export const postPupils = async (req: Request, res: Response, next: NextFunction
     } catch (err) {
         next(err);
     }
-};
+});
 
-export const getPupilById = (req: Request, res: Response, next: NextFunction) => {
+pupils.get('/:id', (req: Request, res: Response, next: NextFunction) => {
     Pupil.findById(req.params.id)
         .then((doc) => res.json(doc))
         .catch(next);
-};
+});
 
-export const putPupilById = async (req: Request, res: Response, next: NextFunction) => {
+// export const postPupilAssignTutor = async (req: Request, res: Response, next: NextFunction) => {
+//     try {
+//         const pupil = await Pupil.findById(req.params.pupilId).exec();
+//         if (pupil.assignedTutorId) {
+//             const tutor = await Tutor.findById(req.params.tutorId).exec();
+//             tutor.assignedPupilId = undefined;
+//             tutor.assignedPupilName = undefined;
+//             await tutor.save();
+//             pupil.assignedTutorName = undefined;
+//         }
+//     }
+// }
+
+pupils.put('/:id', isManager, async (req: Request, res: Response, next: NextFunction) => {
     try {
         await check('name', 'Name cannot be blank')
             .isLength({ min: 1 })
@@ -82,9 +98,9 @@ export const putPupilById = async (req: Request, res: Response, next: NextFuncti
     } catch (err) {
         next(err);
     }
-};
+});
 
-export const delPupilById = async (req: Request, res: Response, next: NextFunction) => {
+pupils.delete('/:id', isManager, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const pupil = await Pupil.findById(req.params.id).exec();
         if (pupil.assignedTutorId) {
@@ -97,4 +113,4 @@ export const delPupilById = async (req: Request, res: Response, next: NextFuncti
     } catch (err) {
         next(err);
     }
-};
+});

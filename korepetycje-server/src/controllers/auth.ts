@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, Router } from 'express';
 import { body, check, validationResult } from 'express-validator';
 import { sign } from 'jsonwebtoken';
 import '../config/passport';
@@ -6,13 +6,13 @@ import { User } from '../models/User';
 import logger from '../util/logger';
 import { JWT_SECRET } from '../util/secrets';
 
-const msg = (x: { msg: string }) => x.msg;
+export const auth = Router();
 
 /**
  * POST /login
  * Sign in using email and password.
  */
-export const postLogin = async (req: Request, res: Response) => {
+auth.post('/login', async (req: Request, res: Response) => {
     await check('email', 'Niepoprawny adres email')
         .isEmail()
         .run(req);
@@ -60,4 +60,4 @@ export const postLogin = async (req: Request, res: Response) => {
             });
         });
     });
-};
+});

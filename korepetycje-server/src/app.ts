@@ -7,10 +7,10 @@ import mongoose from 'mongoose';
 import passport from 'passport';
 import path from 'path';
 import { isAdmin, isAuthenticated, isManager } from './config/passport';
-import { postLogin } from './controllers/auth';
-import { delPupilById, getPupilById, getPupils, postPupils, putPupilById } from './controllers/pupils';
-import { delTutorById, getTutorById, getTutors, postTutors, putTutorById } from './controllers/tutors';
-import { delUserById, getUserById, getUsers, postUsers, putUserById } from './controllers/users';
+import { auth } from './controllers/auth';
+import { pupils } from './controllers/pupils';
+import { tutors } from './controllers/tutors';
+import { users } from './controllers/users';
 import logger from './util/logger';
 import { ENVIRONMENT, MONGODB_URI, PORT } from './util/secrets';
 
@@ -46,36 +46,16 @@ app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
 
 /**
+ * API routes.
+ */
+app.use('/api/pupils', isAuthenticated, pupils);
+app.use('/api/tutors', isAuthenticated, tutors);
+app.use('/api/users', isAdmin, users);
+
+/**
  * Authentication routes
  */
-app.post('/login', postLogin);
-
-/**
- * API pupils routes.
- */
-app.get('/api/pupils', isAuthenticated, getPupils);
-app.post('/api/pupils', isManager, postPupils);
-app.get('/api/pupils/:id', isAuthenticated, getPupilById);
-app.put('/api/pupils/:id', isManager, putPupilById);
-app.delete('/api/pupils/:id', isManager, delPupilById);
-
-/**
- * API tutors routes.
- */
-app.get('/api/tutors', isAuthenticated, getTutors);
-app.post('/api/tutors', isManager, postTutors);
-app.get('/api/tutors/:id', isAuthenticated, getTutorById);
-app.put('/api/tutors/:id', isManager, putTutorById);
-app.delete('/api/tutors/:id', isManager, delTutorById);
-
-/**
- * API users routes.
- */
-app.get('/api/users', isAdmin, getUsers);
-app.post('/api/users', isAdmin, postUsers);
-app.get('/api/users/:id', isAdmin, getUserById);
-app.put('/api/users/:id', isAdmin, putUserById);
-app.delete('/api/users/:id', isAdmin, delUserById);
+app.use('/', auth);
 
 /**
  * Angular app host.
