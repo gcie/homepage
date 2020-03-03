@@ -29,10 +29,9 @@ export class PupilEditDialogComponent {
     }
 
     onConfirmClick() {
-        const data = this.editForm.value;
-        data._id = this.pupil._id;
+        Object.assign(this.pupil, this.editForm.value);
 
-        this.pupilsService.updatePupil(data).subscribe((_pupil) => {
+        this.pupilsService.updatePupil(this.pupil).subscribe((_pupil) => {
             this.dialogRef.close();
         });
     }

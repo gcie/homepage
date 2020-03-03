@@ -29,10 +29,9 @@ export class TutorEditDialogComponent {
     }
 
     onConfirmClick() {
-        const data = this.editForm.value;
-        data._id = this.tutor._id;
+        Object.assign(this.tutor, this.editForm.value);
 
-        this.tutorsService.updateTutor(data).subscribe((_tutor) => {
+        this.tutorsService.updateTutor(this.tutor).subscribe((_tutor) => {
             this.dialogRef.close();
         });
     }
