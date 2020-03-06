@@ -8,10 +8,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { HomeModule } from './modules/home/home.module';
 import { LoginModule } from './modules/login/login.module';
 import { MaterialModule } from './modules/material/material.module';
 import { SharedModule } from './shared/shared.module';
+import { KorepetycjeModule } from './modules/korepetycje/korepetycje.module';
 
 @NgModule({
     declarations: [AppComponent],
@@ -21,7 +21,7 @@ import { SharedModule } from './shared/shared.module';
         CoreModule,
         HttpClientModule,
         MaterialModule,
-        HomeModule,
+        KorepetycjeModule,
         FormsModule,
         LoginModule,
         SharedModule,

@@ -15,11 +15,11 @@ export class SidenavMenuComponent {
     }
 
     homeRedirect() {
-        this.router.navigate(['/']);
+        this.router.navigate(['/korepetycje']);
     }
 
     usersRedirect() {
-        this.router.navigate(['/users']);
+        this.router.navigate(['/korepetycje/users']);
     }
 
     logout() {

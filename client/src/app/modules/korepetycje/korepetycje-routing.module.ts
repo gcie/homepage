@@ -30,4 +30,4 @@ const routes: Routes = [
         TutorEditDialogComponent
     ]
 })
-export class HomeRoutingModule {}
+export class KorepetycjeRoutingModule {}

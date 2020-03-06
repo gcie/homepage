@@ -16,13 +16,17 @@ import {
 } from './components';
 import { PupilDetailedViewComponent } from './components/pupil-detailed-view/pupil-detailed-view.component';
 import { TutorDetailedViewComponent } from './components/tutor-detailed-view/tutor-detailed-view.component';
-import { HomeRoutingModule } from './home-routing.module';
 import { HomePageComponent, UsersPageComponent } from './pages';
+import { KorepetycjeRoutingModule } from './korepetycje-routing.module';
+import { SidenavMenuComponent } from './components/sidenav-menu/sidenav-menu.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
     declarations: [
         HomePageComponent,
         UsersPageComponent,
+        HeaderComponent,
+        SidenavMenuComponent,
         PupilAddDialogComponent,
         PupilEditDialogComponent,
         PupilsListComponent,
@@ -35,6 +39,6 @@ import { HomePageComponent, UsersPageComponent } from './pages';
         PupilDetailedViewComponent,
         TutorDetailedViewComponent
     ],
-    imports: [CommonModule, SharedModule, MaterialModule, FormsModule, ReactiveFormsModule, HomeRoutingModule]
+    imports: [CommonModule, SharedModule, MaterialModule, FormsModule, ReactiveFormsModule, KorepetycjeRoutingModule]
 })
-export class HomeModule {}
+export class KorepetycjeModule {}

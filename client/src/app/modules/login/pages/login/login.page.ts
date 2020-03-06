@@ -23,7 +23,7 @@ export class LoginPageComponent {
     onSubmit(credentials: UserLoginData) {
         this.authService.login(credentials).subscribe({
             next: () => {
-                this.router.navigateByUrl('/');
+                this.router.navigateByUrl('/korepetycje');
             },
             error: (err) => {
                 console.log(err.error);
