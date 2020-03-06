@@ -13,9 +13,13 @@ export class TutorsService {
 
     /**
      * Get list of all tutors.
+     *
+     * @param onlyFree if `true`, then returns only free tutors.
      */
-    getTutors(): Observable<Tutor[]> {
-        return this.http.get<Tutor[]>(this.tutorsUrl);
+    getTutors(onlyFree?: boolean): Observable<Tutor[]> {
+        const params: any = {};
+        if (onlyFree) params.onlyFree = 'true';
+        return this.http.get<Tutor[]>(this.tutorsUrl, { params });
     }
 
     /**

@@ -17,6 +17,23 @@
             <input matInput placeholder="Klasa" formControlName="class">
         </mat-form-field>
         <mat-form-field>
+            <input matInput placeholder="Imię i nazwisko rodzica" formControlName="parentName">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Adres email rodzica" formControlName="parentEmail">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Nr telefonu rodzica" formControlName="parentPhone">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Stan korepetycji" formControlName="lessonsStatus">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select formControlName="assignedTutorId">
+                <mat-option *ngFor="let tutor of tutorList" [value]="tutor._id">{{ tutor.name }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
             <textarea matInput placeholder="Notatki" formControlName="notes"></textarea>
         </mat-form-field>
         <div>

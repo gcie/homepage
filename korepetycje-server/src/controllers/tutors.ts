@@ -6,7 +6,11 @@ import { Tutor } from '../models/Tutor';
 export const tutors = Router();
 
 tutors.get('/', (req: Request, res: Response, next: NextFunction) => {
-    Tutor.find()
+    const conditions: any = {};
+    if (req.query.onlyFree) {
+        conditions.assignedPupilId = null;
+    }
+    Tutor.find(conditions)
         .then((doc) => res.status(200).json(doc))
         .catch(next);
 });

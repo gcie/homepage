@@ -39,7 +39,19 @@ export class PupilDetailedViewComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.$pupil.subscribe(() => this.tutorsService.getTutors().subscribe((tutors) => (this.tutorsList = tutors)));
+        this.$pupil.subscribe((pupil) =>
+            this.tutorsService.getTutors(true).subscribe((tutors) => {
+                const tutorsList = tutors;
+                if (this.pupil.assignedTutorId) {
+                    this.tutorsService.getTutorById(this.pupil.assignedTutorId).subscribe((assignedTutor) => {
+                        tutorsList.unshift(assignedTutor);
+                        this.tutorsList = tutorsList;
+                    });
+                } else {
+                    this.tutorsList = tutorsList;
+                }
+            })
+        );
     }
 
     updatePupil(data: string, property: string) {
