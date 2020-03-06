@@ -2,12 +2,13 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, EMPTY, fromEvent } from 'rxjs';
 import { flatMap, map } from 'rxjs/operators';
-import { AuthService } from 'src/app/core/auth';
-import { ErrorsService, PupilsService, TutorsService } from 'src/app/core/services';
+import { AuthService, PermissionGroup } from 'src/app/core/auth';
+import { PupilsService, TutorsService } from 'src/app/core/services/api/korepetycje';
 import { ConfirmDialogComponent } from 'src/app/shared/components';
 import { Pupil } from 'src/app/shared/models';
 import { PupilAddDialogComponent } from '../pupil-add-dialog/pupil-add-dialog.component';
 import { PupilEditDialogComponent } from '../pupil-edit-dialog/pupil-edit-dialog.component';
+import { ErrorsService } from 'src/app/core/services/utils/errors.service';
 
 @Component({
     selector: 'app-pupils-list',
@@ -28,7 +29,7 @@ export class PupilsListComponent implements OnInit {
         private dialog: MatDialog,
         private error: ErrorsService
     ) {
-        if (this.authService.isManager()) this.displayedColumns.push('options');
+        if (this.authService.hasPermission(PermissionGroup.korepetycje_manager)) this.displayedColumns.push('options');
     }
 
     ngOnInit() {

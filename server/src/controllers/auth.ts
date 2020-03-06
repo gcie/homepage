@@ -51,7 +51,7 @@ auth.post('/login', async (req: Request, res: Response) => {
                         _id: user._id,
                         name: user.name,
                         email: user.email,
-                        group: user.group
+                        groups: user.groups
                     },
                     success: true,
                     token: `Bearer ${token}`,

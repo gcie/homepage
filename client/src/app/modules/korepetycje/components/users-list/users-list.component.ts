@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorsService, UsersService } from 'src/app/core/services';
+import { UsersService } from 'src/app/core/services/api/korepetycje';
 import { ConfirmDialogComponent } from 'src/app/shared/components';
 import { UserAddDialogComponent } from '../user-add-dialog/user-add-dialog.component';
 import { UserEditDialogComponent } from '../user-edit-dialog/user-edit-dialog.component';
 import { User } from 'src/app/core/auth/models/user';
+import { ErrorsService } from 'src/app/core/services/utils/errors.service';
 
 @Component({
     selector: 'app-users-list',

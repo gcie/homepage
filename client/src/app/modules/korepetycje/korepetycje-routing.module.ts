@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomePageComponent, UsersPageComponent } from './pages';
-import { AdminGuard, AuthGuard } from 'src/app/core/guards';
+import { AdminGuard, KorepetycjeUserGuard } from 'src/app/core/guards';
 import {
-    UserAddDialogComponent,
-    UserEditDialogComponent,
     PupilAddDialogComponent,
     PupilEditDialogComponent,
     TutorAddDialogComponent,
-    TutorEditDialogComponent
+    TutorEditDialogComponent,
+    UserAddDialogComponent,
+    UserEditDialogComponent
 } from './components';
+import { HomePageComponent, UsersPageComponent } from './pages';
 
 const routes: Routes = [
-    { path: '', component: HomePageComponent, canActivate: [AuthGuard] },
+    { path: '', component: HomePageComponent, canActivate: [KorepetycjeUserGuard] },
     { path: 'users', component: UsersPageComponent, canActivate: [AdminGuard] }
 ];
 

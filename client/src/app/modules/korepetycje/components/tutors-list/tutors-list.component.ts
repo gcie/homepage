@@ -1,13 +1,14 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AuthService } from 'src/app/core/auth';
-import { ErrorsService, TutorsService } from 'src/app/core/services';
+import { AuthService, PermissionGroup } from 'src/app/core/auth';
+import { TutorsService } from 'src/app/core/services/api/korepetycje';
 import { ConfirmDialogComponent } from 'src/app/shared/components';
 import { Tutor } from 'src/app/shared/models';
 import { TutorAddDialogComponent } from '../tutor-add-dialog/tutor-add-dialog.component';
 import { TutorEditDialogComponent } from '../tutor-edit-dialog/tutor-edit-dialog.component';
 import { flatMap, map } from 'rxjs/operators';
 import { EMPTY, BehaviorSubject, fromEvent } from 'rxjs';
+import { ErrorsService } from 'src/app/core/services/utils/errors.service';
 
 @Component({
     selector: 'app-tutors-list',
@@ -27,7 +28,7 @@ export class TutorsListComponent implements OnInit {
         private dialog: MatDialog,
         private error: ErrorsService
     ) {
-        if (this.authService.isManager()) this.displayedColumns.push('options');
+        if (this.authService.hasPermission(PermissionGroup.korepetycje_manager)) this.displayedColumns.push('options');
     }
 
     ngOnInit() {

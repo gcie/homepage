@@ -1,5 +1,5 @@
 export enum PermissionGroup {
-    user = 'user',
-    manager = 'manager',
+    korepetycje_user = 'korepetycje-user',
+    korepetycje_manager = 'korepetycje-manager',
     admin = 'admin'
 }

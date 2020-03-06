@@ -6,13 +6,13 @@ import lusca from 'lusca';
 import mongoose from 'mongoose';
 import passport from 'passport';
 import path from 'path';
-import { isAdmin, isAuthenticated, isManager } from './config/passport';
 import { auth } from './controllers/auth';
 import { pupils } from './controllers/pupils';
 import { tutors } from './controllers/tutors';
 import { users } from './controllers/users';
 import logger from './util/logger';
 import { ENVIRONMENT, MONGODB_URI, PORT } from './util/secrets';
+import { isKorepetycjeUser, isAdmin } from './config/guards';
 
 // Create Express server
 const app = express();
@@ -48,9 +48,9 @@ app.use(lusca.xssProtection(true));
 /**
  * API routes.
  */
-app.use('/api/pupils', isAuthenticated, pupils);
-app.use('/api/tutors', isAuthenticated, tutors);
-app.use('/api/users', isAdmin, users);
+app.use('/api/korepetycje/pupils', isKorepetycjeUser, pupils);
+app.use('/api/korepetycje/tutors', isKorepetycjeUser, tutors);
+app.use('/api/korepetycje/users', isAdmin, users);
 
 /**
  * Authentication routes

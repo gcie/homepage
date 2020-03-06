@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { PupilsService, TutorsService } from 'src/app/core/services';
+import { PupilsService, TutorsService } from 'src/app/core/services/api/korepetycje';
 import { Pupil, Tutor } from 'src/app/shared/models';
 
 @Component({

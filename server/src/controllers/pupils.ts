@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { check } from 'express-validator';
 import { Types } from 'mongoose';
-import { isManager } from '../config/passport';
 import { Pupil } from '../models/Pupil';
 import { Tutor } from '../models/Tutor';
+import { isKorepetycjeManager } from './../config/guards';
 
 export const pupils = Router();
 
@@ -13,7 +13,7 @@ pupils.get('/', (req: Request, res: Response, next: NextFunction) => {
         .catch(next);
 });
 
-pupils.post('/', isManager, async (req: Request, res: Response, next: NextFunction) => {
+pupils.post('/', isKorepetycjeManager, async (req: Request, res: Response, next: NextFunction) => {
     try {
         await check('email', 'Email is not valid')
             .isEmail()
@@ -52,7 +52,7 @@ pupils.get('/:id', (req: Request, res: Response, next: NextFunction) => {
 //     }
 // }
 
-pupils.put('/:id', isManager, async (req: Request, res: Response, next: NextFunction) => {
+pupils.put('/:id', isKorepetycjeManager, async (req: Request, res: Response, next: NextFunction) => {
     try {
         await check('name', 'Name cannot be blank')
             .isLength({ min: 1 })
@@ -100,7 +100,7 @@ pupils.put('/:id', isManager, async (req: Request, res: Response, next: NextFunc
     }
 });
 
-pupils.delete('/:id', isManager, async (req: Request, res: Response, next: NextFunction) => {
+pupils.delete('/:id', isKorepetycjeManager, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const pupil = await Pupil.findById(req.params.id).exec();
         if (pupil.assignedTutorId) {

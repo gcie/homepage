@@ -55,7 +55,7 @@
                     </td>
                 </ng-container>
 
-                <ng-container *appAuthManager matColumnDef="options">
+                <ng-container *appAuthKorepetycjeManager matColumnDef="options">
                     <th mat-header-cell *matHeaderCellDef></th>
                     <td mat-cell class="options-cell" *matCellDef="let pupil">
                         <button mat-icon-button *ngIf="!(mobileView | async)" (click)="editPupil(pupil)">
@@ -80,7 +80,7 @@
                 <tr mat-row *matRowDef="let pupil; columns: displayedColumns;"></tr>
             </table>
         </div>
-        <div *appAuthManager class="fab-container">
+        <div *appAuthKorepetycjeManager class="fab-container">
             <button mat-fab class="add-fab" color="primary" (click)="addPupilDialog()">
                 <mat-icon svgIcon="plus"></mat-icon>
             </button>

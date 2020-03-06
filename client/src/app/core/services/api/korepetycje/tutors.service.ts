@@ -7,7 +7,7 @@ import { Tutor } from 'src/app/shared/models';
     providedIn: 'root'
 })
 export class TutorsService {
-    private tutorsUrl = '/api/tutors';
+    private tutorsUrl = '/api/korepetycje/tutors';
 
     constructor(private http: HttpClient) {}
 

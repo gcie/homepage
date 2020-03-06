@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PermissionGroup } from 'src/app/core/auth/models/permission-group.enum';
-import { UsersService } from 'src/app/core/services';
+import { UsersService } from 'src/app/core/services/api/korepetycje';
 
 @Component({
     selector: 'app-user-edit-dialog',

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { TutorsService } from 'src/app/core/services';
+import { TutorsService } from 'src/app/core/services/api/korepetycje';
 import { Tutor } from 'src/app/shared/models';
 
 @Component({

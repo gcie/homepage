@@ -4,7 +4,7 @@ export class User {
     _id?: string;
     name: string;
     email: string;
-    group: PermissionGroup;
+    groups: PermissionGroup[];
 }
 
 export class UserRegisterData {

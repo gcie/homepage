@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { PupilsService } from 'src/app/core/services';
+import { PupilsService } from 'src/app/core/services/api/korepetycje';
 
 @Component({
     selector: 'app-pupil-add-dialog',

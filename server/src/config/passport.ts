@@ -1,4 +1,3 @@
-import { NextFunction, Request, Response } from 'express';
 import { Types } from 'mongoose';
 import passport from 'passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
@@ -55,38 +54,3 @@ passport.use(
  * Login Required middleware.
  */
 export const isAuthenticated = passport.authenticate('jwt', { session: false });
-
-// export const isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
-//     logger.debug(`isAuthenticated(): ${req.isAuthenticated()}`);
-//     console.log(`isAuthenticated(): ${req.isAuthenticated()}`);
-//     if (req.isAuthenticated()) {
-//         return next();
-//     }
-//     res.redirect('/login');
-// };
-
-export const isAdmin = [
-    isAuthenticated,
-    (req: Request, res: Response, next: NextFunction) => {
-        // console.log(req.user);
-        // next();
-        const user: any = req.user;
-        if (user && user.group === 'admin') {
-            next();
-        } else {
-            res.status(401).json({ message: 'Brak uprawnień' });
-        }
-    }
-];
-
-export const isManager = [
-    isAuthenticated,
-    (req: Request, res: Response, next: NextFunction) => {
-        const user: any = req.user;
-        if (user && (user.group === 'manager' || user.group === 'admin')) {
-            next();
-        } else {
-            res.status(401).json({ message: 'Brak uprawnień' });
-        }
-    }
-];

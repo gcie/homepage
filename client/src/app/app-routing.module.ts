@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './core/guards';
+import { KorepetycjeUserGuard } from './core/guards';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'korepetycje', pathMatch: 'full' },
+    { path: '', loadChildren: () => import('src/app/modules/home/home.module').then((m) => m.HomeModule) },
     {
         path: 'korepetycje',
         loadChildren: () => import('src/app/modules/korepetycje/korepetycje.module').then((m) => m.KorepetycjeModule),
-        canActivate: [AuthGuard]
-    },
-    { path: 'login', loadChildren: () => import('src/app/modules/login/login.module').then((m) => m.LoginModule) }
+        canActivate: [KorepetycjeUserGuard]
+    }
 ];
 
 @NgModule({

@@ -52,13 +52,9 @@ export class AuthService {
         return moment(expiresAt);
     }
 
-    public isAdmin(): boolean {
-        return this.getGroup() === PermissionGroup.admin;
-    }
-
-    public isManager(): boolean {
-        const group = this.getGroup();
-        return group === PermissionGroup.admin || group === PermissionGroup.manager;
+    public hasPermission(permission: PermissionGroup): boolean {
+        if (this.getGroups()?.includes(permission) || this.getGroups()?.includes(PermissionGroup.admin)) return true;
+        return false;
     }
 
     public getUser(): User | null {
@@ -69,8 +65,8 @@ export class AuthService {
         return this.getUser()?.name;
     }
 
-    public getGroup() {
-        return this.getUser()?.group;
+    public getGroups() {
+        return this.getUser()?.groups;
     }
 
     public getEmail() {

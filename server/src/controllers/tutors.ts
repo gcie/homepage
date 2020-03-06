@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { check } from 'express-validator';
-import { isManager } from '../config/passport';
+import { isKorepetycjeManager } from '../config/guards';
 import { Tutor } from '../models/Tutor';
 
 export const tutors = Router();
@@ -15,7 +15,7 @@ tutors.get('/', (req: Request, res: Response, next: NextFunction) => {
         .catch(next);
 });
 
-tutors.post('/', isManager, async (req: Request, res: Response, next: NextFunction) => {
+tutors.post('/', isKorepetycjeManager, async (req: Request, res: Response, next: NextFunction) => {
     await check('email', 'Email is not valid')
         .isEmail()
         .run(req);
@@ -36,7 +36,7 @@ tutors.get('/:id', (req: Request, res: Response, next: NextFunction) => {
         .catch(next);
 });
 
-tutors.put('/:id', isManager, (req: Request, res: Response, next: NextFunction) => {
+tutors.put('/:id', isKorepetycjeManager, (req: Request, res: Response, next: NextFunction) => {
     const tutor = req.body;
     delete tutor._id;
     Tutor.findByIdAndUpdate(req.params.id, tutor)

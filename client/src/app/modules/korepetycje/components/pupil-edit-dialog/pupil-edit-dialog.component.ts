@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { PupilsService, TutorsService } from 'src/app/core/services';
+import { PupilsService, TutorsService } from 'src/app/core/services/api/korepetycje';
 import { Pupil } from 'src/app/shared/models';
 
 @Component({

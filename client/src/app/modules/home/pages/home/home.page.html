@@ -1,0 +1,6 @@
+<h2>Witaj, {{ user.name }}!</h2>
+
+<h4>Twoje grupy:</h4>
+<p *ngFor="let group of user.groups">{{ group }}</p>
+
+<button (click)="logout()">Wyloguj</button>

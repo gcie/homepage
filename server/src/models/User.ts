@@ -12,7 +12,7 @@ export type UserDocument = Document & {
     tokens: AuthToken[];
 
     name: string;
-    group: string;
+    groups: string[];
 
     comparePassword: comparePasswordFunction;
     gravatar: (size: number) => string;
@@ -38,7 +38,7 @@ const userSchema = new Schema(
         tokens: Array,
 
         name: String,
-        group: String
+        groups: Array
     },
     { timestamps: true }
 );
