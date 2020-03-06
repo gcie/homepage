@@ -60,9 +60,9 @@ app.use('/', auth);
 /**
  * Angular app host.
  */
-app.use(express.static(path.join(__dirname, '/../../korepetycje-client/dist'), { maxAge: 31557600000 }));
+app.use(express.static(path.join(__dirname, '/../../client/dist'), { maxAge: 31557600000 }));
 app.all('/*', (req: Request, res: Response) => {
-    res.sendFile('index.html', { root: path.join(__dirname, '/../../korepetycje-client/dist') });
+    res.sendFile('index.html', { root: path.join(__dirname, '/../../client/dist') });
 });
 
 /**

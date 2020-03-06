@@ -6,8 +6,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # server output files
-korepetycje-server/dist/
-korepetycje-client/dist/
+server/dist/
+client/dist/
 
 # Runtime data
 pids

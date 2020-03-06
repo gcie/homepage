@@ -10,7 +10,7 @@
             "name": "Launch Chrome against localhost",
             "url": "http://localhost:8080",
             "sourceMaps": true,
-            "webRoot": "${workspaceFolder}/korepetycje-client"
+            "webRoot": "${workspaceFolder}/client"
         },
         {
             "name": "Attach to Chrome, with sourcemaps",
@@ -19,7 +19,7 @@
             "url": "http://localhost:8080",
             "port": 9222,
             "sourceMaps": true,
-            "webRoot": "${workspaceFolder}/korepetycje-client"
+            "webRoot": "${workspaceFolder}/client"
         }
     ]
 }
