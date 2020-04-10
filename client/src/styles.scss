@@ -1,10 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
-@import '@angular/material/prebuilt-themes/pink-bluegrey.css';
+// @import '@angular/material/prebuilt-themes/pink-bluegrey.css';
 @import '@angular/cdk/_text-field'; 
+@import '~@angular/material/theming';
+@import './green-theme.scss';
+
+// @include mat-core();
+
+$cairo-typography: mat-typography-config(
+    $font-family: 'Cairo'
+);
+
+@include angular-material-theme($green-theme);
+@include angular-material-typography($cairo-typography);
 
 // Set custom-autofill inputs to have no background and red text.
 input {
   @include cdk-text-field-autofill-color(transparent, #fff);
+}
+
+@font-face {
+    font-family: 'CrimsonText-Bold';
+    src: url(assets/fonts/CrimsonText-Bold.ttf) format('truetype');
 }
 
 body {
@@ -54,4 +70,9 @@ a.mat-menu-item > mat-icon {
 .mat-step-icon-content .mat-icon svg {
     height: 100%;
     width: 100%;
+}
+
+.crimson-bold {
+    font-family: 'CrimsonText-Bold';
+    // letter-spacing: 0.01em;
 }

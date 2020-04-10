@@ -1,0 +1,7 @@
+@import '~@angular/material/theming';
+
+$green-theme-primary: mat-palette($mat-teal, 800);
+$green-theme-secondary: mat-palette($mat-amber, 300);
+$green-theme-warn: mat-palette($mat-red);
+
+$green-theme: mat-dark-theme($green-theme-primary, $green-theme-secondary, $green-theme-warn);
