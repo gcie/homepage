@@ -51,7 +51,7 @@ users.put('/:id', (req: Request, res: Response, next: NextFunction) => {
 });
 
 users.delete('/:id', (req: Request, res: Response, next: NextFunction) => {
-    User.findOneAndDelete(req.params.id)
+    User.findByIdAndDelete(req.params.id)
         .then((doc) => res.json(doc))
         .catch(next);
 });

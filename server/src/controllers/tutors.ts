@@ -45,7 +45,7 @@ tutors.put('/:id', isKorepetycjeManager, (req: Request, res: Response, next: Nex
 });
 
 tutors.delete('/:id', (req: Request, res: Response, next: NextFunction) => {
-    Tutor.findOneAndDelete(req.params.id)
+    Tutor.findByIdAndDelete(req.params.id)
         .then((doc) => res.json(doc))
         .catch(next);
 });
