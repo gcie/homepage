@@ -1,0 +1,26 @@
+@import '../../../../../green-theme.scss';
+
+.white {
+    color: rgba(white, .95);
+}
+
+.dark {
+    background-color: #1b1b1b;
+    color: rgba(white, .95);
+}
+
+
+.main-foto {
+    height: 500px;
+}
+
+.overlay {
+    position: absolute;
+    // color: mat-color(map-get($green-theme, primary));
+    height: 56px;
+    overflow: hidden;
+}
+
+.primary {
+    color: mat-color(map-get($green-theme, accent));
+}

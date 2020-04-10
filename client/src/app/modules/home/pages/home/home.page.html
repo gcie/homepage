@@ -1,6 +1,26 @@
-<h2>Witaj, {{ user.name }}!</h2>
-
-<h4>Twoje grupy:</h4>
-<p *ngFor="let group of user.groups">{{ group }}</p>
-
-<button (click)="logout()">Wyloguj</button>
+<mat-sidenav-container fullscreen class="mat-app-background basic-container">
+    <div style="height: 100vh;" fxLayout="column" fxLayoutAlign="start stretch">
+        <app-header></app-header>
+        <div style="height: 50%" fxLayout="column" fxLayoutAlign="center center">
+            <div fxLayout="column" fxLayoutAlign="start stretch">
+                <span class="mat-display-4 crimson-bold primary">Grzegorz Ciesielski</span>
+                <span class="mat-display-4 crimson-bold overlay">Grzegorz Ciesielski</span>
+            </div>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="start center" class="mat-headline">Strona jest w trakcie tworzenia.</div>
+        <div fxLayout="column" fxLayoutAlign="start center">
+            <mat-card style="width: 50%;">
+                <mat-card-title>
+                    Twoje grupy:
+                </mat-card-title>
+                <mat-card-content>
+                    <ul>
+                        <li class="mat-body" *ngFor="let group of user.groups">{{ group }}</li>
+                    </ul>
+                    <button mat-raised-button style="width: 30%; margin-left: 35%;" color="accent"
+                        (click)="logout()">Wyloguj</button>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</mat-sidenav-container>

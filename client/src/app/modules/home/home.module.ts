@@ -6,9 +6,11 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginPageComponent } from './pages/login/login.page';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
-    declarations: [HomePageComponent, LoginPageComponent],
-    imports: [CommonModule, SharedModule, MaterialModule, FormsModule, ReactiveFormsModule, HomeRoutingModule]
+    declarations: [HomePageComponent, LoginPageComponent, HeaderComponent],
+    imports: [CommonModule, SharedModule, MaterialModule, FormsModule, ReactiveFormsModule, FlexLayoutModule, HomeRoutingModule]
 })
 export class HomeModule {}
