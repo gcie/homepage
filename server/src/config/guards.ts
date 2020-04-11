@@ -10,7 +10,7 @@ export const isAdmin = [
         } else {
             res.status(401).json({ message: 'Brak uprawnień' });
         }
-    }
+    },
 ];
 
 export const isKorepetycjeManager = [
@@ -22,7 +22,7 @@ export const isKorepetycjeManager = [
         } else {
             res.status(401).json({ message: 'Brak uprawnień' });
         }
-    }
+    },
 ];
 
 export const isKorepetycjeUser = [
@@ -34,5 +34,5 @@ export const isKorepetycjeUser = [
         } else {
             res.status(401).json({ message: 'Brak uprawnień.' });
         }
-    }
+    },
 ];

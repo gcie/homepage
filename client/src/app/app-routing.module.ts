@@ -7,13 +7,13 @@ const routes: Routes = [
     {
         path: 'korepetycje',
         loadChildren: () => import('src/app/modules/korepetycje/korepetycje.module').then((m) => m.KorepetycjeModule),
-        canActivate: [KorepetycjeUserGuard]
-    }
+        canActivate: [KorepetycjeUserGuard],
+    },
 ];
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule],
-    entryComponents: []
+    entryComponents: [],
 })
 export class AppRoutingModule {}

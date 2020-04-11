@@ -7,7 +7,7 @@ import { UserLoginData } from 'src/app/core/auth/models/user';
 @Component({
     selector: 'app-login-page',
     templateUrl: './login.page.html',
-    styleUrls: ['./login.page.scss']
+    styleUrls: ['./login.page.scss'],
 })
 export class LoginPageComponent {
     loginForm: FormGroup;
@@ -16,19 +16,20 @@ export class LoginPageComponent {
     constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
         this.loginForm = this.formBuilder.group({
             email: ['', Validators.email],
-            password: ['', Validators.required]
+            password: ['', Validators.required],
         });
     }
 
     onSubmit(credentials: UserLoginData) {
         this.authService.login(credentials).subscribe({
             next: () => {
-                this.router.navigateByUrl('/korepetycje');
+                const url = this.authService.getRedirectUrl();
+                this.router.navigateByUrl(url || '/');
             },
             error: (err) => {
                 console.log(err.error);
                 this.errorMessage = err.error.message;
-            }
+            },
         });
     }
 }

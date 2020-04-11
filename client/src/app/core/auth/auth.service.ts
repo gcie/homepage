@@ -8,10 +8,22 @@ import { AuthResult } from './models/auth-result';
 import { PermissionGroup } from './models/permission-group.enum';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class AuthService {
+    private redirectUrl?: string;
+
     constructor(private http: HttpClient, private router: Router) {}
+
+    public setRedirectUrl(url: string) {
+        this.redirectUrl = url;
+    }
+
+    public getRedirectUrl() {
+        const url = this.redirectUrl;
+        this.redirectUrl = undefined;
+        return url;
+    }
 
     public login(credentials: UserLoginData) {
         return this.http.post<AuthResult>('/login', credentials).pipe(map(this.setSession));

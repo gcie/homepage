@@ -18,10 +18,10 @@ passport.use(
     new Strategy(
         {
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-            secretOrKey: JWT_SECRET
+            secretOrKey: JWT_SECRET,
         },
         (payload, done) => {
-            User.findOne({ _id: new Types.ObjectId(payload.id), email: payload.email }, function(err, user) {
+            User.findOne({ _id: new Types.ObjectId(payload.id), email: payload.email }, (err, user) => {
                 if (err) {
                     return done(err, false);
                 }
@@ -34,21 +34,6 @@ passport.use(
         }
     )
 );
-
-/**
- * OAuth Strategy Overview
- *
- * - User is already logged in.
- *   - Check if there is an existing account with a provider id.
- *     - If there is, return an error message. (Account merging not supported)
- *     - Else link new OAuth account with currently logged-in user.
- * - User is not logged in.
- *   - Check if it's a returning user.
- *     - If returning user, sign in and we are done.
- *     - Else check if there is an existing account with user's email.
- *       - If there is, return an error message.
- *       - Else create a new account.
- */
 
 /**
  * Login Required middleware.
