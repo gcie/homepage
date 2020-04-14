@@ -4,7 +4,7 @@
 @import '~@angular/material/theming';
 @import './green-theme.scss';
 
-// @include mat-core();
+@include mat-core();
 
 $cairo-typography: mat-typography-config(
     $font-family: 'Cairo'
