@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { User } from 'src/app/core/auth/models/user';
 import { UsersService } from 'src/app/core/services/api/korepetycje';
+import { ErrorsService } from 'src/app/core/services/utils/errors.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components';
 import { UserAddDialogComponent } from '../user-add-dialog/user-add-dialog.component';
 import { UserEditDialogComponent } from '../user-edit-dialog/user-edit-dialog.component';
-import { User } from 'src/app/core/auth/models/user';
-import { ErrorsService } from 'src/app/core/services/utils/errors.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatInput } from '@angular/material/input';
 
 @Component({
     selector: 'app-users-list',
@@ -13,21 +16,34 @@ import { ErrorsService } from 'src/app/core/services/utils/errors.service';
     styleUrls: ['./users-list.component.scss'],
 })
 export class UsersListComponent implements OnInit {
-    users: User[] = [];
     displayedColumns: string[] = ['name', 'email', 'group', 'options'];
+    usersDataSource = new MatTableDataSource<User>([]);
+
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+    @ViewChild(MatInput, { static: true }) filterInput: MatInput;
 
     constructor(private usersService: UsersService, private dialog: MatDialog, private error: ErrorsService) {}
 
     ngOnInit() {
         this.refreshUsersList();
+        this.usersDataSource.paginator = this.paginator;
     }
 
     private refreshUsersList = () => {
         this.usersService.getUsers().subscribe({
-            next: (users: User[]) => (this.users = users),
+            next: (users: User[]) => (this.usersDataSource.data = users),
             error: this.error.snack,
         });
     };
+
+    filter() {
+        this.usersDataSource.filter = this.filterInput.value.trim().toLowerCase();
+    }
+
+    clearFilter() {
+        this.filterInput.value = '';
+        this.filter();
+    }
 
     addUser() {
         const dialogRef = this.dialog.open(UserAddDialogComponent, {

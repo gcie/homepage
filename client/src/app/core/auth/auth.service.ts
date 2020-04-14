@@ -34,6 +34,7 @@ export class AuthService {
     }
 
     private setSession(authResult: AuthResult) {
+        console.log('Authentication result:');
         console.log(authResult);
         const expiresAt = moment().add(authResult.expiresIn, 'second');
 
@@ -70,6 +71,7 @@ export class AuthService {
     }
 
     public getUser(): User | null {
+        if (!this.isLoggedIn()) return null;
         return JSON.parse(localStorage.getItem('user') || 'null');
     }
 
