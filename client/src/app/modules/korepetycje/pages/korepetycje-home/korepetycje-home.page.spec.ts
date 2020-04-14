@@ -2,22 +2,22 @@ import { HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HomePageComponent } from './home.page';
+import { KorepetycjeHomePageComponent } from './korepetycje-home.page';
 
-describe('HomePageComponent', () => {
-    let component: HomePageComponent;
-    let fixture: ComponentFixture<HomePageComponent>;
+describe('KorepetycjeHomePageComponent', () => {
+    let component: KorepetycjeHomePageComponent;
+    let fixture: ComponentFixture<KorepetycjeHomePageComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [HomePageComponent],
+            declarations: [KorepetycjeHomePageComponent],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
-            imports: [HttpClientModule, RouterTestingModule]
+            imports: [HttpClientModule, RouterTestingModule],
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(HomePageComponent);
+        fixture = TestBed.createComponent(KorepetycjeHomePageComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService, User, PermissionGroup } from 'src/app/core/auth';
+import { AuthService, User } from 'src/app/core/auth';
 
 @Component({
     selector: 'app-home',

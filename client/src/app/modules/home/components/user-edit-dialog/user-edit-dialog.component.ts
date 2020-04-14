@@ -3,30 +3,31 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PermissionGroup } from 'src/app/core/auth/models/permission-group.enum';
 import { UsersService } from 'src/app/core/services/api/korepetycje';
+import { User } from 'src/app/core/auth';
 
 @Component({
     selector: 'app-user-edit-dialog',
     templateUrl: './user-edit-dialog.component.html',
-    styleUrls: ['./user-edit-dialog.component.scss']
+    styleUrls: ['./user-edit-dialog.component.scss'],
 })
 export class UserEditDialogComponent {
     editForm: FormGroup;
     availablePermissions: string[] = Object.keys(PermissionGroup);
-    userGroup: string;
+    userGroups: PermissionGroup[];
 
     constructor(
         private dialogRef: MatDialogRef<UserEditDialogComponent>,
         private formBuilder: FormBuilder,
         private usersService: UsersService,
-        @Inject(MAT_DIALOG_DATA) public user: any
+        @Inject(MAT_DIALOG_DATA) public user: User
     ) {
         this.editForm = this.formBuilder.group({
             name: [user.name, Validators.required],
             email: [user.email, Validators.email],
             password: [''],
-            group: [user.group, Validators.required]
+            groups: [user.groups, Validators.required],
         });
-        this.userGroup = user.group;
+        this.userGroups = user.groups;
     }
 
     onConfirmClick() {

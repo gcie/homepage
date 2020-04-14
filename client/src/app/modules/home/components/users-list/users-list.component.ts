@@ -10,7 +10,7 @@ import { ErrorsService } from 'src/app/core/services/utils/errors.service';
 @Component({
     selector: 'app-users-list',
     templateUrl: './users-list.component.html',
-    styleUrls: ['./users-list.component.scss']
+    styleUrls: ['./users-list.component.scss'],
 })
 export class UsersListComponent implements OnInit {
     users: User[] = [];
@@ -25,39 +25,33 @@ export class UsersListComponent implements OnInit {
     private refreshUsersList = () => {
         this.usersService.getUsers().subscribe({
             next: (users: User[]) => (this.users = users),
-            error: this.error.snack
+            error: this.error.snack,
         });
     };
 
     addUser() {
         const dialogRef = this.dialog.open(UserAddDialogComponent, {
-            width: '500px'
+            width: '500px',
         });
 
-        dialogRef
-            .afterClosed()
-            .toPromise()
-            .then(this.refreshUsersList);
+        dialogRef.afterClosed().toPromise().then(this.refreshUsersList);
     }
 
     editUser(user: User) {
         const dialogRef = this.dialog.open(UserEditDialogComponent, {
             width: '500px',
-            data: user
+            data: user,
         });
 
-        dialogRef
-            .afterClosed()
-            .toPromise()
-            .then(this.refreshUsersList);
+        dialogRef.afterClosed().toPromise().then(this.refreshUsersList);
     }
 
     deleteUser(user: User) {
         const dialogRef = this.dialog.open(ConfirmDialogComponent, {
             width: '300px',
             data: {
-                message: `Czy na pewno chcesz usunąć użytkownika ${user.name}?`
-            }
+                message: `Czy na pewno chcesz usunąć użytkownika ${user.name}?`,
+            },
         });
 
         dialogRef

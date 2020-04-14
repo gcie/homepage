@@ -1,6 +1,8 @@
 <mat-toolbar color="primary" fxLayout="row" fxLayoutGap="24px" fxLayoutAlign="start center" role="header">
     <!-- <div fxFlex="none">GC</div> -->
     <div fxFlex></div>
+    <button *appAuthAdmin mat-button class="bt-large" fxFlex="none" (click)="redirect('users')">Zarządzanie
+        użytkownikami</button>
     <button mat-button class="bt-large" fxFlex="none">Kurs Python</button>
     <button mat-button class="bt-large" fxFlex="none" (click)="redirect('korepetycje')">Korepetycje</button>
     <button mat-button class="bt-large" fxFlex="none">Salka</button>

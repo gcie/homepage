@@ -5,7 +5,7 @@ import { AuthService } from 'src/app/core/auth';
 @Component({
     selector: 'app-sidenav-menu',
     templateUrl: './sidenav-menu.component.html',
-    styleUrls: ['./sidenav-menu.component.scss']
+    styleUrls: ['./sidenav-menu.component.scss'],
 })
 export class SidenavMenuComponent {
     username: string;
@@ -19,7 +19,7 @@ export class SidenavMenuComponent {
     }
 
     usersRedirect() {
-        this.router.navigate(['/korepetycje/users']);
+        this.router.navigate(['/users']);
     }
 
     logout() {

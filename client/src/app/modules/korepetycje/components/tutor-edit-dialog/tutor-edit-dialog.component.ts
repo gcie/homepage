@@ -1,20 +1,19 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { UserEditDialogComponent } from '..';
 import { TutorsService } from 'src/app/core/services/api/korepetycje';
 import { Tutor } from 'src/app/shared/models';
 
 @Component({
     selector: 'app-tutor-edit-dialog',
     templateUrl: './tutor-edit-dialog.component.html',
-    styleUrls: ['./tutor-edit-dialog.component.scss']
+    styleUrls: ['./tutor-edit-dialog.component.scss'],
 })
 export class TutorEditDialogComponent {
     editForm: FormGroup;
 
     constructor(
-        private dialogRef: MatDialogRef<UserEditDialogComponent>,
+        private dialogRef: MatDialogRef<TutorEditDialogComponent>,
         private formBuilder: FormBuilder,
         private tutorsService: TutorsService,
         @Inject(MAT_DIALOG_DATA) public tutor: Tutor
@@ -24,7 +23,7 @@ export class TutorEditDialogComponent {
             email: [tutor.email, Validators.email],
             phone: [tutor.phone, Validators.pattern('[0-9]*')],
             teaches: tutor.teaches,
-            notes: tutor.notes
+            notes: tutor.notes,
         });
     }
 
