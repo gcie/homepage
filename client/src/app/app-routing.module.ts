@@ -9,6 +9,10 @@ const routes: Routes = [
         loadChildren: () => import('src/app/modules/korepetycje/korepetycje.module').then((m) => m.KorepetycjeModule),
         canActivate: [KorepetycjeUserGuard],
     },
+    {
+        path: 'python',
+        loadChildren: () => import('src/app/modules/python-course/python-course.module').then((m) => m.PythonCourseModule),
+    },
 ];
 
 @NgModule({

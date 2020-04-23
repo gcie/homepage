@@ -27,6 +27,14 @@ body {
     margin: 0;
 }
 
+a {
+    color: mat-color(map-get($green-theme, accent));
+}
+
+a:visited {
+    color: mat-color(map-get($green-theme, accent), darker);
+}
+
 mat-sidenav-container {
     position: absolute;
     top: 0;
@@ -34,12 +42,25 @@ mat-sidenav-container {
     left: 0;
     right: 0;   
 }
-
+pre {
+    background-color: mat-color(map-get($green-theme, background), lighter);
+}
+code {
+    font-size: 16px;
+}
 .spacer {
     min-width: 10px;
     flex: 1 1 auto;
 }
-
+.bt-large {
+    font-size: 22px;
+    font-weight: 500;
+    // letter-spacing: 0.05em;
+}
+.bt-medium {
+    font-size: 18px;
+    // letter-spacing: 0.05em;
+}
 .form-container {
     display: flex;
     flex-direction: column;
