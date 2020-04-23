@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { TutorsService } from 'src/app/core/services/api/korepetycje';
+import { TutorsService } from 'src/app/core/services';
 import { Tutor } from 'src/app/shared/models';
 
 @Component({
     selector: 'app-tutor-detailed-view',
     templateUrl: './tutor-detailed-view.component.html',
-    styleUrls: ['./tutor-detailed-view.component.scss']
+    styleUrls: ['./tutor-detailed-view.component.scss'],
 })
 export class TutorDetailedViewComponent {
     @Input() tutor: Tutor;

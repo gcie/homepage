@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { PupilsService, TutorsService } from 'src/app/core/services/api/korepetycje';
+import { PupilsService, TutorsService } from 'src/app/core/services';
 import { Pupil, Tutor } from 'src/app/shared/models';
 
 @Component({
     selector: 'app-pupil-detailed-view',
     templateUrl: './pupil-detailed-view.component.html',
-    styleUrls: ['./pupil-detailed-view.component.scss']
+    styleUrls: ['./pupil-detailed-view.component.scss'],
 })
 export class PupilDetailedViewComponent implements OnInit {
     $pupil: BehaviorSubject<Pupil> = new BehaviorSubject(new Pupil());

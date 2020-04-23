@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { PupilsService } from 'src/app/core/services/api/korepetycje';
+import { PupilsService } from 'src/app/core/services';
 
 @Component({
     selector: 'app-pupil-add-dialog',
     templateUrl: './pupil-add-dialog.component.html',
-    styleUrls: ['./pupil-add-dialog.component.scss']
+    styleUrls: ['./pupil-add-dialog.component.scss'],
 })
 export class PupilAddDialogComponent {
     pupilForm: FormGroup;
@@ -22,7 +22,7 @@ export class PupilAddDialogComponent {
             phone: ['', Validators.pattern('[0-9]*')],
             class: '',
             needs: '',
-            notes: ''
+            notes: '',
         });
     }
 

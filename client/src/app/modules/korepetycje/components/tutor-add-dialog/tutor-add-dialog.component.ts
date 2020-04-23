@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { TutorsService } from 'src/app/core/services/api/korepetycje';
+import { TutorsService } from 'src/app/core/services';
 
 @Component({
     selector: 'app-tutor-add-dialog',
     templateUrl: './tutor-add-dialog.component.html',
-    styleUrls: ['./tutor-add-dialog.component.scss']
+    styleUrls: ['./tutor-add-dialog.component.scss'],
 })
 export class TutorAddDialogComponent {
     tutorForm: FormGroup;
@@ -21,7 +21,7 @@ export class TutorAddDialogComponent {
             email: ['', Validators.email],
             phone: ['', Validators.pattern('[0-9]*')],
             teaches: '',
-            notes: ''
+            notes: '',
         });
     }
 

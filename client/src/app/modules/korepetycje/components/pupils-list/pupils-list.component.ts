@@ -3,17 +3,16 @@ import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, EMPTY, fromEvent } from 'rxjs';
 import { flatMap, map } from 'rxjs/operators';
 import { AuthService, PermissionGroup } from 'src/app/core/auth';
-import { PupilsService, TutorsService } from 'src/app/core/services/api/korepetycje';
+import { ErrorsService, PupilsService, TutorsService } from 'src/app/core/services';
 import { ConfirmDialogComponent } from 'src/app/shared/components';
 import { Pupil } from 'src/app/shared/models';
 import { PupilAddDialogComponent } from '../pupil-add-dialog/pupil-add-dialog.component';
 import { PupilEditDialogComponent } from '../pupil-edit-dialog/pupil-edit-dialog.component';
-import { ErrorsService } from 'src/app/core/services/utils/errors.service';
 
 @Component({
     selector: 'app-pupils-list',
     templateUrl: './pupils-list.component.html',
-    styleUrls: ['./pupils-list.component.scss']
+    styleUrls: ['./pupils-list.component.scss'],
 })
 export class PupilsListComponent implements OnInit {
     @Output() pupilClicked = new EventEmitter<Pupil>();
@@ -50,13 +49,13 @@ export class PupilsListComponent implements OnInit {
             error: (err) => {
                 console.log(err);
                 this.error.snack(err.error.message);
-            }
+            },
         });
     }
 
     addPupilDialog() {
         const addPupilDialogRef = this.dialog.open(PupilAddDialogComponent, {
-            width: '700px'
+            width: '700px',
         });
 
         addPupilDialogRef.afterClosed().subscribe(this.refreshPupilsList.bind(this));
@@ -65,7 +64,7 @@ export class PupilsListComponent implements OnInit {
     editPupil(pupil: Pupil) {
         const dialogRef = this.dialog.open(PupilEditDialogComponent, {
             width: '700px',
-            data: pupil
+            data: pupil,
         });
 
         dialogRef.afterClosed().subscribe(this.refreshPupilsList.bind(this));
@@ -75,8 +74,8 @@ export class PupilsListComponent implements OnInit {
         const dialogRef = this.dialog.open(ConfirmDialogComponent, {
             width: '300px',
             data: {
-                message: `Czy na pewno chcesz usunąć ucznia ${pupil.name}?`
-            }
+                message: `Czy na pewno chcesz usunąć ucznia ${pupil.name}?`,
+            },
         });
 
         dialogRef

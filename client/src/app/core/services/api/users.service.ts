@@ -4,10 +4,10 @@ import { Observable } from 'rxjs';
 import { User } from 'src/app/core/auth';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class UsersService {
-    private usersUrl = '/api/korepetycje/users';
+    private usersUrl = '/api/users';
 
     constructor(private http: HttpClient) {}
 

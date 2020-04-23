@@ -1,14 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatInput } from '@angular/material/input';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { User } from 'src/app/core/auth/models/user';
-import { UsersService } from 'src/app/core/services/api/korepetycje';
-import { ErrorsService } from 'src/app/core/services/utils/errors.service';
+import { ErrorsService, UsersService } from 'src/app/core/services';
 import { ConfirmDialogComponent } from 'src/app/shared/components';
 import { UserAddDialogComponent } from '../user-add-dialog/user-add-dialog.component';
 import { UserEditDialogComponent } from '../user-edit-dialog/user-edit-dialog.component';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatInput } from '@angular/material/input';
 
 @Component({
     selector: 'app-users-list',
