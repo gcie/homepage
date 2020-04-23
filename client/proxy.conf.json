@@ -5,7 +5,7 @@
       "logLevel": "debug",
       "changeOrigin": true
     },
-    "/login": {
+    "/auth/*": {
       "target": "http://localhost:8050",
       "secure": false,
       "logLevel": "debug",

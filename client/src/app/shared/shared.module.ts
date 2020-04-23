@@ -7,6 +7,7 @@ import { EditableListItemComponent } from './components/editable-list-item/edita
 import { SelectableListItemComponent } from './components/selectable-list-item/selectable-list-item.component';
 import { AuthAdminDirective } from './directives/auth-admin.directive';
 import { AuthKorepetycjeManagerDirective } from './directives/auth-korepetycje-manager.directive';
+import { AuthDirective } from './directives/auth.directive';
 import { ShortenPipe } from './pipes/shorten.pipe';
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ShortenPipe } from './pipes/shorten.pipe';
         EditableListItemComponent,
         SelectableListItemComponent,
         AuthAdminDirective,
-        AuthKorepetycjeManagerDirective
+        AuthKorepetycjeManagerDirective,
+        AuthDirective,
     ],
     imports: [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule],
     exports: [
@@ -25,8 +27,9 @@ import { ShortenPipe } from './pipes/shorten.pipe';
         EditableListItemComponent,
         SelectableListItemComponent,
         AuthAdminDirective,
-        AuthKorepetycjeManagerDirective
+        AuthKorepetycjeManagerDirective,
+        AuthDirective,
     ],
-    entryComponents: [ConfirmDialogComponent]
+    entryComponents: [ConfirmDialogComponent],
 })
 export class SharedModule {}

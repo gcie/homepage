@@ -26,7 +26,7 @@ mongoose
         useNewUrlParser: true,
         useCreateIndex: true,
         useUnifiedTopology: true,
-        useFindAndModify: false
+        useFindAndModify: false,
     })
     .then(() => {
         /** ready to use. The `mongoose.connect()` promise resolves to undefined. */
@@ -55,7 +55,7 @@ app.use('/api/korepetycje/users', isAdmin, users);
 /**
  * Authentication routes
  */
-app.use('/', auth);
+app.use('/auth', auth);
 
 /**
  * Angular app host.

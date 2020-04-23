@@ -25,8 +25,13 @@ export class AuthService {
         return url;
     }
 
+    public loginRedirect(returnUrl: string) {
+        this.redirectUrl = returnUrl;
+        this.router.navigateByUrl('/login');
+    }
+
     public login(credentials: UserLoginData) {
-        return this.http.post<AuthResult>('/login', credentials).pipe(map(this.setSession));
+        return this.http.post<AuthResult>('/auth/login', credentials).pipe(map(this.setSession));
     }
 
     public register(credentails: UserRegisterData) {
