@@ -27,7 +27,7 @@ export interface AuthToken {
 
 const userSchema = new Schema(
     {
-        email: { type: String, unique: true },
+        email: { type: String, unique: true, required: true },
         password: String,
         passwordResetToken: String,
         passwordResetExpires: Date,
@@ -38,7 +38,7 @@ const userSchema = new Schema(
         tokens: Array,
 
         name: String,
-        groups: Array
+        groups: Array,
     },
     { timestamps: true }
 );
@@ -65,7 +65,7 @@ userSchema.pre('save', function save(next) {
     });
 });
 
-const comparePassword: comparePasswordFunction = function(candidatePassword, cb) {
+const comparePassword: comparePasswordFunction = function (candidatePassword, cb) {
     bcrypt.compare(candidatePassword, this.password, (err: Error, isMatch: boolean) => {
         cb(err, isMatch);
     });
@@ -76,14 +76,11 @@ userSchema.methods.comparePassword = comparePassword;
 /**
  * Helper method for getting user's gravatar.
  */
-userSchema.methods.gravatar = function(size: number = 200) {
+userSchema.methods.gravatar = function (size: number = 200) {
     if (!this.email) {
         return `https://gravatar.com/avatar/?s=${size}&d=retro`;
     }
-    const md5 = crypto
-        .createHash('md5')
-        .update(this.email)
-        .digest('hex');
+    const md5 = crypto.createHash('md5').update(this.email).digest('hex');
     return `https://gravatar.com/avatar/${md5}?s=${size}&d=retro`;
 };
 

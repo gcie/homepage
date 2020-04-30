@@ -28,7 +28,7 @@ const pupilSchema = new Schema(
         parentPhone: String,
         lessonsStatus: String,
         assignedTutorId: Types.ObjectId,
-        assignedTutorName: String
+        assignedTutorName: String,
     },
     { timestamps: true }
 );

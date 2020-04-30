@@ -20,7 +20,7 @@ const tutorSchema = new Schema(
         notes: String,
         lessonsStatus: String,
         assignedPupilId: Types.ObjectId,
-        assignedPupilName: String
+        assignedPupilName: String,
     },
     { timestamps: true }
 );

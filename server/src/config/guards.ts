@@ -1,4 +1,4 @@
-import { NextFunction, Response, Request } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { isAuthenticated } from './passport';
 
 export const isAdmin = [

@@ -16,12 +16,8 @@ tutors.get('/', (req: Request, res: Response, next: NextFunction) => {
 });
 
 tutors.post('/', isKorepetycjeManager, async (req: Request, res: Response, next: NextFunction) => {
-    await check('email', 'Email is not valid')
-        .isEmail()
-        .run(req);
-    await check('name', 'Name cannot be blank')
-        .isLength({ min: 1 })
-        .run(req);
+    await check('email', 'Email is not valid').isEmail().run(req);
+    await check('name', 'Name cannot be blank').isLength({ min: 1 }).run(req);
 
     const tutor = req.body;
     delete tutor._id;

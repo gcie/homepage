@@ -13,16 +13,10 @@ export const auth = Router();
  * Sign in using email and password.
  */
 auth.post('/login', async (req: Request, res: Response) => {
-    await check('email', 'Niepoprawny adres email')
-        .isEmail()
-        .run(req);
-    await check('password', 'Hało nie może być puste')
-        .isLength({ min: 1 })
-        .run(req);
+    await check('email', 'Niepoprawny adres email').isEmail().run(req);
+    await check('password', 'Hało nie może być puste').isLength({ min: 1 }).run(req);
     // eslint-disable-next-line @typescript-eslint/camelcase
-    await body('email')
-        .normalizeEmail({ gmail_remove_dots: false })
-        .run(req);
+    await body('email').normalizeEmail({ gmail_remove_dots: false }).run(req);
     logger.debug(req.body);
 
     const errors = validationResult(req);
@@ -42,7 +36,7 @@ auth.post('/login', async (req: Request, res: Response) => {
             if (!isMatch) return res.status(400).json({ message: 'Niepoprawne hasło / adres email' });
             const payload = {
                 id: user._id,
-                email: user.email
+                email: user.email,
             };
             sign(payload, JWT_SECRET, { expiresIn: 36000 }, (err, token) => {
                 if (err) return res.status(500).json({ message: 'Server error', raw: err });
@@ -51,11 +45,11 @@ auth.post('/login', async (req: Request, res: Response) => {
                         _id: user._id,
                         name: user.name,
                         email: user.email,
-                        groups: user.groups
+                        groups: user.groups,
                     },
                     success: true,
                     token: `Bearer ${token}`,
-                    expiresIn: 36000
+                    expiresIn: 36000,
                 });
             });
         });

@@ -11,13 +11,9 @@ users.get('/', async (req: Request, res: Response, next: NextFunction) => {
 });
 
 users.post('/', async (req: Request, res: Response, next: NextFunction) => {
-    await check('email', 'Email is not valid')
-        .isEmail()
-        .run(req);
+    await check('email', 'Email is not valid').isEmail().run(req);
 
-    await check('password', 'Password cannot be blank')
-        .isLength({ min: 1 })
-        .run(req);
+    await check('password', 'Password cannot be blank').isLength({ min: 1 }).run(req);
 
     const userDoc = req.body;
     delete userDoc._id;

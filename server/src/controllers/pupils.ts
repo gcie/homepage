@@ -15,12 +15,8 @@ pupils.get('/', (req: Request, res: Response, next: NextFunction) => {
 
 pupils.post('/', isKorepetycjeManager, async (req: Request, res: Response, next: NextFunction) => {
     try {
-        await check('email', 'Email is not valid')
-            .isEmail()
-            .run(req);
-        await check('name', 'Name cannot be blank')
-            .isLength({ min: 1 })
-            .run(req);
+        await check('email', 'Email is not valid').isEmail().run(req);
+        await check('name', 'Name cannot be blank').isLength({ min: 1 }).run(req);
 
         const pupil = req.body;
         delete pupil._id;
@@ -54,9 +50,7 @@ pupils.get('/:id', (req: Request, res: Response, next: NextFunction) => {
 
 pupils.put('/:id', isKorepetycjeManager, async (req: Request, res: Response, next: NextFunction) => {
     try {
-        await check('name', 'Name cannot be blank')
-            .isLength({ min: 1 })
-            .run(req);
+        await check('name', 'Name cannot be blank').isLength({ min: 1 }).run(req);
 
         const pupilDoc = req.body;
         delete pupilDoc._id;
