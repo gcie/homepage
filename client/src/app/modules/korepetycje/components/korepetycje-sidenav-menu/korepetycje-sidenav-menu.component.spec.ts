@@ -2,22 +2,22 @@ import { HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SidenavMenuComponent } from './sidenav-menu.component';
+import { KorepetycjeSidenavMenuComponent } from './korepetycje-sidenav-menu.component';
 
-describe('SidenavContentComponent', () => {
-    let component: SidenavMenuComponent;
-    let fixture: ComponentFixture<SidenavMenuComponent>;
+describe('KorepetycjeSidenavContentComponent', () => {
+    let component: KorepetycjeSidenavMenuComponent;
+    let fixture: ComponentFixture<KorepetycjeSidenavMenuComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [SidenavMenuComponent],
+            declarations: [KorepetycjeSidenavMenuComponent],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
-            imports: [HttpClientModule, RouterTestingModule]
+            imports: [HttpClientModule, RouterTestingModule],
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(SidenavMenuComponent);
+        fixture = TestBed.createComponent(KorepetycjeSidenavMenuComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

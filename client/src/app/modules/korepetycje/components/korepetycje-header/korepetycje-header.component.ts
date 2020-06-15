@@ -3,11 +3,11 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { AuthService } from 'src/app/core/auth';
 
 @Component({
-    selector: 'app-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss']
+    selector: 'app-korepetycje-header',
+    templateUrl: './korepetycje-header.component.html',
+    styleUrls: ['./korepetycje-header.component.scss'],
 })
-export class HeaderComponent {
+export class KorepetycjeHeaderComponent {
     @Input() sidenav: MatSidenav;
     loggedIn: boolean;
 

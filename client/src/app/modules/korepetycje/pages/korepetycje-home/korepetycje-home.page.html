@@ -1,8 +1,8 @@
 <mat-sidenav-container>
     <mat-sidenav #sidenav>
-        <app-sidenav-menu></app-sidenav-menu>
+        <app-korepetycje-sidenav-menu></app-korepetycje-sidenav-menu>
     </mat-sidenav>
-    <app-header [sidenav]="sidenav"></app-header>
+    <app-korepetycje-header [sidenav]="sidenav"></app-korepetycje-header>
     <div class="app-content" fxLayout="column" fxLayoutGap="10px">
         <app-pupils-list #pupilsList (pupilClicked)="showPupilDetails($event)"></app-pupils-list>
         <app-tutors-list #tutorsList (tutorClicked)="showTutorDetails($event)"></app-tutors-list>
