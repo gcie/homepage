@@ -5,7 +5,7 @@ import { flatMap, map } from 'rxjs/operators';
 import { AuthService, PermissionGroup } from 'src/app/core/auth';
 import { ErrorsService, PupilsService, TutorsService } from 'src/app/core/services';
 import { ConfirmDialogComponent } from 'src/app/shared/components';
-import { Pupil } from 'src/app/shared/models';
+import { Pupil } from 'src/app/core/models';
 import { PupilAddDialogComponent } from '../pupil-add-dialog/pupil-add-dialog.component';
 import { PupilEditDialogComponent } from '../pupil-edit-dialog/pupil-edit-dialog.component';
 

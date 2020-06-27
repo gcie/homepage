@@ -5,7 +5,7 @@ import { flatMap, map } from 'rxjs/operators';
 import { AuthService, PermissionGroup } from 'src/app/core/auth';
 import { ErrorsService, TutorsService } from 'src/app/core/services';
 import { ConfirmDialogComponent } from 'src/app/shared/components';
-import { Tutor } from 'src/app/shared/models';
+import { Tutor } from 'src/app/core/models';
 import { TutorAddDialogComponent } from '../tutor-add-dialog/tutor-add-dialog.component';
 import { TutorEditDialogComponent } from '../tutor-edit-dialog/tutor-edit-dialog.component';
 

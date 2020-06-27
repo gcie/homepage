@@ -13,6 +13,8 @@ import { users } from './controllers/users';
 import logger from './util/logger';
 import { ENVIRONMENT, MONGODB_URI, PORT } from './util/secrets';
 import { isKorepetycjeUser, isAdmin } from './config/guards';
+import { isAuthenticated } from './config/passport';
+import { jdoodle } from './controllers/jdoodle';
 
 // Create Express server
 const app = express();
@@ -51,6 +53,7 @@ app.use(lusca.xssProtection(true));
 app.use('/api/korepetycje/pupils', isKorepetycjeUser, pupils);
 app.use('/api/korepetycje/tutors', isKorepetycjeUser, tutors);
 app.use('/api/users', isAdmin, users);
+app.use('/api/jdoodle', isAuthenticated, jdoodle);
 
 /**
  * Authentication routes

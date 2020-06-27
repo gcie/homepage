@@ -29,3 +29,6 @@ if (!MONGODB_URI) {
     }
     process.exit(1);
 }
+
+export const JDOODLE_CLIENT_ID = process.env.JDOODLE_CLIENT_ID;
+export const JDOODLE_CLIENT_SECRET = process.env.JDOODLE_CLIENT_SECRET;

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { PupilsService, TutorsService } from 'src/app/core/services';
-import { Pupil, Tutor } from 'src/app/shared/models';
+import { Pupil, Tutor } from 'src/app/core/models';
 
 @Component({
     selector: 'app-pupil-detailed-view',

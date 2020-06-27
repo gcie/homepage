@@ -22,6 +22,7 @@ module.exports = {
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
         'plugin:prettier/recommended',
     ],
+    'excluded-files': '*.spec.ts',
     parser: '@typescript-eslint/parser',
     parserOptions: {
         project: 'tsconfig.json',

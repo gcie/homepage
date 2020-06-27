@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Tutor } from 'src/app/shared/models';
+import { Tutor } from 'src/app/core/models';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class TutorsService {
     private tutorsUrl = '/api/korepetycje/tutors';

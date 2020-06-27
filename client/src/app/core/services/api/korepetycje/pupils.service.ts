@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Pupil } from 'src/app/shared/models';
+import { Pupil } from 'src/app/core/models';
 import { Observable } from 'rxjs';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class PupilsService {
     private pupilsUrl = '/api/korepetycje/pupils';
