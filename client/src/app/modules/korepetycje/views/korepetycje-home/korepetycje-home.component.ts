@@ -4,15 +4,15 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/auth';
 import { Pupil, Tutor } from 'src/app/core/models';
-import { TutorsListComponent } from '../../components/tutors-list/tutors-list.component';
 import { PupilsListComponent } from '../../components/pupils-list/pupils-list.component';
+import { TutorsListComponent } from '../../components/tutors-list/tutors-list.component';
 
 @Component({
-    selector: 'app-korepetycje-home-page',
-    templateUrl: './korepetycje-home.page.html',
-    styleUrls: ['./korepetycje-home.page.scss'],
+    selector: 'app-korepetycje-home',
+    templateUrl: './korepetycje-home.component.html',
+    styleUrls: ['./korepetycje-home.component.scss'],
 })
-export class KorepetycjeHomePageComponent {
+export class KorepetycjeHomeComponent {
     @ViewChild('detailsSidenav') detailsSidenav: MatSidenav;
     @ViewChild('tutorsList') tutorsList: TutorsListComponent;
     @ViewChild('pupilsList') pupilsList: PupilsListComponent;

@@ -5,15 +5,15 @@ import { PupilAddDialogComponent } from './components/pupil-add-dialog/pupil-add
 import { PupilEditDialogComponent } from './components/pupil-edit-dialog/pupil-edit-dialog.component';
 import { TutorAddDialogComponent } from './components/tutor-add-dialog/tutor-add-dialog.component';
 import { TutorEditDialogComponent } from './components/tutor-edit-dialog/tutor-edit-dialog.component';
-import { KorepetycjeHomePageComponent } from './pages/korepetycje-home/korepetycje-home.page';
+import { KorepetycjeHomeComponent } from './views/korepetycje-home/korepetycje-home.component';
 
-const routes: Routes = [{ path: '', component: KorepetycjeHomePageComponent, canActivate: [KorepetycjeUserGuard] }];
+const routes: Routes = [{ path: '', component: KorepetycjeHomeComponent, canActivate: [KorepetycjeUserGuard] }];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
     entryComponents: [
-        KorepetycjeHomePageComponent,
+        KorepetycjeHomeComponent,
         PupilAddDialogComponent,
         PupilEditDialogComponent,
         TutorAddDialogComponent,

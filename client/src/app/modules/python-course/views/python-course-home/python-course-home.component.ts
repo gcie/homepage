@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-python-course-home',
-    templateUrl: './python-course-home.page.html',
-    styleUrls: ['./python-course-home.page.scss'],
+    templateUrl: './python-course-home.component.html',
+    styleUrls: ['./python-course-home.component.scss'],
 })
 export class PythonCourseHomeComponent {
     sidenav;

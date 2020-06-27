@@ -3,11 +3,11 @@ import { AuthService, User } from 'src/app/core/auth';
 import { HeaderComponent } from 'src/app/shared/components/header/header.component';
 
 @Component({
-    selector: 'app-home',
-    templateUrl: './home.page.html',
-    styleUrls: ['./home.page.scss'],
+    selector: 'app-home-view',
+    templateUrl: './home-view.component.html',
+    styleUrls: ['./home-view.component.scss'],
 })
-export class HomePageComponent implements OnInit, OnDestroy {
+export class HomeViewComponent implements OnInit, OnDestroy {
     user: User;
     loggedIn: boolean;
 

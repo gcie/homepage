@@ -1,21 +1,20 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { UsersPageComponent } from './users.page';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { UsersViewComponent } from './users-view.component';
 
 describe('UsersPageComponent', () => {
-    let component: UsersPageComponent;
-    let fixture: ComponentFixture<UsersPageComponent>;
+    let component: UsersViewComponent;
+    let fixture: ComponentFixture<UsersViewComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [UsersPageComponent],
-            schemas: [CUSTOM_ELEMENTS_SCHEMA]
+            declarations: [UsersViewComponent],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA],
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(UsersPageComponent);
+        fixture = TestBed.createComponent(UsersViewComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

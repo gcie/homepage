@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PythonCourseHomeComponent } from './pages/python-course-home/python-course-home.page';
+import { PythonCourseHomeComponent } from './views/python-course-home/python-course-home.component';
 
 const routes: Routes = [{ path: '', component: PythonCourseHomeComponent }];
 

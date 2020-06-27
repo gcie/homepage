@@ -5,11 +5,11 @@ import { AuthService } from 'src/app/core/auth';
 import { UserLoginData } from 'src/app/core/auth/models/user';
 
 @Component({
-    selector: 'app-login-page',
-    templateUrl: './login.page.html',
-    styleUrls: ['./login.page.scss'],
+    selector: 'app-login-view',
+    templateUrl: './login-view.component.html',
+    styleUrls: ['./login-view.component.scss'],
 })
-export class LoginPageComponent {
+export class LoginViewComponent {
     loginForm: FormGroup;
     errorMessage: string;
 

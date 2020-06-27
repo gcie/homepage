@@ -1,23 +1,24 @@
 import { HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { KorepetycjeHomePageComponent } from './korepetycje-home.page';
+import { LoginViewComponent } from './login-view.component';
 
-describe('KorepetycjeHomePageComponent', () => {
-    let component: KorepetycjeHomePageComponent;
-    let fixture: ComponentFixture<KorepetycjeHomePageComponent>;
+describe('LoginPageComponent', () => {
+    let component: LoginViewComponent;
+    let fixture: ComponentFixture<LoginViewComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [KorepetycjeHomePageComponent],
+            declarations: [LoginViewComponent],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
-            imports: [HttpClientModule, RouterTestingModule],
+            imports: [ReactiveFormsModule, HttpClientModule, RouterTestingModule],
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(KorepetycjeHomePageComponent);
+        fixture = TestBed.createComponent(LoginViewComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

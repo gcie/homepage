@@ -8,15 +8,15 @@ import { UserAddDialogComponent } from './components/user-add-dialog/user-add-di
 import { UserEditDialogComponent } from './components/user-edit-dialog/user-edit-dialog.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
 import { HomeRoutingModule } from './home-routing.module';
-import { HomePageComponent } from './pages/home/home.page';
-import { LoginPageComponent } from './pages/login/login.page';
-import { UsersPageComponent } from './pages/users/users.page';
+import { HomeViewComponent } from './views/home-view/home-view.component';
+import { LoginViewComponent } from './views/login-view/login-view.component';
+import { UsersViewComponent } from './views/users-view/users-view.component';
 
 @NgModule({
     declarations: [
-        HomePageComponent,
-        LoginPageComponent,
-        UsersPageComponent,
+        HomeViewComponent,
+        LoginViewComponent,
+        UsersViewComponent,
         UserAddDialogComponent,
         UserEditDialogComponent,
         UsersListComponent,
