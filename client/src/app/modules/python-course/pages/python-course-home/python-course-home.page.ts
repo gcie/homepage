@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/core/auth';
 
 @Component({
     selector: 'app-python-course-home',
@@ -8,5 +6,13 @@ import { AuthService } from 'src/app/core/auth';
     styleUrls: ['./python-course-home.page.scss'],
 })
 export class PythonCourseHomeComponent {
+    sidenav;
+
     DECLARATION_EXAMPLE_1 = `<identyfikator> = <wartość>`;
+    source: string = `
+def f(x):
+    return x * x
+    `.trim();
+
+    constructor() {}
 }

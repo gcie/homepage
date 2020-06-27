@@ -8,10 +8,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
+import { HomeModule } from './modules/home/home.module';
 import { KorepetycjeModule } from './modules/korepetycje/korepetycje.module';
 import { MaterialModule } from './modules/material/material.module';
 import { SharedModule } from './shared/shared.module';
-import { HomeModule } from './modules/home/home.module';
 
 @NgModule({
     declarations: [AppComponent],

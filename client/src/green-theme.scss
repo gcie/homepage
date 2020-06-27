@@ -1,7 +1,15 @@
 @import '~@angular/material/theming';
 
-$green-theme-primary: mat-palette($mat-teal, 800);
-$green-theme-secondary: mat-palette($mat-amber, 300);
+$green-theme-primary: mat-palette($mat-teal, 800, 600, 900);
+$green-theme-secondary: mat-palette($mat-amber, 500);
 $green-theme-warn: mat-palette($mat-red);
 
-$green-theme: mat-dark-theme($green-theme-primary, $green-theme-secondary, $green-theme-warn);
+$green-theme: mat-light-theme($green-theme-primary, $green-theme-secondary, $green-theme-warn);
+
+$primary: mat-color(map-get($green-theme, primary));
+$primary-light: mat-color(map-get($green-theme, primary), lighter);
+$primary-dark: mat-color(map-get($green-theme, primary), darker);
+
+$accent: mat-color(map-get($green-theme, accent));
+$accent-light: mat-color(map-get($green-theme, accent), lighter);
+$accent-dark: mat-color(map-get($green-theme, accent), darker);

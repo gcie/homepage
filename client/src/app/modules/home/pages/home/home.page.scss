@@ -22,5 +22,21 @@
 }
 
 .primary {
-    color: mat-color(map-get($green-theme, accent));
+    color: $primary
+}
+
+.accent {
+    color: $accent
+}
+
+.bg-primary {
+    background-color: $primary;
+}
+.bg-accent {
+    background-color: $accent;
+}
+
+.bg-gradient {
+    // background-color: $primary-dark;
+    background-image: radial-gradient($primary-light, $primary, $primary);
 }

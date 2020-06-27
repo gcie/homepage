@@ -1,9 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { User } from 'src/app/core/auth';
 import { PermissionGroup } from 'src/app/core/auth/models/permission-group.enum';
 import { UsersService } from 'src/app/core/services';
-import { User } from 'src/app/core/auth';
 
 @Component({
     selector: 'app-user-edit-dialog',
@@ -14,6 +14,7 @@ export class UserEditDialogComponent {
     editForm: FormGroup;
     availablePermissions: string[] = Object.keys(PermissionGroup);
     userGroups: PermissionGroup[];
+    groupsString: string;
 
     constructor(
         private dialogRef: MatDialogRef<UserEditDialogComponent>,
@@ -28,6 +29,9 @@ export class UserEditDialogComponent {
             groups: [user.groups, Validators.required],
         });
         this.userGroups = user.groups;
+        this.groupsString = this.userGroups.join(', ');
+        // this.groupsString = this.userGroups.reduce((g1, g2) => `${g1}, ${g2}`);
+        // this.groupsString = this.userGroups.toString();
     }
 
     onConfirmClick() {

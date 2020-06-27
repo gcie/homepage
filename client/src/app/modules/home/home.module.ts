@@ -4,7 +4,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MaterialModule } from '../material/material.module';
-import { HeaderComponent } from './components/header/header.component';
 import { UserAddDialogComponent } from './components/user-add-dialog/user-add-dialog.component';
 import { UserEditDialogComponent } from './components/user-edit-dialog/user-edit-dialog.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
@@ -18,7 +17,6 @@ import { UsersPageComponent } from './pages/users/users.page';
         HomePageComponent,
         LoginPageComponent,
         UsersPageComponent,
-        HeaderComponent,
         UserAddDialogComponent,
         UserEditDialogComponent,
         UsersListComponent,

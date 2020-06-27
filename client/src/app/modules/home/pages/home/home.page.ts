@@ -1,14 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AuthService, User } from 'src/app/core/auth';
+import { HeaderComponent } from 'src/app/shared/components/header/header.component';
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.page.html',
     styleUrls: ['./home.page.scss'],
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent implements OnInit, OnDestroy {
     user: User;
     loggedIn: boolean;
+
+    @ViewChild('header') header: HeaderComponent;
 
     constructor(private authService: AuthService) {
         const user = this.authService.getUser();
@@ -17,9 +20,28 @@ export class HomePageComponent implements OnInit {
         console.log(user);
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        window.addEventListener('scroll', this.scrollHandler, true);
+    }
+
+    ngOnDestroy(): void {
+        window.removeEventListener('scroll', this.scrollHandler, true);
+    }
 
     logout() {
         this.authService.logout();
     }
+
+    scrollHandler = (event: Event) => {
+        const trg: any = event.target;
+        console.log(trg.scrollTop);
+        if (trg.scrollTop === 0) {
+            this.header.colorMode = 'open';
+            // this.header.changeColorScheme(false);
+        } else {
+            this.header.colorMode = 'closed';
+            // this.header.changeColorScheme(true);
+        }
+        // console.log(this.loggedIn);
+    };
 }

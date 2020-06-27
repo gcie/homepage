@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>Edytuj użytkownika</h1>
-<div mat-dialog-content class="form-container">
-    <form class="form-container" [formGroup]="editForm">
+<div mat-dialog-content>
+    <form fxLayout="column" [formGroup]="editForm">
         <mat-form-field>
             <input matInput type="email" placeholder="Adres email" formControlName="email" required>
         </mat-form-field>
@@ -11,19 +11,23 @@
             <mat-label>Hasło</mat-label>
             <input matInput type="password" placeholder="Bez zmian" formControlName="password">
         </mat-form-field>
-        <mat-list dense>
-            <h3 matSubheader>Grupy poświadczeń</h3>
-            <mat-list-item *ngFor="let group of user.groups">{{ group }}</mat-list-item>
-        </mat-list>
+        <p class="mat-caption">Grupy</p>
+        <div class="mat-body">{{ groupsString }}</div>
+        <mat-select>
+            <mat-option>opt 1</mat-option>
+            <mat-option>opt 2</mat-option>
+        </mat-select>
+        <button mat-button>Dodaj grupę</button>
+        <!-- <h3 matSubheader>Grupy poświadczeń</h3> -->
         <!-- <mat-form-field>
             <mat-select formControlName="group">
                 <mat-option matInput *ngFor="let perm of availablePermissions" [value]="perm">{{ perm }}
                 </mat-option>
             </mat-select>
         </mat-form-field> -->
-        <div>
-            <button mat-button (click)="onConfirmClick()">Zatwierdź zmiany</button>
-            <button mat-button (click)="onCancelClick()">Anuluj</button>
-        </div>
     </form>
+    <div fxLayout="row" fxLayoutAlign="end">
+        <button mat-raised-button (click)="onCancelClick()">Anuluj</button>
+        <button mat-raised-button (click)="onConfirmClick()">Zatwierdź zmiany</button>
+    </div>
 </div>

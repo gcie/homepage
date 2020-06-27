@@ -1,58 +1,61 @@
-<mat-sidenav-container fullscreen class="mat-app-background basic-container">
-    <app-header></app-header>
+<app-header class="header" title="Kurs Python" (OnMenuTrigger)="sidenav.toggle()"></app-header>
+<mat-sidenav-container class="container">
+    <mat-sidenav #sidenav mode="side" class="sidenav">
+        <app-python-course-sidenav-menu></app-python-course-sidenav-menu>
+    </mat-sidenav>
+    <mat-sidenav-content class="container" fxLayout="column" fxLayoutGap="8px">
+        <!-- <mat-card>
+                    <h1>Lekcja 0 - przygotowanie środowiska</h1>
+                    Zakładam, że korzystamy z systemu Windows. W niniejszym kursie będziemy korzystać z następujących
+                    narzędzi:
+                    <ul>
+                        <li>Środowiska <a href="https://www.anaconda.com/distribution/">Anaconda</a></li>
+                        <li>Edytora <a href="https://code.visualstudio.com/">Visual Studio Code</a></li>
+                    </ul>
+                    Ponadto w VSCode polecam zainstalować dodatek "Python".
+                </mat-card> -->
+        <mat-card>
+            <app-code-editor></app-code-editor>
+            <!-- <h1>Lekcja 1 - konsola interaktywna, zmienne</h1>
+                        Środowisko Anaconda (i zasadniczo każda inna dystrybucja Pythona) umożliwia korzystanie z niego w trybie
+                        interaktywnym. Jak sama nazwa wskazuje, polega on na zadawaniu Pythonowi pytań, na które on będzie się
+                        starał odpowiadać. Musimy je jednak zadawać w odpowiednim języku - i ten język właśnie nazywa się
+                        Python.
+                        <br>
+                        Aby uruchomić Pythona w trybie interaktywnym, trzeba najpierw uruchomić środowisko konsolowe, w którym
+                        jest zainstalowany. W większości przypadków byłby to zwykły wiersz poleceń (<i>cmd.exe</i>), ale
+                        ponieważ korzystamy z Anacondy, to będzie to program bardzo podobny do wiersza poleceń zwany <b>Anaconda
+                            Prompt</b>. Po wpisaniu w wyszukiwarce w menu Start powinien wyskoczyć.
+                            
+                            <app-image name="anaconda_prompt-search"></app-image>
+                            
+                            Otworzy nam się okno podobne do konsoli Windowsowej, w którym możemy uruchomić środowisko interaktywne
+                            Pythona za pomocą komendy, uwaga... "python". Albo "ipython", w moim przypadku.
+                            
+                            <app-image name="anaconda_prompt"></app-image>
+                            
+                            Okienko które się pojawiło zasygnalizowało mi, że korzystam z Pythona w wersji 3.7.3 oraz korzystam z
+                            "Enchanced Interactive Python". Idealnie.
+                            <br>
+                            Podstawową umiejętnością tej konsoli jest wykonywanie obliczeń. Możesz bez problemu spytać się ile to
+                            jest 2 + 2, ile wynosi 2 do potęgi 16 (operator potęgowania to "**"), albo czy 3 > 4. Spróbuj, zobacz,
+                            co odpowie.
+                            <br>
+                            Jednak to, z czym mamy do czynienia, to coś więcej niż ciekawy kalkulator. zeby wykorzystać jego cały
+                            potencjał, musisz najpierw nauczyć się, jak się posługuje językiem Python. -->
 
-    <div fxLayout="row" fxLayoutAlign="center stretch">
-        <div class="content-wrapper" fxLayout="column" fxLayoutGap="8px">
-            <mat-card>
-                <h1>Lekcja 0 - przygotowanie środowiska</h1>
-                Zakładam, że korzystamy z systemu Windows. W niniejszym kursie będziemy korzystać z następujących
-                narzędzi:
-                <ul>
-                    <li>Środowiska <a href="https://www.anaconda.com/distribution/">Anaconda</a></li>
-                    <li>Edytora <a href="https://code.visualstudio.com/">Visual Studio Code</a></li>
-                </ul>
-                Ponadto w VSCode polecam zainstalować dodatek "Python".
-            </mat-card>
-            <mat-card>
-                <h1>Lekcja 1 - konsola interaktywna, zmienne</h1>
-                Środowisko Anaconda (i zasadniczo każda inna dystrybucja Pythona) umożliwia korzystanie z niego w trybie
-                interaktywnym. Jak sama nazwa wskazuje, polega on na zadawaniu Pythonowi pytań, na które on będzie się
-                starał odpowiadać. Musimy je jednak zadawać w odpowiednim języku - i ten język właśnie nazywa się
-                Python.
-                <br>
-                Aby uruchomić Pythona w trybie interaktywnym, trzeba najpierw uruchomić środowisko konsolowe, w którym
-                jest zainstalowany. W większości przypadków byłby to zwykły wiersz poleceń (<i>cmd.exe</i>), ale
-                ponieważ korzystamy z Anacondy, to będzie to program bardzo podobny do wiersza poleceń zwany <b>Anaconda
-                    Prompt</b>. Po wpisaniu w wyszukiwarce w menu Start powinien wyskoczyć.
+            <h2>Zmienne</h2>
 
-                <app-image name="anaconda_prompt-search"></app-image>
+            Podstawą większości języków programowania jest pojęcie <b><i>zmiennej</i></b>. Zmienna to nazwana
+            komórka w pamięci komputera która przechowuje pewną wartość. Można o niej myśleć jak o karteczce
+            samoprzylepnej, na której zapisujemy jakąś wartość i tytułujemy, po czym przyklejamy w widocznym
+            miejscu. Operacja tworzenia takiej karteczki jest nazywana <b>deklaracją</b> zmiennej, i w
+            większości
+            języków (w tym i w Pythonie) wykorzystuje się do niej operatora przypisania: "=". Składnia tej
+            operacji
+            to:
+            <pre><code class="python">{{ DECLARATION_EXAMPLE_1 }}</code></pre>
 
-                Otworzy nam się okno podobne do konsoli Windowsowej, w którym możemy uruchomić środowisko interaktywne
-                Pythona za pomocą komendy, uwaga... "python". Albo "ipython", w moim przypadku.
-
-                <app-image name="anaconda_prompt"></app-image>
-
-                Okienko które się pojawiło zasygnalizowało mi, że korzystam z Pythona w wersji 3.7.3 oraz korzystam z
-                "Enchanced Interactive Python". Idealnie.
-                <br>
-                Podstawową umiejętnością tej konsoli jest wykonywanie obliczeń. Możesz bez problemu spytać się ile to
-                jest 2 + 2, ile wynosi 2 do potęgi 16 (operator potęgowania to "**"), albo czy 3 > 4. Spróbuj, zobacz,
-                co odpowie.
-                <br>
-                Jednak to, z czym mamy do czynienia, to coś więcej niż ciekawy kalkulator. zeby wykorzystać jego cały
-                potencjał, musisz najpierw nauczyć się, jak się posługuje językiem Python.
-
-                <h2>Zmienne</h2>
-
-                Podstawą większości języków programowania jest pojęcie <b><i>zmiennej</i></b>. Zmienna to nazwana
-                komórka w pamięci komputera która przechowuje pewną wartość. Można o niej myśleć jak o karteczce
-                samoprzylepnej, na której zapisujemy jakąś wartość i tytułujemy, po czym przyklejamy w widocznym
-                miejscu. Operacja tworzenia takiej karteczki jest nazywana <b>deklaracją</b> zmiennej, i w większości
-                języków (w tym i w Pythonie) wykorzystuje się do niej operatora przypisania: "=". Składnia tej operacji
-                to:
-                <pre><code>{{ DECLARATION_EXAMPLE_1 }}</code></pre>
-
-            </mat-card>
-        </div>
-    </div>
+        </mat-card>
+    </mat-sidenav-content>
 </mat-sidenav-container>

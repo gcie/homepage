@@ -1,0 +1,17 @@
+<!-- <button mat-raised-button #primaryDarkColorRef class="primary-dark">Test</button> -->
+<!-- <mat-toolbar [@openClose]="{ value: colorMode, params: { color: primaryDarkColorRef.style.color }}" #toolbar -->
+<mat-toolbar #toolbar fxLayout="row" fxLayoutGap="24px" fxLayoutAlign="start center" role="header" color="primary">
+    <button *ngIf="!noMenu" mat-icon-button fxFlex="none" class="menu-button" (click)="OnMenuTrigger.emit()">
+        <mat-icon svgIcon="menu"></mat-icon>
+    </button>
+    <button mat-button class="bt-large" fxFlex="none" (click)="redirect()">GC</button>
+    <div *ngIf="title" class="vertical-divider"></div>
+    <div fxFlex="none">{{ title }}</div>
+    <div fxFlex></div>
+    <button mat-button class="bt-medium" (click)="redirect('python')" fxFlex="none">Python</button>
+    <button *appAuth="false" mat-button class="bt-medium" (click)="loginRedirect()" fxFlex="none">Zaloguj</button>
+    <button *appAuth mat-button class="bt-medium" [matMenuTriggerFor]="menu">{{ authService.getName() }}</button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="logout()">Wyloguj</button>
+    </mat-menu>
+</mat-toolbar>
