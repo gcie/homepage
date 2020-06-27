@@ -3,7 +3,7 @@
     <mat-sidenav #sidenav mode="side" class="sidenav">
         <app-python-course-sidenav-menu></app-python-course-sidenav-menu>
     </mat-sidenav>
-    <mat-sidenav-content class="container" fxLayout="column" fxLayoutGap="8px">
+    <mat-sidenav-content class="content" fxLayout="column" fxLayoutGap="8px">
         <!-- <mat-card>
                     <h1>Lekcja 0 - przygotowanie środowiska</h1>
                     Zakładam, że korzystamy z systemu Windows. W niniejszym kursie będziemy korzystać z następujących
@@ -16,6 +16,7 @@
                 </mat-card> -->
         <mat-card>
             <app-code-editor></app-code-editor>
+            <pre><code>Test test sets def main()</code></pre>
             <!-- <h1>Lekcja 1 - konsola interaktywna, zmienne</h1>
                         Środowisko Anaconda (i zasadniczo każda inna dystrybucja Pythona) umożliwia korzystanie z niego w trybie
                         interaktywnym. Jak sama nazwa wskazuje, polega on na zadawaniu Pythonowi pytań, na które on będzie się

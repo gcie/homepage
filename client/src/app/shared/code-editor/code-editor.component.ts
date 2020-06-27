@@ -4,7 +4,6 @@ import 'ace-builds/src-noconflict/ext-beautify';
 import 'ace-builds/src-noconflict/ext-language_tools';
 import 'ace-builds/src-noconflict/mode-python';
 import 'ace-builds/src-noconflict/theme-tomorrow_night';
-import { JdoodleService } from 'src/app/core/services/api/jdoodle.service';
 
 const INIT_CONTENT = '';
 const THEME = 'ace/theme/tomorrow_night';
@@ -21,8 +20,6 @@ export class CodeEditorComponent implements AfterViewInit {
     @ViewChild('codeEditor') private codeEditorElmRef: ElementRef;
     @Input() content: string;
 
-    constructor(private jdoodle: JdoodleService) {}
-
     ngAfterViewInit() {
         ace.require('ace/ext/language_tools');
         const element = this.codeEditorElmRef.nativeElement;
@@ -33,20 +30,6 @@ export class CodeEditorComponent implements AfterViewInit {
         this.editorBeautify = ace.require('ace/ext/beautify');
     }
 
-    run() {
-        const program = this.getContent()!;
-        this.jdoodle.runPython3(program).subscribe({
-            next: (result) => {
-                console.log('jdoodle response:');
-                console.log(result.cpuTime + 1.0);
-                console.log(result.memory + 1123123);
-                console.log(result);
-                console.log(result.statusCode - 123);
-            },
-            error: console.error,
-        });
-    }
-
     private createCodeEditor(element: Element, options: any): ace.Ace.Editor {
         const editor = ace.edit(element, options);
         editor.setTheme(THEME);
@@ -55,7 +38,7 @@ export class CodeEditorComponent implements AfterViewInit {
         return editor;
     }
 
-    // missing propery on EditorOptions 'enableBasicAutocompletion' so this is a wolkaround still using ts
+    // missing propery on EditorOptions 'enableBasicAutocompletion' so this is a workaround still using ts
     private getEditorOptions(): Partial<ace.Ace.EditorOptions> & { enableBasicAutocompletion?: boolean } {
         const basicEditorOptions: Partial<ace.Ace.EditorOptions> = {
             highlightActiveLine: true,

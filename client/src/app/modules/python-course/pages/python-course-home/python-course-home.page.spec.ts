@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PythonCourseHomeComponent } from './python-course-home.component';
 
 describe('PythonCourseHomeComponent', () => {
