@@ -1,0 +1,21 @@
+.account-details {
+    // background-color: lightgray;
+    &-card {
+        width: 300px;
+    }
+}
+
+.tab-section-wrapper {
+    // background-color: yellow;
+}
+
+.container {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100vw;
+}
+
+.content {
+    padding: 24px;
+}

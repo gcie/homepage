@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { MaterialModule } from '../modules/material/material.module';
-import { AdminGuard, KorepetycjeManagerGuard, KorepetycjeUserGuard, AuthGuard } from './guards';
+import { AdminGuard, AuthGuard, KorepetycjeManagerGuard, KorepetycjeUserGuard } from './guards';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
@@ -15,9 +15,9 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,
-            multi: true
-        }
-    ]
+            multi: true,
+        },
+    ],
 })
 export class CoreModule {
     constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

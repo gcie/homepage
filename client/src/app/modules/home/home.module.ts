@@ -10,6 +10,7 @@ import { UsersListComponent } from './components/users-list/users-list.component
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeViewComponent } from './views/home-view/home-view.component';
 import { LoginViewComponent } from './views/login-view/login-view.component';
+import { UserViewComponent } from './views/user-view/user-view.component';
 import { UsersViewComponent } from './views/users-view/users-view.component';
 
 @NgModule({
@@ -20,6 +21,7 @@ import { UsersViewComponent } from './views/users-view/users-view.component';
         UserAddDialogComponent,
         UserEditDialogComponent,
         UsersListComponent,
+        UserViewComponent,
     ],
     imports: [CommonModule, SharedModule, MaterialModule, FormsModule, ReactiveFormsModule, FlexLayoutModule, HomeRoutingModule],
 })
