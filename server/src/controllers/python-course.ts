@@ -14,8 +14,14 @@ pythonCourse.get('/exercise/:id', async (req: Request, res: Response, next: Next
         .catch(next);
 });
 
-pythonCourse.post('exercise/:id/submit', isAuthenticated, async (req: Request, res: Response, next: NextFunction) => {
+pythonCourse.post('/exercise/:id/submit', isAuthenticated, async (req: Request, res: Response, next: NextFunction) => {
     await check('program', 'Program nie może być pusty').notEmpty().run(req);
+    logger.debug(`Submitted exercise: ${req.params.id}`);
 
-    validate(req.params.id, req.body.program).then(res.status(200).json).catch(next);
+    validate(req.params.id, req.body.program)
+        .then((result) => {
+            logger.debug('execution result: ' + result);
+            res.status(200).json(result);
+        })
+        .catch(next);
 });
