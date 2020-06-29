@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatInput } from '@angular/material/input';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { User } from 'src/app/core/auth/models/user';
+import { User } from 'src/app/core/models/user';
 import { ErrorsService, UsersService } from 'src/app/core/services';
 import { ConfirmDialogComponent } from 'src/app/shared/components';
 import { UserAddDialogComponent } from '../user-add-dialog/user-add-dialog.component';

@@ -1,8 +1,9 @@
 import { Directive, TemplateRef, ViewContainerRef } from '@angular/core';
-import { AuthService, PermissionGroup } from 'src/app/core/auth';
+import { PermissionGroup } from 'src/app/core/models/permission-group.enum';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Directive({
-    selector: '[appAuthKorepetycjeManager]'
+    selector: '[appAuthKorepetycjeManager]',
 })
 export class AuthKorepetycjeManagerDirective {
     constructor(private templateRef: TemplateRef<any>, private viewContainer: ViewContainerRef, private authService: AuthService) {

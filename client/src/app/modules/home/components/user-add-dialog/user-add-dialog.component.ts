@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { AuthService } from 'src/app/core/auth';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
     selector: 'app-user-add-dialog',
     templateUrl: './user-add-dialog.component.html',
-    styleUrls: ['./user-add-dialog.component.scss']
+    styleUrls: ['./user-add-dialog.component.scss'],
 })
 export class UserAddDialogComponent {
     registerForm: FormGroup;
@@ -19,7 +19,7 @@ export class UserAddDialogComponent {
         this.registerForm = this.formBuilder.group({
             name: ['', Validators.required],
             email: ['', Validators.email],
-            password: ['', Validators.required]
+            password: ['', Validators.required],
         });
     }
 

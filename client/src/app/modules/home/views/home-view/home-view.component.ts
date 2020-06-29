@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AuthService, User } from 'src/app/core/auth';
+import { User } from 'src/app/core/models/user';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { HeaderComponent } from 'src/app/shared/components/header/header.component';
 
 @Component({

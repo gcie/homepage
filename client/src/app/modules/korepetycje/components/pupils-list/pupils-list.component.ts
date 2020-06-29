@@ -2,10 +2,11 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, EMPTY, fromEvent } from 'rxjs';
 import { flatMap, map } from 'rxjs/operators';
-import { AuthService, PermissionGroup } from 'src/app/core/auth';
-import { ErrorsService, PupilsService, TutorsService } from 'src/app/core/services';
-import { ConfirmDialogComponent } from 'src/app/shared/components';
 import { Pupil } from 'src/app/core/models';
+import { PermissionGroup } from 'src/app/core/models/permission-group.enum';
+import { ErrorsService, PupilsService, TutorsService } from 'src/app/core/services';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { ConfirmDialogComponent } from 'src/app/shared/components';
 import { PupilAddDialogComponent } from '../pupil-add-dialog/pupil-add-dialog.component';
 import { PupilEditDialogComponent } from '../pupil-edit-dialog/pupil-edit-dialog.component';
 

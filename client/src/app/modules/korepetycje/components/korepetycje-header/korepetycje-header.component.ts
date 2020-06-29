@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import { AuthService } from 'src/app/core/auth';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
     selector: 'app-korepetycje-header',

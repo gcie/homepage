@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { map } from 'rxjs/operators';
-import { UserLoginData, UserRegisterData, User } from './models/user';
-import { AuthResult } from './models/auth-result';
-import { PermissionGroup } from './models/permission-group.enum';
+import { AuthResult } from '../models/auth-result';
+import { PermissionGroup } from '../models/permission-group.enum';
+import { User, UserLoginData, UserRegisterData } from '../models/user';
 
 @Injectable({
     providedIn: 'root',

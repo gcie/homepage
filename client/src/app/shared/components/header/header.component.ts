@@ -1,9 +1,10 @@
-import { Component, ViewChild, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/core/auth';
-import { MatToolbar } from '@angular/material/toolbar';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatButton } from '@angular/material/button';
+import { MatToolbar } from '@angular/material/toolbar';
+import { Router } from '@angular/router';
+import { UserService } from 'src/app/core/services/api/user.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
     selector: 'app-header',
@@ -41,7 +42,7 @@ export class HeaderComponent implements AfterViewInit {
     @ViewChild('toolbar') toolbar: MatToolbar;
     @ViewChild('primaryDarkColorRef') primaryDarkColorRef: MatButton;
 
-    constructor(private router: Router, public authService: AuthService) {}
+    constructor(private router: Router, public authService: AuthService, private userService: UserService) {}
 
     ngAfterViewInit() {
         console.log(this.primaryDarkColorRef);
@@ -57,6 +58,13 @@ export class HeaderComponent implements AfterViewInit {
 
     logout() {
         this.authService.logout();
+    }
+
+    test() {
+        this.userService.getGravatarURI().subscribe({
+            next: console.log,
+            error: console.error,
+        });
     }
 
     public changeColorScheme(dark = false) {

@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/core/auth';
 import { Pupil, Tutor } from 'src/app/core/models';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { PupilsListComponent } from '../../components/pupils-list/pupils-list.component';
 import { TutorsListComponent } from '../../components/tutors-list/tutors-list.component';
 

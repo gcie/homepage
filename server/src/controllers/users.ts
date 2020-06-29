@@ -4,7 +4,7 @@ import { User } from '../models/User';
 
 export const users = Router();
 
-users.get('/', async (req: Request, res: Response, next: NextFunction) => {
+users.get('/', (req: Request, res: Response, next: NextFunction) => {
     User.find()
         .then((doc) => res.status(200).json(doc))
         .catch(next);

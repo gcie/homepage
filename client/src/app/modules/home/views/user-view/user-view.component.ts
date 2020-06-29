@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import * as md5 from 'md5';
-import { AuthService } from 'src/app/core/auth';
+import { UserService } from 'src/app/core/services/api/user.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
     selector: 'app-user-view',
@@ -8,12 +8,11 @@ import { AuthService } from 'src/app/core/auth';
     styleUrls: ['./user-view.component.scss'],
 })
 export class UserViewComponent implements OnInit {
-    GRAVATAR_URI: string;
+    gravatarURI: string;
 
-    constructor(public authService: AuthService) {
-        const hash = md5(authService.getEmail()?.toLowerCase());
-        this.GRAVATAR_URI = `https://www.gravatar.com/avatar/${hash}?s=600&d=mp`;
+    constructor(public userService: UserService, public authService: AuthService) {}
+
+    ngOnInit(): void {
+        this.userService.getGravatarURI().subscribe((gravatarURI) => (this.gravatarURI = gravatarURI));
     }
-
-    ngOnInit(): void {}
 }
