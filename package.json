@@ -10,6 +10,8 @@
         "start-client": "cd client && ng serve --proxy-config proxy.conf.json --port 4250",
         "start-server": "cd server && tsc && npm start",
         "serve-client": "cd client && ng build --watch",
+        "serve-server:build": "cd server && gulp",
+        "serve-server": "nodemon",
         "setup-client": "cd client && ng build && cd ..",
         "setup-client:prod": "cd client && ng build --prod && cd ..",
         "setup-server": "cd server && tsc && cd ..",
@@ -79,12 +81,16 @@
         "zone.js": "~0.10.3"
     },
     "devDependencies": {
+        "@types/gulp": "^4.0.6",
+        "@types/gulp-typescript": "^2.13.0",
         "@types/jasmine": "~3.5.10",
         "@types/jasminewd2": "~2.0.8",
         "@types/karma": "^5.0.0",
         "eslint": "^7.3.1",
         "eslint-config-prettier": "^6.11.0",
         "eslint-plugin-prettier": "^3.1.4",
+        "gulp": "^4.0.2",
+        "gulp-typescript": "^6.0.0-alpha.1",
         "jasmine-core": "~3.5.0",
         "jasmine-spec-reporter": "^5.0.2",
         "karma": "^5.0.9",
@@ -92,6 +98,7 @@
         "karma-coverage-istanbul-reporter": "~2.1.1",
         "karma-jasmine": "~3.1.1",
         "karma-jasmine-html-reporter": "^1.5.4",
+        "nodemon": "^2.0.4",
         "prettier": "^2.0.5",
         "protractor": "^7.0.0",
         "ts-node": "~8.8.2"
