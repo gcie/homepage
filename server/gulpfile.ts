@@ -4,8 +4,12 @@ import { createProject } from 'gulp-typescript';
 const tsProject = createProject('tsconfig.json');
 
 function build(done: (error?: any) => any) {
-    src('src/**/*.ts').pipe(tsProject()).pipe(dest('dist'));
-    done();
+    try {
+        src('src/**/*.ts').pipe(tsProject()).pipe(dest('dist'));
+        done();
+    } catch (err) {
+        done(err);
+    }
 }
 
 task('default', () => watch(['src/**/*.ts'], build));

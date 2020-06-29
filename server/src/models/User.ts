@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
-import { Document, Schema, Error, model } from 'mongoose';
+import { Document, Error, model, Schema } from 'mongoose';
 
 export type UserDocument = Document & {
     email: string;

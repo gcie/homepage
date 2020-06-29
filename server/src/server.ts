@@ -1,5 +1,4 @@
-import errorHandler from 'errorhandler';
-
+import errorHandler = require('errorhandler');
 import app from './app';
 
 /**

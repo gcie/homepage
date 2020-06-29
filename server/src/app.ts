@@ -9,6 +9,7 @@ import path from 'path';
 import { isAdmin, isKorepetycjeUser } from './config/guards';
 import { isAuthenticated } from './config/passport';
 import { auth, jdoodle, pupils, tutors, user, users } from './controllers';
+import { pythonCourse } from './controllers/python-course';
 import logger from './util/logger';
 import { ENVIRONMENT, MONGODB_URI, PORT } from './util/secrets';
 
@@ -51,6 +52,7 @@ app.use('/api/korepetycje/tutors', isKorepetycjeUser, tutors);
 app.use('/api/users', isAdmin, users);
 app.use('/api/user', isAuthenticated, user);
 app.use('/api/jdoodle', isAuthenticated, jdoodle);
+app.use('/api/python-course', pythonCourse);
 
 /**
  * Authentication routes

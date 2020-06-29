@@ -5,6 +5,7 @@ import { MatToolbar } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/api/user.service';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { PythonCourseApiService } from 'src/app/modules/python-course/services/python-course-api.service';
 
 @Component({
     selector: 'app-header',
@@ -42,7 +43,12 @@ export class HeaderComponent implements AfterViewInit {
     @ViewChild('toolbar') toolbar: MatToolbar;
     @ViewChild('primaryDarkColorRef') primaryDarkColorRef: MatButton;
 
-    constructor(private router: Router, public authService: AuthService, private userService: UserService) {}
+    constructor(
+        private router: Router,
+        public authService: AuthService,
+        private userService: UserService,
+        private pythonSrv: PythonCourseApiService
+    ) {}
 
     ngAfterViewInit() {
         console.log(this.primaryDarkColorRef);
@@ -61,10 +67,7 @@ export class HeaderComponent implements AfterViewInit {
     }
 
     test() {
-        this.userService.getGravatarURI().subscribe({
-            next: console.log,
-            error: console.error,
-        });
+        this.pythonSrv.getExercise('5efa2ee238e6ce7e400c71fe').subscribe(console.log);
     }
 
     public changeColorScheme(dark = false) {
