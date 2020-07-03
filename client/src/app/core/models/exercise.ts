@@ -5,4 +5,5 @@ export interface Exercise {
     name: string;
     title: string;
     description: string;
+    done: boolean;
 }

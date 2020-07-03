@@ -9,11 +9,15 @@ import logger from '../util/logger';
 
 export const pythonCourse = Router();
 
-pythonCourse.get('/exercise/:id', async (req: Request, res: Response, next: NextFunction) => {
+pythonCourse.get('/exercise/:id', isAuthenticated, async (req: Request, res: Response, next: NextFunction) => {
     logger.debug(req.params.id);
-    Exercise.findOne({ id: req.params.id })
-        .then((doc) => res.status(200).json(doc))
-        .catch(next);
+
+    const user = req.user as UserDocument;
+
+    const exercise = await Exercise.findOne({ id: req.params.id });
+    const solution = await ExerciseSubmission.find({ exerciseId: req.params.id, userId: user._id, success: true });
+
+    res.status(200).json(Object.assign(exercise.toJSON(), { done: solution.length > 0 }));
 });
 
 pythonCourse.post('/exercise/:id/submit', isAuthenticated, async (req: Request, res: Response, next: NextFunction) => {
