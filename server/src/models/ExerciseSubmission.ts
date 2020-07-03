@@ -9,6 +9,7 @@ export type ExerciseSubmissionDocument = Document & {
     cpuTime: number;
     program: string;
     success: boolean;
+    score: number;
 };
 
 const exerciseSubmissionSchema = new Schema(
@@ -21,6 +22,7 @@ const exerciseSubmissionSchema = new Schema(
         cpuTime: Number,
         program: String,
         success: Boolean,
+        score: Number,
     },
     { timestamps: true }
 );

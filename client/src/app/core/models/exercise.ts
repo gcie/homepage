@@ -6,4 +6,5 @@ export interface Exercise {
     title: string;
     description: string;
     done: boolean;
+    score: number;
 }
