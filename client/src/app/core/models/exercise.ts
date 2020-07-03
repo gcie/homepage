@@ -3,4 +3,6 @@ export interface Exercise {
     content: string;
     maxPoints: number;
     name: string;
+    title: string;
+    description: string;
 }

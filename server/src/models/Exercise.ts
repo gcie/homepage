@@ -5,6 +5,8 @@ export type ExerciseDocument = Document & {
     content: string;
     maxPoints: number;
     name: string;
+    title: string;
+    description: string;
 };
 
 const exerciseSchema = new Schema({
@@ -12,6 +14,8 @@ const exerciseSchema = new Schema({
     name: String,
     maxPoints: Number,
     content: String,
+    title: String,
+    description: String,
 });
 
 export const Exercise = model<ExerciseDocument>('Exercise', exerciseSchema);

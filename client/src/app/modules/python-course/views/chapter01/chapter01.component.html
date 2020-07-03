@@ -1,23 +1,27 @@
-<app-header class="header" title="Kurs Python" (OnMenuTrigger)="sidenav.toggle()"></app-header>
-<mat-sidenav-container class="container">
-    <mat-sidenav #sidenav mode="side" class="sidenav">
-        <app-python-course-sidenav-menu></app-python-course-sidenav-menu>
-    </mat-sidenav>
-    <mat-sidenav-content class="content" fxLayout="column" fxLayoutGap="8px">
-        <!-- <mat-card>
-                    <h1>Lekcja 0 - przygotowanie środowiska</h1>
-                    Zakładam, że korzystamy z systemu Windows. W niniejszym kursie będziemy korzystać z następujących
-                    narzędzi:
-                    <ul>
-                        <li>Środowiska <a href="https://www.anaconda.com/distribution/">Anaconda</a></li>
-                        <li>Edytora <a href="https://code.visualstudio.com/">Visual Studio Code</a></li>
-                    </ul>
-                    Ponadto w VSCode polecam zainstalować dodatek "Python".
-                </mat-card> -->
-        <mat-card>
-            <app-python-exercise id="ex000"></app-python-exercise>
-            <pre><code>Test test sets def main()</code></pre>
-            <!-- <h1>Lekcja 1 - konsola interaktywna, zmienne</h1>
+<mat-card>
+    <h1>Rozdział 1</h1>
+
+    Witaj!
+
+    Niniejszy tutorial ma za cel wprowadzenie Cię w świat programowania. W tym miejscu znajdowałby się normalnie spis
+    rzeczy, które bedą przerabiane, ale niestety tutorial jest jescze w trakcie tworzenia. Zamiast tego będzie
+    zachęcający cytat:
+
+    <div style="padding: 8px 16px;">
+        <i>Programowanie jest jak pisanie książki. Z jedną różnicą: jeśli zapomnisz jednego średnika na stronie 372, to
+            nagle całość przestaje mieć jakikolwiek sens.</i>
+    </div>
+
+    Będziemy w tutorialu korzystać z języka programowania o nazwie "Python". Zalecam go sobie zainstalować na własnym
+    komputerze (być może będzie kiedyś lekcja o tworzeniu własnych skryptów), ale większość ćwiczeń zawartych w tym
+    kursie będzie można napisać od ręki na niniejszej stronie. Zresztą, co ja będę tłumaczył, spróbuj sam sił w
+    poniższym zadaniu (zmienne w Pythonie tworzy się poprzez wpisanie
+    <code>{{ DECLARATION_EXAMPLE }}</code> )
+
+    <app-python-exercise id="ex000" titlePrefix="Zadanie 1."></app-python-exercise>
+
+
+    <!-- <h1>Lekcja 1 - konsola interaktywna, zmienne</h1>
                         Środowisko Anaconda (i zasadniczo każda inna dystrybucja Pythona) umożliwia korzystanie z niego w trybie
                         interaktywnym. Jak sama nazwa wskazuje, polega on na zadawaniu Pythonowi pytań, na które on będzie się
                         starał odpowiadać. Musimy je jednak zadawać w odpowiednim języku - i ten język właśnie nazywa się
@@ -45,18 +49,16 @@
                             Jednak to, z czym mamy do czynienia, to coś więcej niż ciekawy kalkulator. zeby wykorzystać jego cały
                             potencjał, musisz najpierw nauczyć się, jak się posługuje językiem Python. -->
 
-            <h2>Zmienne</h2>
+    <h2>Zmienne</h2>
 
-            Podstawą większości języków programowania jest pojęcie <b><i>zmiennej</i></b>. Zmienna to nazwana
-            komórka w pamięci komputera która przechowuje pewną wartość. Można o niej myśleć jak o karteczce
-            samoprzylepnej, na której zapisujemy jakąś wartość i tytułujemy, po czym przyklejamy w widocznym
-            miejscu. Operacja tworzenia takiej karteczki jest nazywana <b>deklaracją</b> zmiennej, i w
-            większości
-            języków (w tym i w Pythonie) wykorzystuje się do niej operatora przypisania: "=". Składnia tej
-            operacji
-            to:
-            <pre><code class="python">{{ DECLARATION_EXAMPLE_1 }}</code></pre>
+    Podstawą większości języków programowania jest pojęcie <b><i>zmiennej</i></b>. Zmienna to nazwana
+    komórka w pamięci komputera która przechowuje pewną wartość. Można o niej myśleć jak o karteczce
+    samoprzylepnej, na której zapisujemy jakąś wartość i tytułujemy, po czym przyklejamy w widocznym
+    miejscu. Operacja tworzenia takiej karteczki jest nazywana <b>deklaracją</b> zmiennej, i w
+    większości
+    języków (w tym i w Pythonie) wykorzystuje się do niej operatora przypisania: "=". Składnia tej
+    operacji
+    to:
+    <pre><code class="python">testset</code></pre>
 
-        </mat-card>
-    </mat-sidenav-content>
-</mat-sidenav-container>
+</mat-card>
