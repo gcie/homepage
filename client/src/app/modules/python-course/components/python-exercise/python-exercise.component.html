@@ -1,18 +1,15 @@
 <div fxFlexLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
     <h3>{{ titlePrefix }} {{ exercise?.title }}</h3>
     <div fxFlex></div>
-    <p *appAuth></p>
-    <div *appAuth='false'>
-        <div *ngIf="done == 'failure'" fxFlexLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
-            <p class="score-label">Wynik:</p>
-            <mat-icon class="score-icon score-icon-success" svgIcon="check" color="primary"></mat-icon>
-        </div>
-        <div *ngIf="done == 'success'" fxFlexLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
-            <p class="score-label">Wynik:</p>
-            <mat-icon class="score-icon score-icon-fail" svgIcon="close" color="warn"></mat-icon>
-        </div>
-
+    <div *ngIf="done == 'failure'" fxFlexLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+        <p class="score-label">Wynik:</p>
+        <mat-icon class="score-icon score-icon-success" svgIcon="check" color="primary"></mat-icon>
     </div>
+    <div *ngIf="done == 'success'" fxFlexLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+        <p class="score-label">Wynik:</p>
+        <mat-icon class="score-icon score-icon-fail" svgIcon="close" color="warn"></mat-icon>
+    </div>
+
     <button mat-raised-button color="accent" (click)="submit()">Uruchom</button>
 </div>
 <!-- <div fxFlexLayout="row" fxLayoutAlign="start start" fxLayoutGap="16px"> -->

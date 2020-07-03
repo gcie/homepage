@@ -33,7 +33,7 @@ export class PythonExerciseComponent implements OnInit {
         console.log(content);
         if (content)
             this.courseService.submitExercise(this.id, this.editor.getContent() || '').subscribe((result) => {
-                this.done = result ? 'success' : 'failure';
+                this.done = result.success ? 'success' : 'failure';
             });
     }
 }
