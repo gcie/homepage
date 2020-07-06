@@ -3,5 +3,5 @@ export class RunResult {
     memory: number;
     output: string;
     statusCode: number;
-    success: boolean;
+    score: number;
 }

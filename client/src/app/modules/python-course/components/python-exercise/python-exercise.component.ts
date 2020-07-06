@@ -17,24 +17,27 @@ export class PythonExerciseComponent implements OnInit {
 
     exercise: Exercise;
 
-    done = '';
+    status: '' | 'success' | 'failure' | 'in-progress';
 
     constructor(private courseService: PythonCourseApiService) {}
 
     ngOnInit(): void {
-        console.log('exercise oninit');
         this.courseService.getExercise(this.id).subscribe((exercise) => {
             this.editor.setContent(exercise.solution || exercise.content);
             this.exercise = exercise;
+            this.status = exercise.done ? 'success' : '';
         });
     }
 
     submit() {
         const content = this.editor.getContent();
-        console.log(content);
-        if (content)
-            this.courseService.submitExercise(this.id, this.editor.getContent() || '').subscribe((result) => {
-                this.done = result.success ? 'success' : 'failure';
+        if (content) {
+            this.status = 'in-progress';
+            this.courseService.submitExercise(this.id, content || '').subscribe((result) => {
+                this.exercise.score = result.score;
+                this.exercise.done = result.score === this.exercise.maxPoints;
+                this.status = this.exercise.done ? 'success' : 'failure';
             });
+        }
     }
 }
