@@ -7,4 +7,5 @@ export interface Exercise {
     description: string;
     done: boolean;
     score: number;
+    solution: string;
 }

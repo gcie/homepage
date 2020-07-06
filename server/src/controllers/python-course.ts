@@ -17,10 +17,15 @@ pythonCourse.get('/exercise/:id', isAuthenticated, async (req: Request, res: Res
     const exercise = await Exercise.findOne({ id: req.params.id });
     const solution = await ExerciseSubmission.find({ exerciseId: req.params.id, userId: user._id, score: { $gt: 0 } }).sort({ score: -1 });
 
+    const score = solution.length > 0 ? solution[0].score : 0;
+    const done = score === exercise.maxPoints;
+    const bestProgram = solution.length > 0 ? solution[0].program : undefined;
+
     res.status(200).json(
         Object.assign(exercise.toJSON(), {
-            score: solution.length > 0 ? solution[0].score : 0,
-            done: solution.length > 0 && solution[0].score === exercise.maxPoints,
+            score,
+            done,
+            solution: bestProgram,
         })
     );
 });

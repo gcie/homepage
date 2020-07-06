@@ -11,6 +11,7 @@ import { PythonCourseApiService } from '../../services/python-course-api.service
 export class PythonExerciseComponent implements OnInit {
     @Input('id') id: string;
     @Input('titlePrefix') titlePrefix: string;
+    @Input() mode: string;
 
     @ViewChild('editor') editor: CodeEditorComponent;
 
@@ -23,7 +24,7 @@ export class PythonExerciseComponent implements OnInit {
     ngOnInit(): void {
         console.log('exercise oninit');
         this.courseService.getExercise(this.id).subscribe((exercise) => {
-            this.editor.setContent(exercise.content);
+            this.editor.setContent(exercise.solution || exercise.content);
             this.exercise = exercise;
         });
     }

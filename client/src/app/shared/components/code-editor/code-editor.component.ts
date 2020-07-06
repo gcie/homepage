@@ -19,6 +19,7 @@ export class CodeEditorComponent implements AfterViewInit {
     private editorBeautify; // beautify extension
     @ViewChild('codeEditor') private codeEditorElmRef: ElementRef;
     @Input() content: string;
+    @Input() mode: string;
 
     ngAfterViewInit() {
         ace.require('ace/ext/language_tools');
@@ -28,6 +29,24 @@ export class CodeEditorComponent implements AfterViewInit {
         this.setContent(this.content || INIT_CONTENT);
         // hold reference to beautify extension
         this.editorBeautify = ace.require('ace/ext/beautify');
+    }
+
+    private getMinLines() {
+        switch (this.mode) {
+            case 'small':
+                return 7;
+            default:
+                return 12;
+        }
+    }
+
+    private getFontSize() {
+        switch (this.mode) {
+            case 'small':
+                return 18;
+            default:
+                return 14;
+        }
     }
 
     private createCodeEditor(element: Element, options: any): ace.Ace.Editor {
@@ -42,8 +61,9 @@ export class CodeEditorComponent implements AfterViewInit {
     private getEditorOptions(): Partial<ace.Ace.EditorOptions> & { enableBasicAutocompletion?: boolean } {
         const basicEditorOptions: Partial<ace.Ace.EditorOptions> = {
             highlightActiveLine: true,
-            minLines: 14,
+            minLines: this.getMinLines(),
             maxLines: Infinity,
+            fontSize: this.getFontSize(),
         };
         const extraEditorOptions = { enableBasicAutocompletion: true };
         return Object.assign(basicEditorOptions, extraEditorOptions);
