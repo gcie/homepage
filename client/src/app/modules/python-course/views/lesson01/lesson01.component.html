@@ -1,1 +1,47 @@
-<p>lesson01 works!</p>
+<h1>Lekcja 1 - Zmienne</h1>
+
+Podstawą większości języków programowania jest pojęcie <b><i>zmiennej</i></b>. Zmienna to nazwana komórka w pamięci
+komputera która przechowuje pewną wartość. W terminologiach poprzedniej analogii - jest to karteczka samoprzylepna
+(z tytułem), którą nasz komputer/dziecko wypełnia pewnymi danymi i umieszcza w widocznym dla siebie miejscu. Taką
+zmienną możemy potem w dowolny sposób wykorzystać, usunąć lub zmienić.
+<br /> <br />
+Operacje tworzenia zmiennej nazywamy <b><i>deklaracją</i></b> - ponieważ my deklarujemy, co zmienna ma zawierać, a
+komputer sam dokonuje zapisania jej w pamięci. Instrukcja deklaracji w Pythonie wygląda następująco:
+
+<pre><code>{{ declaration_example }}</code></pre>
+
+Gdzie <code>{{ nazwa_field }}</code> należy zastąpić nazwą zmiennej, a <code>{{ wartosc_field }}</code> jej
+wartością.
+
+<app-block title="Przykład 1.1">
+    Aby utworzyć zmienną o nazwie <code>liczba_dni_w_roku</code> i wartości <code>365</code> należy wpisać:
+    <pre><code>liczba_dni_w_roku = 365</code></pre>
+
+    Aby obliczyć, ile jest przeciętnie tygodni w roku, możemy utworzyć kolejną zmienną
+    <code>liczba_tygodni_w_roku</code> wykorzystując zmienną <code>liczba_dni_w_roku</code> następująco:
+
+    <pre><code>liczba_tygodni_w_roku = liczba_dni_w_roku / 7</code></pre>
+</app-block>
+
+W trakcie niniejszego kursu będę sprawdzał twoją wiedzę za pomocą ćwiczeń. Masz już wystarczającą wiedzę, by
+spróbować sił w jednym z nich:
+
+<app-block title="Ćwiczenie 1.2">
+    <app-python-exercise id="ex000">Utwórz zmienną o nazwie <code>tuzin</code> oraz warotści <code>12</code>.
+    </app-python-exercise>
+</app-block>
+
+<h3>Nazwa zmiennej</h3>
+
+Niestety, nie każdy ciąg znaków może być identyfikatorem (nazwą) zmiennej. Całe szczęście zasady są dość proste i jasno
+określone:
+
+<ol>
+    <li>może składać się tylko ze znaków alfanumerycznych (łacińskich wielkich lub małych liter oraz cyfr) oraz
+        podkreślnika (<code>_</code>),</li>
+    <li>nie może zaczynać się od cyfry,</li>
+    <li>nie może być żadnym z zabronionych <b><i>słów kluczowych</i></b> (ang. <i>keywords</i>).</li>
+</ol>
+
+Listę wszystkich słów kluczowych znajdziesz <a href="https://www.w3schools.com/python/python_ref_keywords.asp"
+    target="_blank">tutaj</a>.

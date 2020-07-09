@@ -4,6 +4,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MaterialModule } from '../material/material.module';
+import { BlockComponent } from './components/block/block.component';
+import { CourseNavigationBarComponent } from './components/course-navigation-bar/course-navigation-bar.component';
 import { Ex01Component } from './components/exercises/ex01/ex01.component';
 import { ImageComponent } from './components/image/image.component';
 import { PythonCourseSidenavMenuComponent } from './components/python-course-sidenav-menu/python-course-sidenav-menu.component';
@@ -23,6 +25,8 @@ import { Lesson01Component } from './views/lesson01/lesson01.component';
         PythonCourseComponent,
         Lesson01Component,
         Chapter01Component,
+        CourseNavigationBarComponent,
+        BlockComponent,
     ],
     imports: [CommonModule, SharedModule, MaterialModule, FormsModule, ReactiveFormsModule, FlexLayoutModule, PythonCourseRoutingModule],
 })

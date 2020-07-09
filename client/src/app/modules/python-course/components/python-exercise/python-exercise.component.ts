@@ -10,7 +10,6 @@ import { PythonCourseApiService } from '../../services/python-course-api.service
 })
 export class PythonExerciseComponent implements OnInit {
     @Input('id') id: string;
-    @Input('titlePrefix') titlePrefix: string;
     @Input() mode: string;
 
     @ViewChild('editor') editor: CodeEditorComponent;

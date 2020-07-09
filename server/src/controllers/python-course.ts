@@ -15,7 +15,10 @@ pythonCourse.get('/exercise/:id', isAuthenticated, async (req: Request, res: Res
     const user = req.user as UserDocument;
 
     const exercise = await Exercise.findOne({ id: req.params.id });
-    const solution = await ExerciseSubmission.find({ exerciseId: req.params.id, userId: user._id, score: { $gt: 0 } }).sort({ score: -1 });
+    const solution = await ExerciseSubmission.find({ exerciseId: req.params.id, userId: user._id, score: { $gt: 0 } }).sort({
+        score: -1,
+        createdAt: -1,
+    });
 
     const score = solution.length > 0 ? solution[0].score : 0;
     const done = score === exercise.maxPoints;
