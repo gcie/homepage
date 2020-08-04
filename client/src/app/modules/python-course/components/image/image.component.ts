@@ -10,6 +10,6 @@ export class ImageComponent {
 
     @Input()
     set name(name: string) {
-        this.url = `assets/images/python-course/${name}.png`;
+        this.url = `assets/img/python-course/${name}.png`;
     }
 }
