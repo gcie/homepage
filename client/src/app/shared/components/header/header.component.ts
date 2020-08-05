@@ -66,10 +66,6 @@ export class HeaderComponent implements AfterViewInit {
         this.authService.logout();
     }
 
-    test() {
-        this.pythonSrv.getExercise('5efa2ee238e6ce7e400c71fe').subscribe(console.log);
-    }
-
     public changeColorScheme(dark = false) {
         // if (dark) {
         //     // this.toolbar._elementRef.nativeElement.style;

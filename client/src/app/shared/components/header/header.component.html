@@ -14,7 +14,7 @@
     <button *appAuth="false" mat-button class="bt-medium" (click)="loginRedirect()" fxFlex="none">Zaloguj</button>
     <button *appAuth mat-button class="bt-medium" [matMenuTriggerFor]="menu">{{ authService.getName() }}</button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="test()">Test</button>
+        <button mat-menu-item (click)="redirect('user')">Moje konto</button>
         <button mat-menu-item (click)="logout()">Wyloguj</button>
     </mat-menu>
 </mat-toolbar>
