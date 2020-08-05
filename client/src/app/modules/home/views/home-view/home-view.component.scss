@@ -1,14 +1,13 @@
 @import '../../../../../green-theme.scss';
 
 .white {
-    color: rgba(white, .95);
+    color: rgba(white, 0.95);
 }
 
 .dark {
     background-color: #1b1b1b;
-    color: rgba(white, .95);
+    color: rgba(white, 0.95);
 }
-
 
 .main-foto {
     height: 500px;
@@ -16,17 +15,21 @@
 
 .overlay {
     position: absolute;
-    // color: mat-color(map-get($green-theme, primary));
-    height: 56px;
+    color: mat-color(map-get($green-theme, primary));
+    height: 28px;
     overflow: hidden;
 }
 
 .primary {
-    color: $primary
+    color: $primary;
 }
 
 .accent {
-    color: $accent
+    color: $accent;
+}
+
+.shadow {
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 .bg-primary {
