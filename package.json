@@ -15,7 +15,8 @@
         "setup-client": "cd client && ng build && cd ..",
         "setup-client:prod": "cd client && ng build --prod && cd ..",
         "setup-server": "cd server && tsc && cd ..",
-        "heroku-postbuild": "npm run build:prod"
+        "heroku-postbuild": "npm run build:prod",
+        "postversion": "git push --tags"
     },
     "author": "Grzegorz Ciesielski",
     "license": "MIT",
