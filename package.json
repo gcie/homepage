@@ -1,6 +1,6 @@
 {
     "name": "homepage",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "Moja strona domowa",
     "scripts": {
         "start": "node server/dist/server.js",
