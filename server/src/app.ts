@@ -11,13 +11,13 @@ import { isAuthenticated } from './config/passport';
 import { auth, jdoodle, pupils, tutors, user, users } from './controllers';
 import { pythonCourse } from './controllers/python-course';
 import logger from './util/logger';
-import { ENVIRONMENT, MONGODB_URI, PORT } from './util/secrets';
+import { DB_URI, ENVIRONMENT, PORT } from './util/secrets';
 
 // Create Express server
 const app = express();
 
 // Connect to MongoDB
-const mongoUrl = MONGODB_URI;
+const mongoUrl = DB_URI;
 mongoose.Promise = bluebird;
 
 mongoose
