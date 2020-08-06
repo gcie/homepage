@@ -1,0 +1,24 @@
+<div fxFlexLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+    <div>
+        <ng-content></ng-content>
+    </div>
+    <div fxFlex></div>
+    <div fxFlex="none" fxFlexLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+        <p fxFlex="none" class="score-label">Wynik: {{ exercise?.score }}/{{ exercise?.maxPoints }}</p>
+        <mat-icon *ngIf="status === 'success'" fxFlex="none" svgIcon="check" color="primary"></mat-icon>
+        <mat-icon *ngIf="status === 'failure'" fxFlex="none" svgIcon="close" color="warn"></mat-icon>
+    </div>
+
+    <button mat-raised-button fxFlex="none" color="accent" (click)="submit()" [disabled]="status === 'in-progress'">
+        <div fxFlexLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+            <mat-spinner *ngIf="status === 'in-progress'" diameter="24"></mat-spinner>
+            <mat-icon *ngIf="status !== 'in-progress'" svgIcon="console"></mat-icon>
+            <span>
+                Uruchom
+            </span>
+        </div>
+    </button>
+</div>
+<!-- <div fxFlexLayout="row" fxLayoutAlign="start start" fxLayoutGap="16px"> -->
+<app-code-editor #editor [mode]="mode"></app-code-editor>
+<!-- </div> -->

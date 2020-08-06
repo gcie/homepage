@@ -1,0 +1,26 @@
+<mat-nav-list>
+    <a mat-list-item href="/">
+        <mat-icon svgIcon="home"></mat-icon>
+        <span style="margin-left: 15px;">
+            Strona główna
+        </span>
+    </a>
+    <a *appAuthAdmin mat-list-item href="/users">
+        <mat-icon svgIcon="account-details"></mat-icon>
+        <span style="margin-left: 15px;">
+            Zarządzaj użytkownikami
+        </span>
+    </a>
+    <a *appAuth mat-list-item href="/user">
+        <mat-icon svgIcon="account"></mat-icon>
+        <span style="margin-left: 15px;">
+            Moje konto
+        </span>
+    </a>
+    <a mat-list-item>
+        <mat-icon svgIcon="logout-variant"></mat-icon>
+        <span style="margin-left: 15px;">
+            Wyloguj
+        </span>
+    </a>
+</mat-nav-list>

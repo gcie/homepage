@@ -1,0 +1,89 @@
+<h1>Rozdział 1 - wprowadzenie</h1>
+
+Witaj!
+
+Niniejszy tutorial ma za cel wprowadzenie Cię w świat programowania. W tym miejscu znajdowałby się normalnie spis
+rzeczy, które bedą przerabiane, ale niestety tutorial jest jescze w trakcie tworzenia. Zamiast tego będzie
+zachęcający cytat:
+
+<div style="padding: 8px 16px;">
+    <i>Programowanie jest jak pisanie książki. Z jedną różnicą: jeśli zapomnisz jednego średnika na stronie 372, to
+        nagle całość przestaje mieć jakikolwiek sens.</i>
+</div>
+
+Tak naprawdę to programowanie bardziej przypomina pisanie przepisu kucharskiego na pewną niezwykle skomplikowaną
+potrawę, niż pisanie książki. Wyobraźmy sobie komputer jako pięcioletnie dziecko, które dopiero co nauczyło się
+czytać. Naszym zadaniem jest napisanie temu dziecku takiego przepisu na fikuśny, wiśniowo-malinowy tort weselny z
+pozytywką na szczycie. Ponadto dziecko umie czytać tylko w pewnym jednym konkretnym języku (zwanym <i>językiem
+    programowania</i>), więc musimy wszystkie instrukcje (włączając w to konstrukcję pozytywki) przetłumaczyć na ten
+język. Brzmi niedorzecznie, ale taka jest prawda.
+<br /> <br />
+Na szczęście język komputera-dziecka możemy sami wybrać z dostępnych na rynku, takich jak C, C++, Java, Python,
+Javascript i
+wiele innych. Na nieszczęście: każdy jest przystosowany do innych rzeczy. Za pomocą jednego łatwo nam zapisywać
+przepisy na weselne torty, ale opis budowy pozytywek przysparza wielu kłopotów, podczas gdy dla innego jest
+odwrotnie. Ważne więc jest odpowiednie dobranie języka do potrzeb i umiejętności, aby nie utknąć próbując dokonać
+niemożliwego lub ucząc się od początku nowego paradygmatu (o tym później) programowania.
+<br /><br />
+W tym tutorialu będziemy korzystać z języka programowania o nazwie "Python". Jest to imperatywno-obiektowy język
+programowania wysokiego poziomu. Ale chwila, co to wszystko oznacza? Po kolei zatem:
+
+<ul>
+    <li><b>język wysokiego poziomu</b></li>
+    język komunikacji z komputerem (dzieckiem), który jest możliwie zbliżony do
+    języka ludzkiego. Takie języki cechuje fakt, że często pomimo nieumiejętności pisania w danym języku, czytelnik
+    jest w stanie zrozumieć co robi dany program.
+    <li><b>imperatywny</b></li>
+    programy pisane w języku imperatywnym są czytane "od góry do dołu", czyli jako ciąg kolejnych
+    instrukcji. Dobrą analogią jest tutaj przepis kucharski składający się z wielu kroków, które należy (po kolei)
+    wykonywać.
+    <li><b>obiektowy</b></li>
+    w językach obiektowych instnieją pewnego rodzaju "obiekty" będące połączeniem stanu i zachowania. Aby to lepiej
+    wytłumaczyć, wyobraźmy sobie piekarnik. Piekarnik jest posiadaczem pewnego stanu (ma pewną temperaturę w środku,
+    włączony lub wyłączony wiatrak i być może zepsute światło) i ma określone funkcje/zachowania (można zmienić
+    temperaturę lub też włączyć lub wyłączyć wiatrak).
+</ul>
+
+Być może więcej zrozumienia w tym temacie przyjdzie z czasem (i znajomością kolejnych języków programowania). Póki
+co trzymajmy się tego, że Python jest prosty i wiele rzeczy, o które trzeba się martwić w innych językach
+programowania, tutaj nie występują.
+
+<br /> <br />
+
+<h2>Instalacja Pythona</h2>
+
+Zalecam sobie Pythona zainstalować na komputerze. Niezależnie od używanego systemu bezpiecznym wyborem będzie
+skorzystanie z Pythona zawartego w dystrybucji Anacondy (czyli takiej dużej paczki zawierającej interpreter i
+kompilator Pythona, wiele pomocnych bibliotek i narzędzi), którą znajdziesz
+<a href="https://www.anaconda.com/products/individual">tutaj</a>.
+
+Po zainstalowaniu Anacondy możemy pisać skrypty Pythonowe (o tym później) albo korzystać z Pythona w trybie
+interaktywnym, czyli pytanie-odpowiedź. By uruchomić tryb interaktywny należy włączyć program o nazwie
+<i><b>Anaconda Prompt</b></i>:
+
+<app-image name="anaconda_prompt-search"></app-image>
+
+Po uruchomieniu prawdopodobnie pojawi nam się okno z napisem:
+<pre><code>(base) C:\></code></pre>
+<code>(base)</code> oznacza, że jest załadowane środowisko zawierające Pythona. <code>C:\</code> to ścieżka, w
+której się znadujemy - w tym przypadku na dysku <code>C:</code>. Znak <code>></code> jest tylko symbolicznie,
+oddziela nam pole do wpisywania od ścieżki na dysku. Aby uruchomić tryb interaktywny Pythona, należy w tymże oknie
+wpisać komendę... "python". Albo "ipython", jeśli chcemy mieć wymyślne kolorowanie tekstu i podpowiedzi.
+
+<app-image name="anaconda_prompt"></app-image>
+
+<!-- <app-python-exercise id="ex000" titlePrefix="Zadanie 1." mode="small"></app-python-exercise> -->
+
+Okienko które się pojawiło zasygnalizowało mi, że korzystam z Pythona w wersji 3.7.3 oraz korzystam z
+"Enchanced Interactive Python". Idealnie.
+
+<br /><br />
+
+Możemy teraz rozkazywać Pythonowi wykonywać różne rzeczy. Do pieczenia tortu raczej nie dojdziemy, ale możesz kazać
+mu obliczyć, ile to jest <code>2 + 2</code>. Albo <code>2 * 2</code>. Spróbuj też podzielić przez zero, zobacz jak
+zareaguje (operator dzielenia to <code>/</code>). Potęgujemy za pomocą operatora <code>**</code>. Możesz również
+spytać się, czy <code>2 > 3</code>. Kombinuj, nie ma złych odpowiedzi.
+
+Jesli udało ci się wykonać zadania, możesz bez problemu wskoczyć do pierwszej lekcji: zmienne.
+
+<app-course-navigation-bar forward="lesson-01" forwardLabel="Lekcja 1 - zmienne"></app-course-navigation-bar>

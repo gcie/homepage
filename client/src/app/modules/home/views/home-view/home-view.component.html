@@ -1,0 +1,53 @@
+<mat-sidenav-container fullscreen class="mat-app-background basic-container">
+    <div class="bg-gradient" style="height: 100vh;" fxLayout="column" fxLayoutAlign="start stretch">
+        <div style="height: 100%" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="32px">
+            <mat-icon svgIcon="tools" class="accent icon-display-4"></mat-icon>
+            <div fxLayout="column" fxLayoutAlign="start stretch">
+                <span class="mat-display-3 crimson-bold accent shadow">This website is under maintenance.</span>
+                <!-- <span class="mat-display-3 crimson-bold overlay">Website is under maintenance</span> -->
+            </div>
+        </div>
+        <div *ngIf="false" fxLayout="column" fxLayoutAlign="start center">
+            <mat-card style="width: 50%;">
+                <mat-card-title>
+                    {{ user?.name }}
+                </mat-card-title>
+                <mat-card-content>
+                    <div *ngIf="loggedIn">Zalogowany</div>
+                    <div *ngIf="!loggedIn">Niezalogowany</div>
+                    <ul>
+                        <li class="mat-body" *ngFor="let group of user?.groups">{{ group }}</li>
+                    </ul>
+                    <button mat-raised-button style="width: 30%; margin-left: 35%;" color="accent"
+                        (click)="logout()">Wyloguj</button>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+    <div *ngIf="false" class="bg-accent" style="height: 100vh;" fxLayout="column" fxLayoutAlign="start stretch">
+        <div style="height: 50%" fxLayout="column" fxLayoutAlign="center center">
+            <div fxLayout="column" fxLayoutAlign="start stretch">
+                <span class="mat-display-4 crimson-bold accent">Grzegorz Ciesielski</span>
+                <span class="mat-display-4 crimson-bold overlay">Grzegorz Ciesielski</span>
+            </div>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="start center" class="mat-headline">Strona jest w trakcie tworzenia.</div>
+        <div fxLayout="column" fxLayoutAlign="start center">
+            <mat-card style="width: 50%;">
+                <mat-card-title>
+                    {{ user?.name }}
+                </mat-card-title>
+                <mat-card-content>
+                    <div *ngIf="loggedIn">Zalogowany</div>
+                    <div *ngIf="!loggedIn">Niezalogowany</div>
+                    <ul>
+                        <li class="mat-body" *ngFor="let group of user?.groups">{{ group }}</li>
+                    </ul>
+                    <button mat-raised-button style="width: 30%; margin-left: 35%;" color="accent"
+                        (click)="logout()">Wyloguj</button>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+    <app-header #header style="position: fixed; left:0; top: 0; width: 100%"></app-header>
+</mat-sidenav-container>

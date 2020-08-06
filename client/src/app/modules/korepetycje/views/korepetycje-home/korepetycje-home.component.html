@@ -1,0 +1,16 @@
+<mat-sidenav-container>
+    <mat-sidenav #sidenav>
+        <app-korepetycje-sidenav-menu></app-korepetycje-sidenav-menu>
+    </mat-sidenav>
+    <app-korepetycje-header [sidenav]="sidenav"></app-korepetycje-header>
+    <div class="app-content" fxLayout="column" fxLayoutGap="10px">
+        <app-pupils-list #pupilsList (pupilClicked)="showPupilDetails($event)"></app-pupils-list>
+        <app-tutors-list #tutorsList (tutorClicked)="showTutorDetails($event)"></app-tutors-list>
+    </div>
+    <mat-sidenav #detailsSidenav position="end">
+        <app-pupil-detailed-view *ngIf="selectedPupil" [pupil]="selectedPupil" (pupilChange)="refreshLists()">
+        </app-pupil-detailed-view>
+        <app-tutor-detailed-view *ngIf="selectedTutor" [tutor]="selectedTutor" (tutorChange)="refreshLists()">
+        </app-tutor-detailed-view>
+    </mat-sidenav>
+</mat-sidenav-container>

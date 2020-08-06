@@ -1,0 +1,28 @@
+<app-header class="header" [title]="authService.getName()" (OnMenuTrigger)="sidenav.toggle()"></app-header>
+<mat-sidenav-container class="container">
+    <mat-sidenav #sidenav mode="side" class="sidenav">
+
+    </mat-sidenav>
+    <mat-sidenav-content class="content" fxLayout="row" fxLayoutAlign="center stretch" fxLayoutGap="24px">
+        <div class="account-details">
+            <mat-card class="account-details-card">
+                <img mat-card-image [src]="gravatarURI">
+                <mat-card-content>
+                    <h2>{{ authService.getName() }}</h2>
+                    <mat-list>
+                        <mat-list-item>
+                            <mat-icon svgIcon="email"></mat-icon>
+                            <span class="mat-body-strong" style="margin-left: 16px;">{{ authService.getEmail() }}</span>
+                        </mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="tab-section-wrapper">
+            <mat-tab-group>
+                <mat-tab label="Kurs Python"></mat-tab>
+                <mat-tab *appAuthKorepetycjeUser label="Korepetycje"></mat-tab>
+            </mat-tab-group>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
