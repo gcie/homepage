@@ -1,0 +1,17 @@
+<div style="padding: 10px">
+    <mat-card>
+        <h1 class="mat-h1">Użytkownicy</h1>
+        <app-users-list></app-users-list>
+        <h1 class="mat-h1">Uprawnienia</h1>
+        <div fxLayout="row">
+            <span>Wybierz grupę uprawnień:</span>
+            <div fxFlex="20">
+                <mat-select [(ngModel)]="selectedGroup">
+                    <mat-option *ngFor="let group of permissionGroups" [value]="group">
+                        {{ group }}
+                    </mat-option>
+                </mat-select>
+            </div>
+        </div>
+    </mat-card>
+</div>

@@ -38,6 +38,8 @@ $cairo-typography: mat-typography-config(
     src: url(assets/fonts/CrimsonText-Bold.ttf) format('truetype');
 }
 
+$header-height: 60px;
+
 body {
     margin: 0;
 }

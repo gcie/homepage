@@ -10,6 +10,8 @@
     <div *ngIf="title" class="vertical-divider"></div>
     <div fxFlex="none">{{ title }}</div>
     <div fxFlex></div>
+    <button mat-button *appAuthAdmin class="bt-medium" (click)="redirect('admin-console')" fxFlex="none">Konsola
+        administracyjna</button>
     <button mat-button class="bt-medium" (click)="redirect('python')" fxFlex="none">Python</button>
     <button *appAuth="false" mat-button class="bt-medium" (click)="loginRedirect()" fxFlex="none">Zaloguj</button>
     <button *appAuth mat-button class="bt-medium" [matMenuTriggerFor]="menu">{{ authService.getName() }}</button>

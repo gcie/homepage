@@ -8,6 +8,8 @@ export type UserDocument = Document & {
     passwordResetToken: string;
     passwordResetExpires: Date;
 
+    metadata: string;
+
     facebook: string;
     tokens: AuthToken[];
 
@@ -31,6 +33,8 @@ const userSchema = new Schema(
         password: String,
         passwordResetToken: String,
         passwordResetExpires: Date,
+
+        metadata: String,
 
         facebook: String,
         twitter: String,
