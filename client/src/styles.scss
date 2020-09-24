@@ -113,6 +113,9 @@ a.mat-menu-item > mat-icon {
     // letter-spacing: 0.01em;
 }
 
+.alert {
+    color: mat-color(map-get($green-theme, warn), default);
+}
 // Icons sizes
 $font-types: display-4, display-3, display-2, display-1, headline, title, subheading-2, subheading-1, body-2, body-1, caption, button, input;
 

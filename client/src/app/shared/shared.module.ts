@@ -7,12 +7,14 @@ import { ConfirmDialogComponent } from './components';
 import { CodeEditorComponent } from './components/code-editor/code-editor.component';
 import { EditableListItemComponent } from './components/editable-list-item/editable-list-item.component';
 import { HeaderComponent } from './components/header/header.component';
+import { MultiselectCheckboxComponent } from './components/multiselect-checkbox/multiselect-checkbox.component';
 import { SelectableListItemComponent } from './components/selectable-list-item/selectable-list-item.component';
 import { AuthAdminDirective } from './directives/auth-admin.directive';
 import { AuthKorepetycjeManagerDirective } from './directives/auth-korepetycje-manager.directive';
 import { AuthKorepetycjeUserDirective } from './directives/auth-korepetycje-user.directive';
 import { AuthDirective } from './directives/auth.directive';
 import { ShortenPipe } from './pipes/shorten.pipe';
+import { NoopCheckboxComponent } from './components/noop-checkbox/noop-checkbox.component';
 
 @NgModule({
     declarations: [
@@ -26,6 +28,8 @@ import { ShortenPipe } from './pipes/shorten.pipe';
         AuthDirective,
         HeaderComponent,
         CodeEditorComponent,
+        MultiselectCheckboxComponent,
+        NoopCheckboxComponent,
     ],
     imports: [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule, FlexLayoutModule],
     exports: [
@@ -35,10 +39,15 @@ import { ShortenPipe } from './pipes/shorten.pipe';
         SelectableListItemComponent,
         HeaderComponent,
         CodeEditorComponent,
+        MultiselectCheckboxComponent,
         AuthAdminDirective,
         AuthKorepetycjeManagerDirective,
         AuthKorepetycjeUserDirective,
         AuthDirective,
+        FlexLayoutModule,
+        MaterialModule,
+        FormsModule,
+        ReactiveFormsModule,
     ],
     entryComponents: [ConfirmDialogComponent],
 })

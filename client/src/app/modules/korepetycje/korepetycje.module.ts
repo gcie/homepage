@@ -1,8 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { MaterialModule } from '../material/material.module';
 import { KorepetycjeHeaderComponent } from './components/korepetycje-header/korepetycje-header.component';
 import { KorepetycjeSidenavMenuComponent } from './components/korepetycje-sidenav-menu/korepetycje-sidenav-menu.component';
 import { PupilAddDialogComponent } from './components/pupil-add-dialog/pupil-add-dialog.component';
@@ -14,7 +12,9 @@ import { TutorDetailedViewComponent } from './components/tutor-detailed-view/tut
 import { TutorEditDialogComponent } from './components/tutor-edit-dialog/tutor-edit-dialog.component';
 import { TutorsListComponent } from './components/tutors-list/tutors-list.component';
 import { KorepetycjeRoutingModule } from './korepetycje-routing.module';
+import { FormHomeComponent } from './views/form-home/form-home.component';
 import { KorepetycjeHomeComponent } from './views/korepetycje-home/korepetycje-home.component';
+import { PupilNewFormComponent } from './views/pupil-new-form/pupil-new-form.component';
 
 @NgModule({
     declarations: [
@@ -29,7 +29,9 @@ import { KorepetycjeHomeComponent } from './views/korepetycje-home/korepetycje-h
         TutorsListComponent,
         PupilDetailedViewComponent,
         TutorDetailedViewComponent,
+        PupilNewFormComponent,
+        FormHomeComponent,
     ],
-    imports: [CommonModule, SharedModule, MaterialModule, FormsModule, ReactiveFormsModule, KorepetycjeRoutingModule],
+    imports: [CommonModule, SharedModule, KorepetycjeRoutingModule],
 })
 export class KorepetycjeModule {}
