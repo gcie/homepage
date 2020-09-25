@@ -38,7 +38,7 @@
                 <ng-container matColumnDef="notes">
                     <th mat-header-cell *matHeaderCellDef>Notatki</th>
                     <td mat-cell data-label="Notatki" *matCellDef="let pupil"
-                        [innerHTML]="pupil.notes.replace('\n', '<br />')" (click)="rowClicked(pupil)"></td>
+                        [innerHTML]="pupil.notes?.replace('\n', '<br />')" (click)="rowClicked(pupil)"></td>
                 </ng-container>
 
                 <ng-container matColumnDef="assignedTutorName">

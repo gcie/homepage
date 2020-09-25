@@ -47,7 +47,7 @@ app.use(lusca.xssProtection(true));
 /**
  * API routes.
  */
-app.use('/api/korepetycje/pupils', isKorepetycjeUser, pupils);
+app.use('/api/korepetycje/pupils', pupils);
 app.use('/api/korepetycje/tutors', isKorepetycjeUser, tutors);
 app.use('/api/users', isAdmin, users);
 app.use('/api/user', isAuthenticated, user);

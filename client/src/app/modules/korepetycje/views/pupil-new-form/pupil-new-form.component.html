@@ -7,8 +7,8 @@
             </mat-card-title>
             <mat-card-content style="width: 100%;">
                 <mat-vertical-stepper #stepper linear style="width: 100%;">
-                    <mat-step [stepControl]="contactFormGroup">
-                        <form [formGroup]="contactFormGroup" fxLayout="column">
+                    <mat-step [stepControl]="contactForm">
+                        <form [formGroup]="contactForm" fxLayout="column">
                             <ng-template matStepLabel>Twoje dane</ng-template>
                             <mat-form-field>
                                 <mat-label>Imię i nazwisko</mat-label>
@@ -19,27 +19,35 @@
                                 <input matInput formControlName="email" required>
                             </mat-form-field>
                             <mat-form-field>
+                                <mat-label>Nr telefonu (opcjonalnie)</mat-label>
+                                <input matInput formControlName="phone">
+                            </mat-form-field>
+                            <mat-form-field>
                                 <mat-label>Szkoła i klasa</mat-label>
-                                <input matInput formControlName="school" required>
+                                <input matInput formControlName="class" required>
                             </mat-form-field>
 
                             <mat-checkbox formControlName="isMature">Jestem pełnoletni/pełnoletnia</mat-checkbox>
                             <div style="padding-top: 16px;">
-                                <button mat-raised-button color="accent" [disabled]="!contactFormGroup.valid"
+                                <button mat-raised-button color="accent" [disabled]="!contactForm.valid"
                                     matStepperNext>Dalej</button>
                             </div>
                         </form>
                     </mat-step>
-                    <mat-step [stepControl]="parentFormGroup">
-                        <form [formGroup]="parentFormGroup" fxLayout="column">
+                    <mat-step [stepControl]="parentForm">
+                        <form [formGroup]="parentForm" fxLayout="column">
                             <ng-template matStepLabel>Dane rodzica (opcjonalnie)</ng-template>
                             <mat-form-field>
                                 <mat-label>Imię i nazwisko</mat-label>
-                                <input matInput placeholder="Imię i nazwisko" formControlName="name">
+                                <input matInput formControlName="parentName">
                             </mat-form-field>
                             <mat-form-field>
                                 <mat-label>Adres email</mat-label>
-                                <input matInput formControlName="email">
+                                <input matInput formControlName="parentEmail">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Nr telefonu</mat-label>
+                                <input matInput formControlName="parentPhone">
                             </mat-form-field>
                             <div fxLayout="row" fxLayoutGap="8px">
                                 <button mat-button matStepperPrevious>Wstecz</button>
@@ -47,25 +55,25 @@
                             </div>
                         </form>
                     </mat-step>
-                    <mat-step [stepControl]="korepetycjeFormGroup">
-                        <form [formGroup]="korepetycjeFormGroup" fxLayout="column" fxLayoutGap="8px">
+                    <mat-step [stepControl]="lessonsForm">
+                        <form [formGroup]="lessonsForm" fxLayout="column" fxLayoutGap="8px">
                             <ng-template matStepLabel>Dane dot. korepetycji</ng-template>
                             <h2 class="mat-h2">Które przedmioty sprawiają ci trudność?</h2>
                             <div>
-                                <multiselect-checkbox formControlName="przedmioty" allowCustom="3"
+                                <multiselect-checkbox formControlName="needs" allowCustom="3"
                                     customPlaceholder="inny...">
                                 </multiselect-checkbox>
-                                <div *ngIf="korepetycjeFormGroup.get('przedmioty')!.invalid && (korepetycjeFormGroup.get('przedmioty')!.dirty || korepetycjeFormGroup.get('przedmioty')!.touched)"
+                                <div *ngIf="lessonsForm.get('needs')!.invalid && (lessonsForm.get('needs')!.dirty || lessonsForm.get('needs')!.touched)"
                                     class="alert mat-small">Wybierz co najmniej 1 przedmiot
                                 </div>
                             </div>
 
                             <div *ngIf="wybranePrzedmioty.length > 1" fxLayout="column" fxLayoutGap="8px">
-                                <h2 class="mat-h2">Gdybyś mógł/mogła wybrać tylko jeden, to który?</h2>
+                                <h3 class="mat-h3">A gdybyś mógł/mogła wybrać tylko jeden, to który?</h3>
                                 <span class="mat-body-2">Czasami ciężko nam znaleźć korepetytora, który chciałby uczyć
                                     więcej niż jeden przedmiot. Oczywiście jeśli się taki znajdzie, to będziesz
                                     pierwszy/pierwsza w kolejce!</span>
-                                <mat-radio-group fxLayout="column" formControlName="mainPrzedmiot">
+                                <mat-radio-group fxLayout="column" formControlName="mainNeeds">
                                     <mat-radio-button *ngFor="let przedmiot of wybranePrzedmioty" [value]="przedmiot">
                                         {{ przedmiot }}</mat-radio-button>
                                 </mat-radio-group>
@@ -74,7 +82,7 @@
                             <h2 class="mat-h2">Jaka forma korepetycji będzie najodpowiedniejsza? Zdalnie czy
                                 stacjonarnie w Moście?</h2>
 
-                            <mat-radio-group fxLayout="column" formControlName="canRemotely">
+                            <mat-radio-group fxLayout="column" formControlName="remoteOrStationary">
                                 <mat-radio-button [value]="5">Tylko zdalnie</mat-radio-button>
                                 <mat-radio-button [value]="4">Wolę zdalnie, ale może być w Moście</mat-radio-button>
                                 <mat-radio-button [value]="3">Bez różnicy</mat-radio-button>
@@ -89,10 +97,10 @@
                                 <mat-radio-button [value]="false">Nie</mat-radio-button>
                             </mat-radio-group>
 
-                            <span *ngIf="korepetycjeFormGroup.get('alreadyAttended')?.value" class="mat-h3">A
-                                pamiętasz imię i/lub nazwisko poprzedniego tutora?</span>
+                            <h3 *ngIf="lessonsForm.get('alreadyAttended')?.value" class="mat-h3">A
+                                pamiętasz imię i/lub nazwisko poprzedniego tutora?</h3>
 
-                            <mat-form-field *ngIf="korepetycjeFormGroup.get('alreadyAttended')?.value">
+                            <mat-form-field *ngIf="lessonsForm.get('alreadyAttended')?.value">
                                 <mat-label>Imię i/lub nazwisko</mat-label>
                                 <input matInput formControlName="previousTutor">
                             </mat-form-field>
@@ -100,12 +108,12 @@
                             <div fxLayout="row" fxLayoutGap="8px">
                                 <button mat-button matStepperPrevious>Wstecz</button>
                                 <button mat-raised-button matStepperNext color="accent"
-                                    [disabled]="!korepetycjeFormGroup?.valid">Dalej</button>
+                                    [disabled]="!lessonsForm?.valid">Dalej</button>
                             </div>
                         </form>
                     </mat-step>
                     <mat-step>
-                        <form [formGroup]="klauzuleForm" fxLayout="column" fxLayoutGap="8px">
+                        <form [formGroup]="clausesForm" fxLayout="column" fxLayoutGap="8px">
 
                             <ng-template matStepLabel>Klauzule informacyjne</ng-template>
                             <div class="mat-h2">Kaluzula informacyjna dotycząca przetwarzania danych osobowych</div>
@@ -147,7 +155,9 @@
                                 <span class="mat-body-1" style="white-space: normal;">
                                     Wyrażam zgodę na przetwarzanie przez Salezjańskie Duszpasterstwo Akademickie MOST i
                                     Stowarzyszenie Akademickie MOST, Plac Grunwaldzki 3, 50-377 Wrocław danych osobowych
-                                    zawartych w Formularzu zgłoszenia w celu organizacji korepetycji.</span>
+                                    zawartych w Formularzu zgłoszenia w celu organizacji uczestnictwa w Korepetycjach
+                                    MOSTowych oraz w zakresie niezbędnym dla bezpieczeństwa i ochrony zdrowia
+                                    uczestnika.</span>
                             </mat-checkbox>
                             <mat-checkbox formControlName="clause3" required>
                                 <span class="alert mat-body-1">*</span>
@@ -159,8 +169,8 @@
                             </mat-checkbox>
                             <div fxLayout="row" fxLayoutGap="8px">
                                 <button mat-button matStepperPrevious>Wstecz</button>
-                                <button mat-raised-button matStepperNext color="accent"
-                                    [disabled]="!klauzuleForm?.valid">Wyślij</button>
+                                <button mat-raised-button matStepperNext color="accent" [disabled]="!clausesForm?.valid"
+                                    (click)="submit()">Wyślij</button>
                             </div>
                         </form>
                     </mat-step>

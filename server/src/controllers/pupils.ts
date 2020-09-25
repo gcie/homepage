@@ -3,17 +3,17 @@ import { check } from 'express-validator';
 import { Types } from 'mongoose';
 import { Pupil } from '../models/Pupil';
 import { Tutor } from '../models/Tutor';
-import { isKorepetycjeManager } from './../config/guards';
+import { isKorepetycjeManager, isKorepetycjeUser } from './../config/guards';
 
 export const pupils = Router();
 
-pupils.get('/', (req: Request, res: Response, next: NextFunction) => {
+pupils.get('/', isKorepetycjeUser, (req: Request, res: Response, next: NextFunction) => {
     Pupil.find()
         .then((doc) => res.status(200).json(doc))
         .catch(next);
 });
 
-pupils.post('/', isKorepetycjeManager, async (req: Request, res: Response, next: NextFunction) => {
+pupils.post('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
         await check('email', 'Email is not valid').isEmail().run(req);
         await check('name', 'Name cannot be blank').isLength({ min: 1 }).run(req);
@@ -29,7 +29,7 @@ pupils.post('/', isKorepetycjeManager, async (req: Request, res: Response, next:
     }
 });
 
-pupils.get('/:id', (req: Request, res: Response, next: NextFunction) => {
+pupils.get('/:id', isKorepetycjeUser, (req: Request, res: Response, next: NextFunction) => {
     Pupil.findById(req.params.id)
         .then((doc) => res.json(doc))
         .catch(next);

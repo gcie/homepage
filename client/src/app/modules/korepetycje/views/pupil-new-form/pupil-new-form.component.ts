@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
+import { Pupil } from 'src/app/core/models';
+import { PupilsService } from 'src/app/core/services';
 import { selectBetween } from 'src/app/shared/components/multiselect-checkbox/multiselect-checkbox.component';
 
 @Component({
@@ -9,35 +11,62 @@ import { selectBetween } from 'src/app/shared/components/multiselect-checkbox/mu
     styleUrls: ['./pupil-new-form.component.scss'],
 })
 export class PupilNewFormComponent {
-    contactFormGroup: FormGroup;
-    pupilFormGroup: FormGroup;
-    parentFormGroup: FormGroup;
-    korepetycjeFormGroup: FormGroup;
-    klauzuleForm: FormGroup;
-    isParent = new FormControl(false);
-    multiselectOptions = {
-        test1: true,
-        test2: false,
-    };
+    contactForm: FormGroup;
+    parentForm: FormGroup;
+    lessonsForm: FormGroup;
+    clausesForm: FormGroup;
 
     wybranePrzedmioty: string[] = [];
 
-    constructor() {
-        this.contactFormGroup = new FormGroup({
+    constructor(private pupils: PupilsService) {
+        this.initializeForms();
+
+        this.lessonsForm
+            .get('needs')!
+            .valueChanges.pipe(
+                map((o: { [name: string]: boolean }) => {
+                    let a: string[] = [];
+                    for (let x in o) {
+                        if (o[x]) a.push(x);
+                    }
+                    return a;
+                })
+            )
+            ?.subscribe((wybranePrzedmioty) => (this.wybranePrzedmioty = wybranePrzedmioty));
+    }
+
+    submit() {
+        if (this.contactForm.valid && this.parentForm.valid && this.lessonsForm.valid && this.clausesForm.valid) {
+            let pupil = new Pupil();
+            Object.assign(pupil, this.contactForm.value, this.parentForm.value);
+            pupil.mainNeeds = this.lessonsForm.value.mainNeeds;
+            pupil.remoteOrStationary = this.lessonsForm.value.remoteOrStationary;
+            if (this.lessonsForm.value.alreadyAttended) pupil.notes = `Uczęszczał(a) na korepetycje wcześniej`;
+            if (this.lessonsForm.value.previousTutor) pupil.notes += ' z ' + this.lessonsForm.value.previousTutor;
+            pupil.needs = Object.keys(this.lessonsForm.value.needs)
+                .filter((v) => this.lessonsForm.value.needs[v])
+                .join(', ');
+            this.pupils.createPupil(pupil).subscribe(console.log);
+        }
+    }
+
+    private initializeForms() {
+        this.contactForm = new FormGroup({
             name: new FormControl(null, Validators.required),
             email: new FormControl(null, [Validators.email, Validators.required]),
-            school: new FormControl(),
+            class: new FormControl(),
+            phone: new FormControl(),
             isMature: new FormControl(false),
         });
 
-        this.parentFormGroup = new FormGroup({
-            name: new FormControl(),
-            email: new FormControl(null, Validators.email),
-            phone: new FormControl(),
+        this.parentForm = new FormGroup({
+            parentName: new FormControl(),
+            parentEmail: new FormControl(null, Validators.email),
+            parentPhone: new FormControl(),
         });
 
-        this.korepetycjeFormGroup = new FormGroup({
-            przedmioty: new FormControl(
+        this.lessonsForm = new FormGroup({
+            needs: new FormControl(
                 {
                     matematyka: false,
                     fizyka: false,
@@ -50,29 +79,16 @@ export class PupilNewFormComponent {
                 },
                 selectBetween(1, 20)
             ),
-            mainPrzedmiot: new FormControl(),
-            canRemotely: new FormControl(null, Validators.required),
+            mainNeeds: new FormControl(),
+            remoteOrStationary: new FormControl(null, Validators.required),
             alreadyAttended: new FormControl(false),
             previousTutor: new FormControl(),
         });
 
-        this.klauzuleForm = new FormGroup({
+        this.clausesForm = new FormGroup({
             clause1: new FormControl(false, Validators.requiredTrue),
             clause2: new FormControl(false, Validators.requiredTrue),
             clause3: new FormControl(false, Validators.requiredTrue),
         });
-
-        this.korepetycjeFormGroup
-            .get('przedmioty')!
-            .valueChanges.pipe(
-                map((o: { [name: string]: boolean }) => {
-                    let a: string[] = [];
-                    for (let x in o) {
-                        if (o[x]) a.push(x);
-                    }
-                    return a;
-                })
-            )
-            ?.subscribe((wybranePrzedmioty) => (this.wybranePrzedmioty = wybranePrzedmioty));
     }
 }
