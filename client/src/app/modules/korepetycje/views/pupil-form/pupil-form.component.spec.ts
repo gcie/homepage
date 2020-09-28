@@ -1,18 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { PupilNewFormComponent } from './pupil-new-form.component';
+import { PupilFormComponent } from './pupil-form.component';
 
-describe('PupilNewFormComponent', () => {
-    let component: PupilNewFormComponent;
-    let fixture: ComponentFixture<PupilNewFormComponent>;
+describe('PupilFormComponent', () => {
+    let component: PupilFormComponent;
+    let fixture: ComponentFixture<PupilFormComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [PupilNewFormComponent],
+            declarations: [PupilFormComponent],
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(PupilNewFormComponent);
+        fixture = TestBed.createComponent(PupilFormComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -16,4 +16,6 @@ export class Pupil {
     lessonsStatus: string;
     assignedTutorId?: string;
     assignedTutorName?: string;
+    createdAt: Date;
+    updatedAt: Date;
 }

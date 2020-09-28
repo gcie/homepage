@@ -9,11 +9,11 @@ import { selectBetween } from 'src/app/shared/components/multiselect-checkbox/mu
 import { PupilFormSuccessDialogComponent } from '../../components/pupil-form-success-dialog/pupil-form-success-dialog.component';
 
 @Component({
-    selector: 'app-pupil-new-form',
-    templateUrl: './pupil-new-form.component.html',
-    styleUrls: ['./pupil-new-form.component.scss'],
+    selector: 'app-pupil-form',
+    templateUrl: './pupil-form.component.html',
+    styleUrls: ['./pupil-form.component.scss'],
 })
-export class PupilNewFormComponent {
+export class PupilFormComponent {
     contactForm: FormGroup;
     parentForm: FormGroup;
     lessonsForm: FormGroup;

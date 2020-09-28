@@ -15,7 +15,7 @@ import { TutorsListComponent } from './components/tutors-list/tutors-list.compon
 import { KorepetycjeRoutingModule } from './korepetycje-routing.module';
 import { FormHomeComponent } from './views/form-home/form-home.component';
 import { KorepetycjeHomeComponent } from './views/korepetycje-home/korepetycje-home.component';
-import { PupilNewFormComponent } from './views/pupil-new-form/pupil-new-form.component';
+import { PupilFormComponent } from './views/pupil-form/pupil-form.component';
 
 @NgModule({
     declarations: [
@@ -30,7 +30,7 @@ import { PupilNewFormComponent } from './views/pupil-new-form/pupil-new-form.com
         TutorsListComponent,
         PupilDetailedViewComponent,
         TutorDetailedViewComponent,
-        PupilNewFormComponent,
+        PupilFormComponent,
         FormHomeComponent,
         PupilFormSuccessDialogComponent,
     ],

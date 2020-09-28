@@ -7,11 +7,11 @@ import { TutorAddDialogComponent } from './components/tutor-add-dialog/tutor-add
 import { TutorEditDialogComponent } from './components/tutor-edit-dialog/tutor-edit-dialog.component';
 import { FormHomeComponent } from './views/form-home/form-home.component';
 import { KorepetycjeHomeComponent } from './views/korepetycje-home/korepetycje-home.component';
-import { PupilNewFormComponent } from './views/pupil-new-form/pupil-new-form.component';
+import { PupilFormComponent } from './views/pupil-form/pupil-form.component';
 
 const routes: Routes = [
     { path: '', component: KorepetycjeHomeComponent, canActivate: [KorepetycjeUserGuard] },
-    { path: 'new-pupil', component: PupilNewFormComponent },
+    { path: 'new-pupil', component: PupilFormComponent },
     { path: 'formularz', component: FormHomeComponent },
 ];
 
