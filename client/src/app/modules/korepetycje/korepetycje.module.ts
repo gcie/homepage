@@ -6,6 +6,7 @@ import { KorepetycjeSidenavMenuComponent } from './components/korepetycje-sidena
 import { PupilAddDialogComponent } from './components/pupil-add-dialog/pupil-add-dialog.component';
 import { PupilDetailedViewComponent } from './components/pupil-detailed-view/pupil-detailed-view.component';
 import { PupilEditDialogComponent } from './components/pupil-edit-dialog/pupil-edit-dialog.component';
+import { PupilFormSuccessDialogComponent } from './components/pupil-form-success-dialog/pupil-form-success-dialog.component';
 import { PupilsListComponent } from './components/pupils-list/pupils-list.component';
 import { TutorAddDialogComponent } from './components/tutor-add-dialog/tutor-add-dialog.component';
 import { TutorDetailedViewComponent } from './components/tutor-detailed-view/tutor-detailed-view.component';
@@ -31,6 +32,7 @@ import { PupilNewFormComponent } from './views/pupil-new-form/pupil-new-form.com
         TutorDetailedViewComponent,
         PupilNewFormComponent,
         FormHomeComponent,
+        PupilFormSuccessDialogComponent,
     ],
     imports: [CommonModule, SharedModule, KorepetycjeRoutingModule],
 })

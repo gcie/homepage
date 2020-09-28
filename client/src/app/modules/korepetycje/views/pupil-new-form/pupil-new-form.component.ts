@@ -1,9 +1,12 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { map } from 'rxjs/operators';
 import { Pupil } from 'src/app/core/models';
 import { PupilsService } from 'src/app/core/services';
 import { selectBetween } from 'src/app/shared/components/multiselect-checkbox/multiselect-checkbox.component';
+import { PupilFormSuccessDialogComponent } from '../../components/pupil-form-success-dialog/pupil-form-success-dialog.component';
 
 @Component({
     selector: 'app-pupil-new-form',
@@ -18,7 +21,7 @@ export class PupilNewFormComponent {
 
     wybranePrzedmioty: string[] = [];
 
-    constructor(private pupils: PupilsService) {
+    constructor(private pupils: PupilsService, private dialog: MatDialog, private location: Location) {
         this.initializeForms();
 
         this.lessonsForm
@@ -46,7 +49,10 @@ export class PupilNewFormComponent {
             pupil.needs = Object.keys(this.lessonsForm.value.needs)
                 .filter((v) => this.lessonsForm.value.needs[v])
                 .join(', ');
-            this.pupils.createPupil(pupil).subscribe(console.log);
+            this.pupils.createPupil(pupil).subscribe(() => {
+                const dialogRef = this.dialog.open(PupilFormSuccessDialogComponent, { width: '500px' });
+                dialogRef.afterClosed().subscribe(() => this.location.back());
+            });
         }
     }
 
