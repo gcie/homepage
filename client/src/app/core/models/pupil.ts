@@ -5,6 +5,7 @@ export class Pupil {
     phone?: string;
     class: string;
     needs: string;
+    contactEmail: string;
     isMature?: boolean;
     remoteOrStationary: number;
     mainNeeds?: string;

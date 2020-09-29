@@ -5,18 +5,17 @@ import { MatDialog } from '@angular/material/dialog';
 import { map } from 'rxjs/operators';
 import { Pupil } from 'src/app/core/models';
 import { PupilsService } from 'src/app/core/services';
-import { selectBetween } from 'src/app/shared/components/multiselect-checkbox/multiselect-checkbox.component';
+import { selectBetween } from 'src/app/shared/components';
 import { FormSuccessDialogComponent } from '../../components/form-success-dialog/form-success-dialog.component';
 
 @Component({
-    selector: 'app-pupil-form',
-    templateUrl: './pupil-form.component.html',
-    styleUrls: ['./pupil-form.component.scss'],
+    selector: 'app-parent-form',
+    templateUrl: './parent-form.component.html',
+    styleUrls: ['./parent-form.component.scss'],
 })
-export class PupilFormComponent {
+export class ParentFormComponent {
     contactForm: FormGroup;
-    parentForm: FormGroup;
-    lessonsForm: FormGroup;
+    pupilForm: FormGroup;
     clausesForm: FormGroup;
 
     wybranePrzedmioty: string[] = [];
@@ -24,7 +23,7 @@ export class PupilFormComponent {
     constructor(private pupils: PupilsService, private dialog: MatDialog, private location: Location) {
         this.initializeForms();
 
-        this.lessonsForm
+        this.pupilForm
             .get('needs')!
             .valueChanges.pipe(
                 map((o: { [name: string]: boolean }) => {
@@ -39,22 +38,20 @@ export class PupilFormComponent {
     }
 
     submit() {
-        if (this.contactForm.valid && this.parentForm.valid && this.lessonsForm.valid && this.clausesForm.valid) {
+        if (this.contactForm.valid && this.pupilForm.valid && this.clausesForm.valid) {
             let pupil = new Pupil();
-            Object.assign(pupil, this.contactForm.value, this.parentForm.value);
-            pupil.contactEmail = this.contactForm.value.email;
-            pupil.mainNeeds = this.lessonsForm.value.mainNeeds;
-            pupil.remoteOrStationary = this.lessonsForm.value.remoteOrStationary;
-            if (this.lessonsForm.value.alreadyAttended) pupil.notes = `Uczęszczał(a) na korepetycje wcześniej`;
-            if (this.lessonsForm.value.previousTutor) pupil.notes += ' z ' + this.lessonsForm.value.previousTutor;
-            pupil.needs = Object.keys(this.lessonsForm.value.needs)
-                .filter((v) => this.lessonsForm.value.needs[v])
+            Object.assign(pupil, this.contactForm.value, this.pupilForm.value);
+            pupil.contactEmail = this.contactForm.value.parentEmail;
+            if (this.pupilForm.value.alreadyAttended) pupil.notes = `Uczęszczał(a) na korepetycje wcześniej`;
+            if (this.pupilForm.value.previousTutor) pupil.notes += ' z ' + this.pupilForm.value.previousTutor;
+            pupil.needs = Object.keys(this.pupilForm.value.needs)
+                .filter((v) => this.pupilForm.value.needs[v])
                 .join(', ');
             this.pupils.createPupil(pupil).subscribe(() => {
                 const dialogRef = this.dialog.open(FormSuccessDialogComponent, {
                     width: '500px',
                     data: {
-                        mode: 'pupil',
+                        mode: 'parent',
                         email: this.contactForm.value.email,
                     },
                 });
@@ -65,20 +62,16 @@ export class PupilFormComponent {
 
     private initializeForms() {
         this.contactForm = new FormGroup({
-            name: new FormControl(null, Validators.required),
-            email: new FormControl(null, [Validators.email, Validators.required]),
-            class: new FormControl(null, Validators.required),
-            phone: new FormControl(),
-            isMature: new FormControl(false),
-        });
-
-        this.parentForm = new FormGroup({
-            parentName: new FormControl(),
-            parentEmail: new FormControl(null, Validators.email),
+            parentName: new FormControl(null, Validators.required),
+            parentEmail: new FormControl(null, [Validators.email, Validators.required]),
             parentPhone: new FormControl(),
         });
 
-        this.lessonsForm = new FormGroup({
+        this.pupilForm = new FormGroup({
+            name: new FormControl(null, Validators.required),
+            email: new FormControl(null, Validators.email),
+            phone: new FormControl(),
+            class: new FormControl(null, Validators.required),
             needs: new FormControl(
                 {
                     matematyka: false,

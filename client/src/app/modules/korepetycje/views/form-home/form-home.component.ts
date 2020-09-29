@@ -10,6 +10,6 @@ export class FormHomeComponent {
     constructor(private router: Router) {}
 
     select(path: string) {
-        this.router.navigateByUrl(`/korepetycje/new-${path}`);
+        this.router.navigateByUrl(`/korepetycje/${path}`);
     }
 }

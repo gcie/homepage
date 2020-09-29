@@ -3,6 +3,7 @@ import { Document, model, Schema, Types } from 'mongoose';
 export type PupilDocument = Document & {
     name: string;
     email: string;
+    contactEmail: string;
     phone?: string;
     class: string;
     needs: string;
@@ -22,6 +23,7 @@ const pupilSchema = new Schema(
     {
         name: String,
         email: String,
+        contactEmail: String,
         phone: String,
         class: String,
         needs: String,
