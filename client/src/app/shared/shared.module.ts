@@ -7,14 +7,15 @@ import { ConfirmDialogComponent } from './components';
 import { CodeEditorComponent } from './components/code-editor/code-editor.component';
 import { EditableListItemComponent } from './components/editable-list-item/editable-list-item.component';
 import { HeaderComponent } from './components/header/header.component';
+import { MultiselectCheckboxWithOptionComponent } from './components/multiselect-checkbox-with-option/multiselect-checkbox-with-option.component';
 import { MultiselectCheckboxComponent } from './components/multiselect-checkbox/multiselect-checkbox.component';
+import { NoopCheckboxComponent } from './components/noop-checkbox/noop-checkbox.component';
 import { SelectableListItemComponent } from './components/selectable-list-item/selectable-list-item.component';
 import { AuthAdminDirective } from './directives/auth-admin.directive';
 import { AuthKorepetycjeManagerDirective } from './directives/auth-korepetycje-manager.directive';
 import { AuthKorepetycjeUserDirective } from './directives/auth-korepetycje-user.directive';
 import { AuthDirective } from './directives/auth.directive';
 import { ShortenPipe } from './pipes/shorten.pipe';
-import { NoopCheckboxComponent } from './components/noop-checkbox/noop-checkbox.component';
 
 @NgModule({
     declarations: [
@@ -30,6 +31,7 @@ import { NoopCheckboxComponent } from './components/noop-checkbox/noop-checkbox.
         CodeEditorComponent,
         MultiselectCheckboxComponent,
         NoopCheckboxComponent,
+        MultiselectCheckboxWithOptionComponent,
     ],
     imports: [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule, FlexLayoutModule],
     exports: [
@@ -40,6 +42,7 @@ import { NoopCheckboxComponent } from './components/noop-checkbox/noop-checkbox.
         HeaderComponent,
         CodeEditorComponent,
         MultiselectCheckboxComponent,
+        MultiselectCheckboxWithOptionComponent,
         AuthAdminDirective,
         AuthKorepetycjeManagerDirective,
         AuthKorepetycjeUserDirective,

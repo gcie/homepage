@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { TutorsService } from 'src/app/core/services';
 import { Tutor } from 'src/app/core/models';
+import { TutorsService } from 'src/app/core/services';
 
 @Component({
     selector: 'app-tutor-detailed-view',
@@ -22,7 +22,7 @@ export class TutorDetailedViewComponent {
                 this.tutor.phone = data;
                 break;
             case 'teaches':
-                this.tutor.teaches = data;
+                // this.tutor.teaches = data; // FIXME: poprawić wyświetlanie tutorów
                 break;
             case 'notes':
                 this.tutor.notes = data;

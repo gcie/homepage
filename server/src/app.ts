@@ -6,7 +6,7 @@ import lusca from 'lusca';
 import mongoose from 'mongoose';
 import passport from 'passport';
 import path from 'path';
-import { isAdmin, isKorepetycjeUser } from './config/guards';
+import { isAdmin } from './config/guards';
 import { isAuthenticated } from './config/passport';
 import { auth, jdoodle, pupils, tutors, user, users } from './controllers';
 import { pythonCourse } from './controllers/python-course';
@@ -48,7 +48,7 @@ app.use(lusca.xssProtection(true));
  * API routes.
  */
 app.use('/api/korepetycje/pupils', pupils);
-app.use('/api/korepetycje/tutors', isKorepetycjeUser, tutors);
+app.use('/api/korepetycje/tutors', tutors);
 app.use('/api/users', isAdmin, users);
 app.use('/api/user', isAuthenticated, user);
 app.use('/api/jdoodle', isAuthenticated, jdoodle);

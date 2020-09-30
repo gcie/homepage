@@ -1,11 +1,18 @@
-import { Document, Types, Schema, model } from 'mongoose';
+import { Document, model, Schema, Types } from 'mongoose';
 
 export type TutorDocument = Document & {
     name: string;
     email: string;
     phone: string;
-    teaches: string;
+    teaches: {
+        [subject: string]: {
+            sp: boolean;
+            lo: boolean;
+            matura: boolean;
+        };
+    };
     notes: string;
+    remoteOrStationary: number;
     lessonsStatus: string;
     assignedPupilId?: Types.ObjectId;
     assignedPupilName?: string;
@@ -16,8 +23,9 @@ const tutorSchema = new Schema(
         name: String,
         email: String,
         phone: String,
-        teaches: String,
+        teaches: Object,
         notes: String,
+        remoteOrStationary: Number,
         lessonsStatus: String,
         assignedPupilId: Types.ObjectId,
         assignedPupilName: String,

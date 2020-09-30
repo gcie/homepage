@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { check } from 'express-validator';
-import { isKorepetycjeManager } from '../config/guards';
+import { isKorepetycjeManager, isKorepetycjeUser } from '../config/guards';
 import { Tutor } from '../models/Tutor';
 
 export const tutors = Router();
 
-tutors.get('/', (req: Request, res: Response, next: NextFunction) => {
+tutors.get('/', isKorepetycjeUser, (req: Request, res: Response, next: NextFunction) => {
     const conditions: any = {};
     if (req.query.onlyFree) {
         conditions.assignedPupilId = null;
@@ -15,7 +15,7 @@ tutors.get('/', (req: Request, res: Response, next: NextFunction) => {
         .catch(next);
 });
 
-tutors.post('/', isKorepetycjeManager, async (req: Request, res: Response, next: NextFunction) => {
+tutors.post('/', async (req: Request, res: Response, next: NextFunction) => {
     await check('email', 'Email is not valid').isEmail().run(req);
     await check('name', 'Name cannot be blank').isLength({ min: 1 }).run(req);
 
@@ -26,7 +26,7 @@ tutors.post('/', isKorepetycjeManager, async (req: Request, res: Response, next:
         .catch(next);
 });
 
-tutors.get('/:id', (req: Request, res: Response, next: NextFunction) => {
+tutors.get('/:id', isKorepetycjeUser, (req: Request, res: Response, next: NextFunction) => {
     Tutor.findById(req.params.id)
         .then((doc) => res.json(doc))
         .catch(next);
@@ -40,7 +40,7 @@ tutors.put('/:id', isKorepetycjeManager, (req: Request, res: Response, next: Nex
         .catch(next);
 });
 
-tutors.delete('/:id', (req: Request, res: Response, next: NextFunction) => {
+tutors.delete('/:id', isKorepetycjeManager, (req: Request, res: Response, next: NextFunction) => {
     Tutor.findByIdAndDelete(req.params.id)
         .then((doc) => res.json(doc))
         .catch(next);

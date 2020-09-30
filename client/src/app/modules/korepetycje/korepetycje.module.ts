@@ -18,6 +18,7 @@ import { KorepetycjeHomeComponent } from './views/korepetycje-home/korepetycje-h
 import { ParentFormComponent } from './views/parent-form/parent-form.component';
 import { PupilFormComponent } from './views/pupil-form/pupil-form.component';
 import { FormClausesComponent } from './components/form-clauses/form-clauses.component';
+import { TutorFormComponent } from './views/tutor-form/tutor-form.component';
 
 @NgModule({
     declarations: [
@@ -37,6 +38,7 @@ import { FormClausesComponent } from './components/form-clauses/form-clauses.com
         ParentFormComponent,
         FormSuccessDialogComponent,
         FormClausesComponent,
+        TutorFormComponent,
     ],
     imports: [CommonModule, SharedModule, KorepetycjeRoutingModule],
 })

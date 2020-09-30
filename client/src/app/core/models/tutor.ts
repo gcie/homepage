@@ -3,7 +3,16 @@ export class Tutor {
     name: string;
     email: string;
     phone: string;
-    teaches: string;
+    teaches: {
+        [subject: string]: {
+            sp: boolean;
+            lo: boolean;
+            matura: boolean;
+        };
+    };
+    remoteOrStationary: number;
     pupilId?: string;
     notes: string;
+    createdAt: Date;
+    updatedAt: Date;
 }
