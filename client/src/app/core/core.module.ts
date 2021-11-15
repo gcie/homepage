@@ -2,15 +2,13 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { MaterialModule } from '../modules/material/material.module';
-import { AdminGuard, AuthGuard, KorepetycjeManagerGuard, KorepetycjeUserGuard } from './guards';
+import { AdminGuard, AuthGuard } from './guards';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
     imports: [HttpClientModule, CommonModule, MaterialModule],
     providers: [
         AuthGuard,
-        KorepetycjeUserGuard,
-        KorepetycjeManagerGuard,
         AdminGuard,
         {
             provide: HTTP_INTERCEPTORS,
