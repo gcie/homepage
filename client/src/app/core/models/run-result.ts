@@ -1,4 +1,4 @@
-export class RunResult {
+export interface RunResult {
     cpuTime: number;
     memory: number;
     output: string;

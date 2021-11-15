@@ -6,5 +6,5 @@ import { Component, Input } from '@angular/core';
     styleUrls: ['./block.component.scss'],
 })
 export class BlockComponent {
-    @Input() title: string;
+    @Input() title?: string;
 }

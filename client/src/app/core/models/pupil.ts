@@ -1,4 +1,4 @@
-export class Pupil {
+export interface Pupil {
     _id?: string;
     name: string;
     email: string;

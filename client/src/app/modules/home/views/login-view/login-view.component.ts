@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class LoginViewComponent {
     loginForm: FormGroup;
-    errorMessage: string;
+    errorMessage?: string;
 
     constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
         this.loginForm = this.formBuilder.group({

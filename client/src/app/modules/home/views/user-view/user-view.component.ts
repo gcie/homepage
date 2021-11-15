@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
     styleUrls: ['./user-view.component.scss'],
 })
 export class UserViewComponent implements OnInit {
-    gravatarURI: string;
+    gravatarURI?: string;
 
     constructor(public userService: UserService, public authService: AuthService) {}
 

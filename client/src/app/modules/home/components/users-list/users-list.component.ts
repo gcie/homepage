@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { User } from 'src/app/core/models/user';
 import { ErrorsService, UsersService } from 'src/app/core/services';
-import { ConfirmDialogComponent } from 'src/app/shared/components';
+import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { UserAddDialogComponent } from '../user-add-dialog/user-add-dialog.component';
 import { UserEditDialogComponent } from '../user-edit-dialog/user-edit-dialog.component';
 
@@ -18,8 +18,8 @@ export class UsersListComponent implements OnInit {
     displayedColumns: string[] = ['name', 'email', 'group', 'options'];
     usersDataSource = new MatTableDataSource<User>([]);
 
-    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-    @ViewChild(MatInput, { static: true }) filterInput: MatInput;
+    @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+    @ViewChild(MatInput, { static: true }) filterInput!: MatInput;
 
     constructor(private usersService: UsersService, private dialog: MatDialog, private error: ErrorsService) {}
 

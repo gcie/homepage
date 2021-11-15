@@ -1,3 +1,4 @@
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
 
@@ -17,7 +18,8 @@ export class AuthDirective {
         }
     }
 
-    @Input() set appAuth(condition: boolean) {
+    @Input() set appAuth(value: any) {
+        const condition = coerceBooleanProperty(value);
         if (condition === this.authService.isLoggedIn() && !this.isShown) {
             this.viewContainer.createEmbeddedView(this.templateRef);
             this.isShown = true;
