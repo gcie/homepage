@@ -77,7 +77,6 @@
         "@types/karma": "^5.0.0",
         "@types/lodash": "^4.14.157",
         "@types/lusca": "^1.6.2",
-        "@types/mongoose": "^5.7.28",
         "@types/node": "^13.11.1",
         "@types/nodemailer": "^6.4.0",
         "@types/passport": "^1.0.3",
