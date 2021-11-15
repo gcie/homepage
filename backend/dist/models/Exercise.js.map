@@ -1,0 +1,1 @@
+{"version":3,"file":"Exercise.js","sourceRoot":"","sources":["../../src/models/Exercise.ts"],"names":[],"mappings":";;;AAAA,uCAAmD;AAWnD,MAAM,cAAc,GAAG,IAAI,iBAAM,CAAC;IAC9B,EAAE,EAAE,MAAM;IACV,IAAI,EAAE,MAAM;IACZ,SAAS,EAAE,MAAM;IACjB,OAAO,EAAE,MAAM;IACf,KAAK,EAAE,MAAM;IACb,WAAW,EAAE,MAAM;CACtB,CAAC,CAAC;AAEU,QAAA,QAAQ,GAAG,gBAAK,CAAmB,UAAU,EAAE,cAAc,CAAC,CAAC"}
