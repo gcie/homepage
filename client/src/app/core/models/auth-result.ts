@@ -1,6 +1,6 @@
 import { User } from './user';
 
-export class AuthResult {
+export interface AuthResult {
     user: User;
     success: boolean;
     token: string;

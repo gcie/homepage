@@ -15,11 +15,11 @@ const LANG = 'ace/mode/python';
     styleUrls: ['./code-editor.component.scss'],
 })
 export class CodeEditorComponent implements AfterViewInit {
-    private codeEditor: ace.Ace.Editor;
-    private editorBeautify; // beautify extension
-    @ViewChild('codeEditor') private codeEditorElmRef: ElementRef;
-    @Input() content: string;
-    @Input() mode: string;
+    private codeEditor?: ace.Ace.Editor;
+    private editorBeautify: any; // beautify extension
+    @ViewChild('codeEditor') private codeEditorElmRef!: ElementRef;
+    @Input() content?: string;
+    @Input() mode?: string;
 
     ngAfterViewInit() {
         ace.require('ace/ext/language_tools');
@@ -76,7 +76,7 @@ export class CodeEditorComponent implements AfterViewInit {
         if (this.codeEditor) {
             const code = this.codeEditor.getValue();
             return code;
-        }
+        } else return;
     }
 
     /**
@@ -103,9 +103,9 @@ export class CodeEditorComponent implements AfterViewInit {
      * @event OnContentChange - a proxy event to Ace 'change' event - adding additional data.
      * @param callback - recive the corrent content and 'change' event's original parameter.
      */
-    public OnContentChange(callback: (content: string, delta: ace.Ace.Delta) => void): void {
-        this.codeEditor.on('change', (delta) => {
-            const content = this.codeEditor.getValue();
+    public OnContentChange(callback: (content: string | undefined, delta: ace.Ace.Delta) => void): void {
+        this.codeEditor?.on('change', (delta) => {
+            const content = this.codeEditor?.getValue();
             callback(content, delta);
         });
     }

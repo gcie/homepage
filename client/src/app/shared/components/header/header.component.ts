@@ -3,9 +3,7 @@ import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from
 import { MatButton } from '@angular/material/button';
 import { MatToolbar } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/core/services/api/user.service';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { PythonCourseApiService } from 'src/app/modules/python-course/services/python-course-api.service';
 
 @Component({
     selector: 'app-header',
@@ -35,20 +33,15 @@ import { PythonCourseApiService } from 'src/app/modules/python-course/services/p
 export class HeaderComponent implements AfterViewInit {
     public colorMode = 'open';
 
-    @Input() title;
+    @Input() title?: string;
     @Input() noMenu = false;
 
     @Output() OnMenuTrigger = new EventEmitter();
 
-    @ViewChild('toolbar') toolbar: MatToolbar;
-    @ViewChild('primaryDarkColorRef') primaryDarkColorRef: MatButton;
+    @ViewChild('toolbar') toolbar!: MatToolbar;
+    @ViewChild('primaryDarkColorRef') primaryDarkColorRef!: MatButton;
 
-    constructor(
-        private router: Router,
-        public authService: AuthService,
-        private userService: UserService,
-        private pythonSrv: PythonCourseApiService
-    ) {}
+    constructor(private router: Router, public authService: AuthService) {}
 
     ngAfterViewInit() {
         console.log(this.primaryDarkColorRef);

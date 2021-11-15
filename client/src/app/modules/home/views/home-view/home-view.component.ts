@@ -9,10 +9,10 @@ import { HeaderComponent } from 'src/app/shared/components/header/header.compone
     styleUrls: ['./home-view.component.scss'],
 })
 export class HomeViewComponent implements OnInit, OnDestroy {
-    user: User;
+    user?: User;
     loggedIn: boolean;
 
-    @ViewChild('header') header: HeaderComponent;
+    @ViewChild('header') header!: HeaderComponent;
 
     constructor(private authService: AuthService) {
         const user = this.authService.getUser();

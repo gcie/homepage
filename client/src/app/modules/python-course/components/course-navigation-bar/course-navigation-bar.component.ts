@@ -7,8 +7,8 @@ import { Router } from '@angular/router';
     styleUrls: ['./course-navigation-bar.component.scss'],
 })
 export class CourseNavigationBarComponent {
-    @Input() forward: string;
-    @Input() forwardLabel: string;
+    @Input() forward?: string;
+    @Input() forwardLabel?: string;
 
     constructor(private router: Router) {}
 

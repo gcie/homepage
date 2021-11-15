@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
     styleUrls: ['./image.component.scss'],
 })
 export class ImageComponent {
-    @Input() url: string;
+    @Input() url?: string;
 
     @Input()
     set name(name: string) {

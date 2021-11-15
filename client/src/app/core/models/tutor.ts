@@ -1,4 +1,4 @@
-export class Tutor {
+export interface Tutor {
     _id?: string;
     name: string;
     email: string;
