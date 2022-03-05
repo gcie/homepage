@@ -61,7 +61,19 @@ typings/
 # dotenv environment variables file
 .env
 
+# Yarn v3 (https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored)
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
 routes-example
 template-forms
 .DS_Store
 .idea
+
+backend/dist
+frontend/dist
