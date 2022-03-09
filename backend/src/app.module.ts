@@ -3,10 +3,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { config } from 'dotenv';
 import { join } from 'path';
-import { ApiController } from './api/api/api.controller';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthController } from './auth/auth/auth.controller';
+import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 
 config();
@@ -18,8 +17,9 @@ config();
         }),
         MongooseModule.forRoot(process.env.DB_URI),
         UsersModule,
+        AuthModule,
     ],
-    controllers: [AppController, ApiController, AuthController],
+    controllers: [AppController],
     providers: [AppService],
 })
 export class AppModule {}

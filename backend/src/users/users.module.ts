@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { compare, genSalt, hash } from 'bcrypt';
 import { User, UserSchema } from './schemas/user.schema';
+import { UsersService } from './users.service';
 
 @Module({
     imports: [
@@ -31,5 +32,7 @@ import { User, UserSchema } from './schemas/user.schema';
             },
         ]),
     ],
+    providers: [UsersService],
+    exports: [UsersService],
 })
 export class UsersModule {}
