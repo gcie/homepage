@@ -13,14 +13,9 @@ type comparePasswordFunction = (candidatePassword: string, cb: (err: any, isMatc
 export class User extends Document {
     @Prop({ required: true, unique: true }) email: string;
     @Prop({ required: true }) password: string;
-    @Prop() passwordResetToken: string;
-    @Prop() passwordResetExpires: Date;
-
-    @Prop() facebook: string;
-    @Prop([AuthToken]) tokens: AuthToken[];
 
     @Prop({ required: true }) name: string;
-    @Prop([String]) groups: string[];
+    @Prop([String]) roles: string[];
 
     comparePassword(candidatePassword, cb: (error: Error, isMatch: boolean) => void) {
         compare(candidatePassword, this.password, (error: Error, isMatch: boolean) => {

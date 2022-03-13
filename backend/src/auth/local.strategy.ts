@@ -17,14 +17,3 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
         return user;
     }
 }
-
-class A<T> {
-    constructor(private value: T) {}
-
-    foo(key: keyof T) {
-        return this.value[key];
-    }
-}
-
-const a = new A({ foo: 12, bar: 'xyz' });
-a.foo('foo');

@@ -22,7 +22,7 @@ import { UsersService } from './users.service';
                             });
                         });
                     });
-                    schema.methods.comparePasswords = function (candidatePassword, cb: (error: Error, isMatch: boolean) => void) {
+                    schema.methods.comparePassword = function (candidatePassword, cb: (error: Error, isMatch: boolean) => void) {
                         compare(candidatePassword, this.password, (error: Error, isMatch: boolean) => {
                             cb(error, isMatch);
                         });

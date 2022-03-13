@@ -1,10 +1,10 @@
-import { PermissionGroup } from './permission-group.enum';
+import { Role } from './role.enum';
 
 export interface User {
     _id?: string;
     name: string;
     email: string;
-    groups: PermissionGroup[];
+    roles: Role[];
 }
 
 export interface UserRegisterData {

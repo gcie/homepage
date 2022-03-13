@@ -10,4 +10,8 @@ export class UsersService {
     async findOne(email: string): Promise<User> {
         return this.userModel.findOne({ email }).exec();
     }
+
+    async create(email: string, password: string): Promise<User> {
+        return this.userModel.create({ email, password, name: email, grrolesoups: [] });
+    }
 }

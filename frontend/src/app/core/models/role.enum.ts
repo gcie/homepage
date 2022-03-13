@@ -1,5 +1,6 @@
-export enum PermissionGroup {
+export enum Role {
     korepetycje_user = 'korepetycje-user',
     korepetycje_manager = 'korepetycje-manager',
-    admin = 'admin'
+    User = 'user',
+    Admin = 'admin',
 }

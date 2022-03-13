@@ -1,12 +1,12 @@
 {
     "/api/*": {
-        "target": "http://localhost:8050",
+        "target": "http://localhost:3000",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
     },
     "/auth/*": {
-        "target": "http://localhost:8050",
+        "target": "http://localhost:3000",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true

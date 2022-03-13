@@ -1,5 +1,5 @@
 import { Directive, TemplateRef, ViewContainerRef } from '@angular/core';
-import { PermissionGroup } from 'src/app/core/models/permission-group.enum';
+import { Role } from 'src/app/core/models/role.enum';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 @Directive({
@@ -10,7 +10,7 @@ export class AuthKorepetycjeUserDirective {
         this.viewContainer.clear();
 
         console.log('appAuthKorepetycjeUser');
-        if (this.authService.hasPermission(PermissionGroup.korepetycje_user)) {
+        if (this.authService.hasRole(Role.korepetycje_user)) {
             this.viewContainer.createEmbeddedView(this.templateRef);
         }
     }

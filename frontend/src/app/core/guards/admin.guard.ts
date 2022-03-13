@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { PermissionGroup } from '../models/permission-group.enum';
+import { Role } from '../models/role.enum';
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
@@ -12,13 +12,13 @@ export class AdminGuard implements CanActivate {
 
     canActivate(
         next: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot
+        state: RouterStateSnapshot,
     ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
         if (!this.authService.isLoggedIn()) {
             this.authService.setRedirectUrl(state.url);
             this.router.navigateByUrl('/login');
             return false;
-        } else if (!this.authService.hasPermission(PermissionGroup.admin)) {
+        } else if (!this.authService.hasRole(Role.Admin)) {
             this.router.navigateByUrl('/');
             return false;
         }

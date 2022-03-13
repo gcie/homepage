@@ -3,17 +3,14 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
     constructor(private authService: AuthService, private router: Router) {}
 
     canActivate(
         next: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot
+        state: RouterStateSnapshot,
     ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-        console.log('authguard');
         if (!this.authService.isLoggedIn()) {
             this.authService.setRedirectUrl(state.url);
             this.router.navigateByUrl('/login');

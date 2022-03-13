@@ -4,12 +4,10 @@ import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { map } from 'rxjs/operators';
 import { AuthResult } from '../models/auth-result';
-import { PermissionGroup } from '../models/permission-group.enum';
+import { Role } from '../models/role.enum';
 import { User, UserLoginData, UserRegisterData } from '../models/user';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
     private redirectUrl?: string;
 
@@ -41,15 +39,15 @@ export class AuthService {
     private setSession(authResult: AuthResult) {
         console.log('Authentication result:');
         console.log(authResult);
-        const expiresAt = moment().add(authResult.expiresIn, 'second');
+        const expiresAt = moment().add(authResult.expiresIn, 'seconds');
 
         localStorage.setItem('user', JSON.stringify(authResult.user));
-        localStorage.setItem('id_token', authResult.token);
+        localStorage.setItem('token', authResult.token);
         localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
     }
 
     public logout() {
-        localStorage.removeItem('id_token');
+        localStorage.removeItem('token');
         localStorage.removeItem('expires_at');
 
         this.router.navigate(['/login']);
@@ -70,8 +68,8 @@ export class AuthService {
         return moment(expiresAt);
     }
 
-    public hasPermission(permission: PermissionGroup): boolean {
-        if (this.getGroups()?.includes(permission) || this.getGroups()?.includes(PermissionGroup.admin)) return true;
+    public hasRole(role: Role): boolean {
+        if (this.getRoles()?.includes(role) || this.getRoles()?.includes(Role.Admin)) return true;
         return false;
     }
 
@@ -84,8 +82,8 @@ export class AuthService {
         return this.getUser()?.name;
     }
 
-    public getGroups() {
-        return this.getUser()?.groups;
+    public getRoles() {
+        return this.getUser()?.roles;
     }
 
     public getEmail() {
