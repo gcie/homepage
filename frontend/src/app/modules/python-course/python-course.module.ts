@@ -14,6 +14,7 @@ import { PythonCourseRoutingModule } from './python-course-routing.module';
 import { PythonCourseComponent } from './python-course.component';
 import { Chapter01Component } from './views/chapter01/chapter01.component';
 import { Lesson01Component } from './views/lesson01/lesson01.component';
+import { TrainingMobileComponent } from './views/training-mobile/training-mobile.component';
 
 @NgModule({
     declarations: [
@@ -27,6 +28,7 @@ import { Lesson01Component } from './views/lesson01/lesson01.component';
         Chapter01Component,
         CourseNavigationBarComponent,
         BlockComponent,
+        TrainingMobileComponent,
     ],
     imports: [CommonModule, SharedModule, MaterialModule, FormsModule, ReactiveFormsModule, FlexLayoutModule, PythonCourseRoutingModule],
 })
