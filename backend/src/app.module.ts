@@ -5,9 +5,9 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { config } from 'dotenv';
 import { join } from 'path';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { GymModule } from './gym/gym.module';
 import { UsersModule } from './users/users.module';
 
 config();
@@ -20,8 +20,9 @@ config();
         MongooseModule.forRoot(process.env.DB_URI),
         UsersModule,
         AuthModule,
+        GymModule,
     ],
     controllers: [AppController],
-    providers: [AppService, { provide: APP_GUARD, useClass: JwtAuthGuard }],
+    providers: [{ provide: APP_GUARD, useClass: JwtAuthGuard }],
 })
 export class AppModule {}
