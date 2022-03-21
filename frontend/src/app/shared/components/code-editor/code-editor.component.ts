@@ -1,3 +1,4 @@
+import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import * as ace from 'ace-builds';
 import 'ace-builds/src-noconflict/ext-beautify';
@@ -17,27 +18,29 @@ const LANG = 'ace/mode/python';
 export class CodeEditorComponent implements AfterViewInit {
     private codeEditor?: ace.Ace.Editor;
     private editorBeautify: any; // beautify extension
+
     @ViewChild('codeEditor') private codeEditorElmRef!: ElementRef;
     @Input() content?: string;
     @Input() mode?: string;
 
+    @Input() set minLines(value: any) {
+        this._minLines = coerceNumberProperty(value);
+        this.codeEditor?.setOption('minLines', this._minLines);
+    }
+    get minLines() {
+        return this._minLines;
+    }
+    private _minLines = 12;
+
     ngAfterViewInit() {
         ace.require('ace/ext/language_tools');
         const element = this.codeEditorElmRef.nativeElement;
+        console.log('CodeEditor', element);
         const editorOptions = this.getEditorOptions();
         this.codeEditor = this.createCodeEditor(element, editorOptions);
         this.setContent(this.content || INIT_CONTENT);
         // hold reference to beautify extension
         this.editorBeautify = ace.require('ace/ext/beautify');
-    }
-
-    private getMinLines() {
-        switch (this.mode) {
-            case 'small':
-                return 7;
-            default:
-                return 12;
-        }
     }
 
     private getFontSize() {
@@ -54,6 +57,7 @@ export class CodeEditorComponent implements AfterViewInit {
         editor.setTheme(THEME);
         editor.getSession().setMode(LANG);
         editor.setShowFoldWidgets(true);
+        editor.resize();
         return editor;
     }
 
@@ -61,7 +65,7 @@ export class CodeEditorComponent implements AfterViewInit {
     private getEditorOptions(): Partial<ace.Ace.EditorOptions> & { enableBasicAutocompletion?: boolean } {
         const basicEditorOptions: Partial<ace.Ace.EditorOptions> = {
             highlightActiveLine: true,
-            minLines: this.getMinLines(),
+            minLines: this.minLines || 12,
             maxLines: Infinity,
             fontSize: this.getFontSize(),
         };

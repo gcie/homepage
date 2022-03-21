@@ -15,6 +15,7 @@ import { SharedModule } from './shared/shared.module';
 @NgModule({
     declarations: [AppComponent],
     imports: [
+        // ApiModule.forRoot({ rootUrl: 'http://localhost:3000/' }),
         BrowserModule,
         AppRoutingModule,
         CoreModule,

@@ -8,7 +8,8 @@
         "start": "ng build --watch",
         "build": "ng build",
         "watch": "ng build --watch --configuration development",
-        "test": "ng test"
+        "test": "ng test",
+        "gen-srv": "curl localhost:3000/api/yaml > homepage.yaml && ng-openapi-gen --input homepage.yaml --output src/app/api"
     },
     "author": "Grzegorz Ciesielski",
     "license": "MIT",
@@ -32,7 +33,7 @@
         "zone.js": "~0.11.4"
     },
     "devDependencies": {
-        "@angular-devkit/build-angular": "^13.2.6",
+        "@angular-devkit/build-angular": "~12.2.16",
         "@angular/cli": "~12.2.11",
         "@angular/compiler-cli": "~12.2.0",
         "@types/jasmine": "~3.8.0",
@@ -48,6 +49,7 @@
         "karma-coverage": "~2.0.3",
         "karma-jasmine": "~4.0.0",
         "karma-jasmine-html-reporter": "~1.7.0",
+        "ng-openapi-gen": "^0.20.0",
         "prettier": "^2.0.5",
         "protractor": "^7.0.0",
         "ts-node": "~8.8.2",

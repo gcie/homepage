@@ -13,8 +13,9 @@ import { PythonExerciseComponent } from './components/python-exercise/python-exe
 import { PythonCourseRoutingModule } from './python-course-routing.module';
 import { PythonCourseComponent } from './python-course.component';
 import { Chapter01Component } from './views/chapter01/chapter01.component';
+import { GymExerciseMobileComponent } from './views/gym-exercise-mobile/gym-exercise-mobile.component';
+import { GymMobileComponent } from './views/gym-mobile/gym-mobile.component';
 import { Lesson01Component } from './views/lesson01/lesson01.component';
-import { TrainingMobileComponent } from './views/training-mobile/training-mobile.component';
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import { TrainingMobileComponent } from './views/training-mobile/training-mobile
         Chapter01Component,
         CourseNavigationBarComponent,
         BlockComponent,
-        TrainingMobileComponent,
+        GymMobileComponent,
+        GymExerciseMobileComponent,
     ],
     imports: [CommonModule, SharedModule, MaterialModule, FormsModule, ReactiveFormsModule, FlexLayoutModule, PythonCourseRoutingModule],
 })

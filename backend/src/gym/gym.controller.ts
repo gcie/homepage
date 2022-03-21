@@ -1,7 +1,11 @@
 import { Body, Controller, HttpException, Param, Post } from '@nestjs/common';
-import { ExerciseDto } from 'src/model/exercise.dto';
+import { ApiCreatedResponse, ApiForbiddenResponse, ApiOkResponse, ApiOperation } from '@nestjs/swagger';
+import { AddExerciseInDto, ExerciseOutDto } from 'src/model/add-exercise-in.dto';
+import { AddExerciseOutDto } from 'src/model/add-exercise-out.dto';
 import { Roles } from 'src/model/role.decorator';
 import { Role } from 'src/model/role.enum';
+import { RunProgramInDto } from 'src/model/run-program-in.dto';
+import { RunProgramOutDto } from 'src/model/run-program-out.dto';
 import { RunTestcasesOutDto } from 'src/model/run-testcases.model';
 import { SubmissionInDto } from 'src/model/submission.model';
 import { ExercisesService } from './services/exercises.service';
@@ -13,14 +17,35 @@ export class GymController {
 
     @Post('run')
     @Roles(Role.User)
-    async run(@Body() body) {
-        return this.pythonService.run(body.program);
+    @ApiOperation({ operationId: 'run' })
+    @ApiOkResponse({ type: RunProgramOutDto })
+    @ApiForbiddenResponse()
+    async run(@Body() body: RunProgramInDto): Promise<RunProgramOutDto> {
+        return new RunProgramOutDto(await this.pythonService.run(body.program));
     }
 
     @Post('exercises/add')
     @Roles(Role.Admin)
-    async addExercise(@Body() exerciseDto: ExerciseDto) {
+    @ApiOperation({ operationId: 'addExercise' })
+    @ApiCreatedResponse({ description: 'Exercise created successfully.', type: AddExerciseOutDto })
+    @ApiForbiddenResponse()
+    async addExercise(@Body() exerciseDto: AddExerciseInDto) {
         return this.exercises.add(exerciseDto);
+    }
+
+    @Post('exercises/get')
+    @Roles(Role.User)
+    @ApiOperation({ operationId: 'getExercises' })
+    @ApiOkResponse({ type: [ExerciseOutDto] })
+    @ApiForbiddenResponse()
+    async getExercises(): Promise<ExerciseOutDto[]> {
+        return this.exercises.findAll();
+    }
+
+    @Post('exercises/:id/get')
+    @Roles(Role.User)
+    async getExercise(@Param('id') exerciseId) {
+        return this.exercises.find(exerciseId);
     }
 
     @Post('exercises/:id/submit')

@@ -1,0 +1,189 @@
+openapi: 3.0.0
+paths:
+  /auth/login:
+    post:
+      operationId: login
+      summary: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+  /auth/register:
+    post:
+      operationId: register
+      summary: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+  /api/gym/run:
+    post:
+      operationId: run
+      summary: ''
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunProgramInDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunProgramOutDto'
+        '403':
+          description: ''
+  /api/gym/exercises/add:
+    post:
+      operationId: addExercise
+      summary: ''
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddExerciseInDto'
+      responses:
+        '201':
+          description: Exercise created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddExerciseOutDto'
+        '403':
+          description: ''
+  /api/gym/exercises/get:
+    post:
+      operationId: getExercises
+      summary: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExerciseOutDto'
+        '403':
+          description: ''
+  /api/gym/exercises/{id}/get:
+    post:
+      operationId: GymController_getExercise
+      parameters: []
+      responses:
+        '201':
+          description: ''
+  /api/gym/exercises/{id}/submit:
+    post:
+      operationId: GymController_submit
+      parameters: []
+      responses:
+        '201':
+          description: ''
+  /api/gym/exercises/{id}/runTestcases:
+    post:
+      operationId: GymController_runTestcases
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmissionInDto'
+      responses:
+        '201':
+          description: ''
+info:
+  title: Homepage
+  description: My homepage API description
+  version: '1.0'
+  contact: {}
+tags: []
+servers: []
+components:
+  schemas:
+    RunProgramInDto:
+      type: object
+      properties:
+        program:
+          type: string
+      required:
+        - program
+    Error:
+      type: object
+      properties: {}
+    RunProgramOutDto:
+      type: object
+      properties:
+        stdout:
+          type: string
+        stderr:
+          type: string
+        signal:
+          type: string
+        code:
+          type: number
+        error:
+          $ref: '#/components/schemas/Error'
+    TestcaseDto:
+      type: object
+      properties:
+        input:
+          type: string
+        output:
+          type: string
+        checker:
+          type: string
+      required:
+        - input
+    AddExerciseInDto:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        inputDesc:
+          type: string
+        outputDesc:
+          type: string
+        prefix:
+          type: string
+        suffix:
+          type: string
+        testcases:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestcaseDto'
+        hiddenTestcases:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestcaseDto'
+      required:
+        - name
+        - description
+        - inputDesc
+        - outputDesc
+        - prefix
+        - suffix
+        - testcases
+        - hiddenTestcases
+    AddExerciseOutDto:
+      type: object
+      properties:
+        _id:
+          type: string
+      required:
+        - _id
+    ExerciseOutDto:
+      type: object
+      properties: {}
+    SubmissionInDto:
+      type: object
+      properties: {}
