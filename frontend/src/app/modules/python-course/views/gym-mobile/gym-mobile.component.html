@@ -2,7 +2,16 @@
     <mat-sidenav #sidenav mode="side" class="sidenav">
         <app-python-course-sidenav-menu></app-python-course-sidenav-menu>
     </mat-sidenav>
-    <mat-sidenav-content class="content" fxLayout="column" fxLayoutGap="8px" fxLayoutAlign="start center">
-        <p>Component works!</p>
+    <mat-sidenav-content class="content mat-typography" fxLayout="column" fxLayoutGap="8px" fxLayoutAlign="start stretch">
+        <h1 class="header">Lista zadań:</h1>
+        <mat-table [dataSource]="exercises || []">
+            <ng-container matColumnDef="name">
+                <mat-cell *matCellDef="let exercise">
+                    <h4 style="margin: 0">{{ exercise.name }}</h4>
+                </mat-cell>
+            </ng-container>
+
+            <mat-row *matRowDef="let row; columns: ['name']" class="clickable-row" (click)="open(row.id)"></mat-row>
+        </mat-table>
     </mat-sidenav-content>
 </mat-sidenav-container>

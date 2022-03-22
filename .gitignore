@@ -70,6 +70,9 @@ typings/
 !.yarn/sdks
 !.yarn/versions
 
+# Angular
+/frontend/.angular/cache
+
 routes-example
 template-forms
 .DS_Store

@@ -1,3 +1,5 @@
+@import '~@angular/material/theming';
+
 .content {
     width: 100%;
     height: 100%;
@@ -25,4 +27,35 @@
     .mat-tab-body-wrapper {
         flex-grow: 1;
     }
+}
+
+.exercise-content-wrapper {
+    padding: 16px;
+}
+
+mat-panel-title {
+    flex-grow: unset;
+}
+
+mat-panel-description {
+    margin-right: 0;
+}
+
+.description-wrapper {
+    width: 100%;
+}
+
+.success-icon {
+    color: map-get($mat-green, 500);
+}
+
+.failure-icon {
+    color: map-get($mat-red, 500);
+}
+
+.icon-wrapper {
+    display: flex;
+    margin: 0 16px 0 4px;
+    align-items: center;
+    justify-content: center;
 }

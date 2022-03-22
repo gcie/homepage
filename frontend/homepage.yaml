@@ -57,7 +57,7 @@ paths:
         '403':
           description: ''
   /api/gym/exercises/get:
-    post:
+    get:
       operationId: getExercises
       summary: ''
       parameters: []
@@ -67,29 +67,106 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ExerciseOutDto'
+                $ref: '#/components/schemas/GetExercisesOutDto'
         '403':
           description: ''
-  /api/gym/exercises/{id}/get:
-    post:
-      operationId: GymController_getExercise
-      parameters: []
+  /api/gym/exercises/{exerciseId}/get:
+    get:
+      operationId: getExercise
+      summary: ''
+      parameters:
+        - name: exerciseId
+          required: true
+          in: path
+          description: Exercise id
+          schema:
+            type: string
       responses:
-        '201':
+        '200':
           description: ''
-  /api/gym/exercises/{id}/submit:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExerciseDto'
+        '403':
+          description: ''
+  /api/gym/exercises/{exerciseId}/testcase/{testcaseId}/run:
+    post:
+      operationId: runTestcase
+      summary: ''
+      parameters:
+        - name: exerciseId
+          required: true
+          in: path
+          description: Exercise id
+          schema:
+            type: string
+        - name: testcaseId
+          required: true
+          in: path
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmissionInDto'
+      responses:
+        '200':
+          description: Code ran successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunTestcaseOutDto'
+        '400':
+          description: ''
+        '403':
+          description: ''
+        '404':
+          description: ''
+  /api/gym/exercises/{exerciseId}/run:
+    post:
+      operationId: runTestcases
+      summary: ''
+      parameters:
+        - name: exerciseId
+          required: true
+          in: path
+          description: Exercise id
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmissionInDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RunTestcaseOutDto'
+        '400':
+          description: ''
+        '403':
+          description: ''
+        '404':
+          description: ''
+  /api/gym/exercises/{exerciseId}/submit:
     post:
       operationId: GymController_submit
-      parameters: []
-      responses:
-        '201':
-          description: ''
-  /api/gym/exercises/{id}/runTestcases:
-    post:
-      operationId: GymController_runTestcases
-      parameters: []
+      parameters:
+        - name: exerciseId
+          required: true
+          in: path
+          description: Exercise id
+          schema:
+            type: string
       requestBody:
         required: true
         content:
@@ -177,13 +254,78 @@ components:
     AddExerciseOutDto:
       type: object
       properties:
-        _id:
+        id:
           type: string
       required:
-        - _id
-    ExerciseOutDto:
+        - id
+    ExerciseDescDto:
       type: object
-      properties: {}
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        score:
+          type: number
+        maxScore:
+          type: number
+      required:
+        - id
+        - name
+        - score
+        - maxScore
+    GetExercisesOutDto:
+      type: object
+      properties:
+        exercises:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExerciseDescDto'
+      required:
+        - exercises
+    ExerciseDto:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        inputDesc:
+          type: string
+        outputDesc:
+          type: string
+        prefix:
+          type: string
+        suffix:
+          type: string
+        testcases:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestcaseDto'
+      required:
+        - name
+        - description
+        - inputDesc
+        - outputDesc
+        - testcases
     SubmissionInDto:
       type: object
-      properties: {}
+      properties:
+        code:
+          type: string
+      required:
+        - code
+    RunTestcaseOutDto:
+      type: object
+      properties:
+        stdout:
+          type: string
+        stderr:
+          type: string
+        result:
+          type: string
+          enum:
+            - OK
+            - TIMEOUT
+            - WRONG_ANSWER
+            - ERROR

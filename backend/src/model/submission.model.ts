@@ -1,4 +1,3 @@
-import { IsNotEmpty } from 'class-validator';
 import { Schema } from 'mongoose';
 
 export interface Submission {
@@ -12,7 +11,3 @@ export const SubmissionType = {
     code: { type: String },
     result: { type: String },
 };
-
-export class SubmissionInDto {
-    @IsNotEmpty() code: string;
-}

@@ -31,15 +31,3 @@ export class AddExerciseInDto {
     @ApiProperty({ type: [TestcaseDto] })
     hiddenTestcases: TestcaseDto[];
 }
-
-export class ExerciseOutDto {
-    name: string;
-    description: string;
-    inputDesc: string;
-    outputDesc: string;
-
-    prefix?: string;
-    suffix?: string;
-
-    testcases: TestcaseDto[];
-}

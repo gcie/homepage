@@ -17,14 +17,6 @@ const routes: Routes = [
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule],
-    entryComponents: [
-        HomeViewComponent,
-        LoginViewComponent,
-        UsersViewComponent,
-        UserViewComponent,
-        UserAddDialogComponent,
-        UserEditDialogComponent,
-    ],
+    exports: [RouterModule]
 })
 export class HomeRoutingModule {}

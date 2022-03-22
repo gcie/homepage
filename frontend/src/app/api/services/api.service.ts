@@ -1,19 +1,22 @@
 /* tslint:disable */
 /* eslint-disable */
-import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { ApiConfiguration } from '../api-configuration';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { BaseService } from '../base-service';
+import { ApiConfiguration } from '../api-configuration';
+import { StrictHttpResponse } from '../strict-http-response';
+import { RequestBuilder } from '../request-builder';
+import { Observable } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
+
 import { AddExerciseInDto } from '../models/add-exercise-in-dto';
 import { AddExerciseOutDto } from '../models/add-exercise-out-dto';
-import { ExerciseOutDto } from '../models/exercise-out-dto';
+import { ExerciseDto } from '../models/exercise-dto';
+import { GetExercisesOutDto } from '../models/get-exercises-out-dto';
 import { RunProgramInDto } from '../models/run-program-in-dto';
 import { RunProgramOutDto } from '../models/run-program-out-dto';
+import { RunTestcaseOutDto } from '../models/run-testcase-out-dto';
 import { SubmissionInDto } from '../models/submission-in-dto';
-import { RequestBuilder } from '../request-builder';
-import { StrictHttpResponse } from '../strict-http-response';
 
 @Injectable({
     providedIn: 'root',
@@ -200,8 +203,8 @@ export class ApiService extends BaseService {
      *
      * This method doesn't expect any request body.
      */
-    getExercises$Response(params?: {}): Observable<StrictHttpResponse<Array<ExerciseOutDto>>> {
-        const rb = new RequestBuilder(this.rootUrl, ApiService.GetExercisesPath, 'post');
+    getExercises$Response(params?: {}): Observable<StrictHttpResponse<GetExercisesOutDto>> {
+        const rb = new RequestBuilder(this.rootUrl, ApiService.GetExercisesPath, 'get');
         if (params) {
         }
 
@@ -215,7 +218,7 @@ export class ApiService extends BaseService {
             .pipe(
                 filter((r: any) => r instanceof HttpResponse),
                 map((r: HttpResponse<any>) => {
-                    return r as StrictHttpResponse<Array<ExerciseOutDto>>;
+                    return r as StrictHttpResponse<GetExercisesOutDto>;
                 }),
             );
     }
@@ -226,67 +229,199 @@ export class ApiService extends BaseService {
      *
      * This method doesn't expect any request body.
      */
-    getExercises(params?: {}): Observable<Array<ExerciseOutDto>> {
-        return this.getExercises$Response(params).pipe(
-            map((r: StrictHttpResponse<Array<ExerciseOutDto>>) => r.body as Array<ExerciseOutDto>),
-        );
+    getExercises(params?: {}): Observable<GetExercisesOutDto> {
+        return this.getExercises$Response(params).pipe(map((r: StrictHttpResponse<GetExercisesOutDto>) => r.body as GetExercisesOutDto));
     }
 
     /**
-     * Path part for operation gymControllerGetExercise
+     * Path part for operation getExercise
      */
-    static readonly GymControllerGetExercisePath = '/api/gym/exercises/{id}/get';
+    static readonly GetExercisePath = '/api/gym/exercises/{exerciseId}/get';
 
     /**
      * This method provides access to the full `HttpResponse`, allowing access to response headers.
-     * To access only the response body, use `gymControllerGetExercise()` instead.
+     * To access only the response body, use `getExercise()` instead.
      *
      * This method doesn't expect any request body.
      */
-    gymControllerGetExercise$Response(params?: {}): Observable<StrictHttpResponse<void>> {
-        const rb = new RequestBuilder(this.rootUrl, ApiService.GymControllerGetExercisePath, 'post');
+    getExercise$Response(params: {
+        /**
+         * Exercise id
+         */
+        exerciseId: string;
+    }): Observable<StrictHttpResponse<ExerciseDto>> {
+        const rb = new RequestBuilder(this.rootUrl, ApiService.GetExercisePath, 'get');
         if (params) {
+            rb.path('exerciseId', params.exerciseId, {});
         }
 
         return this.http
             .request(
                 rb.build({
-                    responseType: 'text',
-                    accept: '*/*',
+                    responseType: 'json',
+                    accept: 'application/json',
                 }),
             )
             .pipe(
                 filter((r: any) => r instanceof HttpResponse),
                 map((r: HttpResponse<any>) => {
-                    return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+                    return r as StrictHttpResponse<ExerciseDto>;
                 }),
             );
     }
 
     /**
      * This method provides access to only to the response body.
-     * To access the full response (for headers, for example), `gymControllerGetExercise$Response()` instead.
+     * To access the full response (for headers, for example), `getExercise$Response()` instead.
      *
      * This method doesn't expect any request body.
      */
-    gymControllerGetExercise(params?: {}): Observable<void> {
-        return this.gymControllerGetExercise$Response(params).pipe(map((r: StrictHttpResponse<void>) => r.body as void));
+    getExercise(params: {
+        /**
+         * Exercise id
+         */
+        exerciseId: string;
+    }): Observable<ExerciseDto> {
+        return this.getExercise$Response(params).pipe(map((r: StrictHttpResponse<ExerciseDto>) => r.body as ExerciseDto));
+    }
+
+    /**
+     * Path part for operation runTestcase
+     */
+    static readonly RunTestcasePath = '/api/gym/exercises/{exerciseId}/testcase/{testcaseId}/run';
+
+    /**
+     * This method provides access to the full `HttpResponse`, allowing access to response headers.
+     * To access only the response body, use `runTestcase()` instead.
+     *
+     * This method sends `application/json` and handles request body of type `application/json`.
+     */
+    runTestcase$Response(params: {
+        /**
+         * Exercise id
+         */
+        exerciseId: string;
+        testcaseId: number;
+        body: SubmissionInDto;
+    }): Observable<StrictHttpResponse<RunTestcaseOutDto>> {
+        const rb = new RequestBuilder(this.rootUrl, ApiService.RunTestcasePath, 'post');
+        if (params) {
+            rb.path('exerciseId', params.exerciseId, {});
+            rb.path('testcaseId', params.testcaseId, {});
+            rb.body(params.body, 'application/json');
+        }
+
+        return this.http
+            .request(
+                rb.build({
+                    responseType: 'json',
+                    accept: 'application/json',
+                }),
+            )
+            .pipe(
+                filter((r: any) => r instanceof HttpResponse),
+                map((r: HttpResponse<any>) => {
+                    return r as StrictHttpResponse<RunTestcaseOutDto>;
+                }),
+            );
+    }
+
+    /**
+     * This method provides access to only to the response body.
+     * To access the full response (for headers, for example), `runTestcase$Response()` instead.
+     *
+     * This method sends `application/json` and handles request body of type `application/json`.
+     */
+    runTestcase(params: {
+        /**
+         * Exercise id
+         */
+        exerciseId: string;
+        testcaseId: number;
+        body: SubmissionInDto;
+    }): Observable<RunTestcaseOutDto> {
+        return this.runTestcase$Response(params).pipe(map((r: StrictHttpResponse<RunTestcaseOutDto>) => r.body as RunTestcaseOutDto));
+    }
+
+    /**
+     * Path part for operation runTestcases
+     */
+    static readonly RunTestcasesPath = '/api/gym/exercises/{exerciseId}/run';
+
+    /**
+     * This method provides access to the full `HttpResponse`, allowing access to response headers.
+     * To access only the response body, use `runTestcases()` instead.
+     *
+     * This method sends `application/json` and handles request body of type `application/json`.
+     */
+    runTestcases$Response(params: {
+        /**
+         * Exercise id
+         */
+        exerciseId: string;
+        body: SubmissionInDto;
+    }): Observable<StrictHttpResponse<Array<RunTestcaseOutDto>>> {
+        const rb = new RequestBuilder(this.rootUrl, ApiService.RunTestcasesPath, 'post');
+        if (params) {
+            rb.path('exerciseId', params.exerciseId, {});
+            rb.body(params.body, 'application/json');
+        }
+
+        return this.http
+            .request(
+                rb.build({
+                    responseType: 'json',
+                    accept: 'application/json',
+                }),
+            )
+            .pipe(
+                filter((r: any) => r instanceof HttpResponse),
+                map((r: HttpResponse<any>) => {
+                    return r as StrictHttpResponse<Array<RunTestcaseOutDto>>;
+                }),
+            );
+    }
+
+    /**
+     * This method provides access to only to the response body.
+     * To access the full response (for headers, for example), `runTestcases$Response()` instead.
+     *
+     * This method sends `application/json` and handles request body of type `application/json`.
+     */
+    runTestcases(params: {
+        /**
+         * Exercise id
+         */
+        exerciseId: string;
+        body: SubmissionInDto;
+    }): Observable<Array<RunTestcaseOutDto>> {
+        return this.runTestcases$Response(params).pipe(
+            map((r: StrictHttpResponse<Array<RunTestcaseOutDto>>) => r.body as Array<RunTestcaseOutDto>),
+        );
     }
 
     /**
      * Path part for operation gymControllerSubmit
      */
-    static readonly GymControllerSubmitPath = '/api/gym/exercises/{id}/submit';
+    static readonly GymControllerSubmitPath = '/api/gym/exercises/{exerciseId}/submit';
 
     /**
      * This method provides access to the full `HttpResponse`, allowing access to response headers.
      * To access only the response body, use `gymControllerSubmit()` instead.
      *
-     * This method doesn't expect any request body.
+     * This method sends `application/json` and handles request body of type `application/json`.
      */
-    gymControllerSubmit$Response(params?: {}): Observable<StrictHttpResponse<void>> {
+    gymControllerSubmit$Response(params: {
+        /**
+         * Exercise id
+         */
+        exerciseId: string;
+        body: SubmissionInDto;
+    }): Observable<StrictHttpResponse<void>> {
         const rb = new RequestBuilder(this.rootUrl, ApiService.GymControllerSubmitPath, 'post');
         if (params) {
+            rb.path('exerciseId', params.exerciseId, {});
+            rb.body(params.body, 'application/json');
         }
 
         return this.http
@@ -308,51 +443,15 @@ export class ApiService extends BaseService {
      * This method provides access to only to the response body.
      * To access the full response (for headers, for example), `gymControllerSubmit$Response()` instead.
      *
-     * This method doesn't expect any request body.
+     * This method sends `application/json` and handles request body of type `application/json`.
      */
-    gymControllerSubmit(params?: {}): Observable<void> {
+    gymControllerSubmit(params: {
+        /**
+         * Exercise id
+         */
+        exerciseId: string;
+        body: SubmissionInDto;
+    }): Observable<void> {
         return this.gymControllerSubmit$Response(params).pipe(map((r: StrictHttpResponse<void>) => r.body as void));
-    }
-
-    /**
-     * Path part for operation gymControllerRunTestcases
-     */
-    static readonly GymControllerRunTestcasesPath = '/api/gym/exercises/{id}/runTestcases';
-
-    /**
-     * This method provides access to the full `HttpResponse`, allowing access to response headers.
-     * To access only the response body, use `gymControllerRunTestcases()` instead.
-     *
-     * This method sends `application/json` and handles request body of type `application/json`.
-     */
-    gymControllerRunTestcases$Response(params: { body: SubmissionInDto }): Observable<StrictHttpResponse<void>> {
-        const rb = new RequestBuilder(this.rootUrl, ApiService.GymControllerRunTestcasesPath, 'post');
-        if (params) {
-            rb.body(params.body, 'application/json');
-        }
-
-        return this.http
-            .request(
-                rb.build({
-                    responseType: 'text',
-                    accept: '*/*',
-                }),
-            )
-            .pipe(
-                filter((r: any) => r instanceof HttpResponse),
-                map((r: HttpResponse<any>) => {
-                    return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-                }),
-            );
-    }
-
-    /**
-     * This method provides access to only to the response body.
-     * To access the full response (for headers, for example), `gymControllerRunTestcases$Response()` instead.
-     *
-     * This method sends `application/json` and handles request body of type `application/json`.
-     */
-    gymControllerRunTestcases(params: { body: SubmissionInDto }): Observable<void> {
-        return this.gymControllerRunTestcases$Response(params).pipe(map((r: StrictHttpResponse<void>) => r.body as void));
     }
 }

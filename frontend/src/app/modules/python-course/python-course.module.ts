@@ -14,6 +14,7 @@ import { PythonCourseRoutingModule } from './python-course-routing.module';
 import { PythonCourseComponent } from './python-course.component';
 import { Chapter01Component } from './views/chapter01/chapter01.component';
 import { GymExerciseMobileComponent } from './views/gym-exercise-mobile/gym-exercise-mobile.component';
+import { GymExerciseMobileResolver } from './views/gym-exercise-mobile/gym-exercise-mobile.resolver';
 import { GymMobileComponent } from './views/gym-mobile/gym-mobile.component';
 import { Lesson01Component } from './views/lesson01/lesson01.component';
 
@@ -33,5 +34,6 @@ import { Lesson01Component } from './views/lesson01/lesson01.component';
         GymExerciseMobileComponent,
     ],
     imports: [CommonModule, SharedModule, MaterialModule, FormsModule, ReactiveFormsModule, FlexLayoutModule, PythonCourseRoutingModule],
+    providers: [GymExerciseMobileResolver],
 })
 export class PythonCourseModule {}

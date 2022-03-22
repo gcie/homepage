@@ -3,9 +3,57 @@
         <app-python-course-sidenav-menu></app-python-course-sidenav-menu>
     </mat-sidenav>
     <mat-sidenav-content class="content">
-        <mat-tab-group headerPosition="below" class="tab-group-center-labels">
+        <mat-tab-group headerPosition="below" class="tab-group-center-labels"
+            ><mat-tab label="Testy">
+                <div fxLayout="column" style="width: 100%; height: 100%" fxLayoutGap="8px" style="padding: 8px">
+                    <mat-expansion-panel *ngFor="let testcase of exercise?.testcases; index as i" expanded hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>Przykład {{ i + 1 }}</mat-panel-title>
+                            <mat-panel-description>
+                                <div class="description-wrapper" fxLayout="row" fxLayoutAlign="end center">
+                                    <span>Wynik: </span>
+                                    <div class="icon-wrapper" [ngSwitch]="results[i].result">
+                                        <mat-spinner *ngSwitchCase="'pending'" diameter="24"></mat-spinner>
+                                        <mat-icon *ngSwitchCase="'OK'" class="success-icon">done</mat-icon>
+                                        <mat-icon *ngSwitchCase="'TIMEOUT'" class="failure-icon">close</mat-icon>
+                                        <mat-icon *ngSwitchCase="'WRONG_ANSWER'" class="failure-icon">close</mat-icon>
+                                        <mat-icon *ngSwitchCase="'ERROR'" class="failure-icon">error_outline</mat-icon>
+                                        <mat-icon *ngSwitchDefault>pending</mat-icon>
+                                    </div>
+                                    <button mat-raised-button color="primary" (click)="runTestcase(i, $event)">Uruchom</button>
+                                </div>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <h4>Wejście</h4>
+                        <div class="code-wrapper">
+                            <code [innerHTML]="getCode(testcase.input)"></code>
+                        </div>
+                        <div class="testcase-outputs-wrapper" fxLayout="row" fxLayoutGap="8px">
+                            <div class="testcase-output-wrapper" fxFlex="50">
+                                <h4>Oczekiwane wyjście</h4>
+                                <div class="code-wrapper">
+                                    <code [innerHTML]="getCode(testcase.output)"></code>
+                                </div>
+                            </div>
+                            <div class="testcase-output-wrapper" fxFlex="50">
+                                <h4>Wyjście programu</h4>
+                                <div class="code-wrapper">
+                                    <code [innerHTML]="getCode(testcase.output)"></code>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                </div>
+            </mat-tab>
             <mat-tab label="Zadanie">
-                <h3>Treść zadania</h3>
+                <div class="exercise-content-wrapper mat-typography">
+                    <h2>{{ exercise?.name }}</h2>
+                    <span [innerHTML]="exercise?.description"></span>
+                    <h3 style="margin-top: 24px">Wejście</h3>
+                    <span [innerHTML]="exercise?.inputDesc"></span>
+                    <h3 style="margin-top: 24px">Wyjście</h3>
+                    <span [innerHTML]="exercise?.outputDesc"></span>
+                </div>
                 <button mat-raised-button (click)="test1()">test 1</button>
             </mat-tab>
             <mat-tab label="Edytor">

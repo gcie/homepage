@@ -1,5 +1,7 @@
+import { ApiProperty } from '@nestjs/swagger';
+import { ExerciseDescDto } from './exercise-desc.dto';
+
 export class GetExercisesOutDto {
-    name: string;
-    score: number;
-    maxScore: number;
+    @ApiProperty({ type: [ExerciseDescDto] })
+    exercises: ExerciseDescDto[];
 }

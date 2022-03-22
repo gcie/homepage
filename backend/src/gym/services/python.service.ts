@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { spawn } from 'child_process';
-import { RunTestcasesResult } from 'src/model/run-testcases.model';
+import { RunTestcaseOutDto } from 'src/model/run-testcase-out.dto';
+import { TestcaseResult } from 'src/model/testcase-result.enum';
 import { Testcase } from 'src/model/testcase.model';
 import { RunResult } from '../../model/run-result.model';
 
@@ -29,27 +30,28 @@ export class PythonService {
         return result;
     }
 
-    async runTestcase(program: string, testcase: Testcase) {
+    async runTestcase(program: string, testcase: Testcase): Promise<RunTestcaseOutDto> {
         const result = await this.run(program, testcase.input, testcase.timeLimit);
         if (result.code || (result.signal && result.signal !== 'SIGTERM'))
             return {
                 stdout: result.stdout,
                 stderr: result.stderr,
-                expectedOutput: testcase.output,
-                result: RunTestcasesResult.ERROR,
+                result: TestcaseResult.ERROR,
             };
         if (result.signal === 'SIGTERM')
             return {
                 stdout: result.stdout,
                 stderr: result.stderr,
-                expectedOutput: testcase.output,
-                result: RunTestcasesResult.TIMEOUT,
+                result: TestcaseResult.TIMEOUT,
             };
         return {
             stdout: result.stdout,
             stderr: result.stderr,
-            expectedOutput: testcase.output,
-            result: result.stdout?.trim() === testcase.output?.trim() ? RunTestcasesResult.OK : RunTestcasesResult.WRONG_ANSWER,
+            result: result.stdout?.trim() === testcase.output?.trim() ? TestcaseResult.OK : TestcaseResult.WRONG_ANSWER,
         };
+    }
+
+    async runTestcases(program: string, testcases: Testcase[]): Promise<RunTestcaseOutDto[]> {
+        return await Promise.all(testcases.map((testcase) => this.runTestcase(program, testcase)));
     }
 }

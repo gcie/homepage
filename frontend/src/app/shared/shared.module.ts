@@ -33,7 +33,6 @@ import { ShortenPipe } from './pipes/shorten.pipe';
         AuthKorepetycjeManagerDirective,
         AuthKorepetycjeUserDirective,
         AuthDirective,
-    ],
-    entryComponents: [ConfirmDialogComponent],
+    ]
 })
 export class SharedModule {}
