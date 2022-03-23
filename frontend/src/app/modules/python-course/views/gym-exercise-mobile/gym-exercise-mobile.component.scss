@@ -59,3 +59,36 @@ mat-panel-description {
     align-items: center;
     justify-content: center;
 }
+
+.stderr {
+    color: map-get($mat-red, 500);
+}
+
+.dense {
+    .mat-expansion-panel-header.mat-expanded {
+        height: 48px;
+    }
+
+    .mat-expansion-panel-header {
+        height: 36px;
+        // padding: 0 12px;
+    }
+
+    .mat-expansion-panel-body {
+        padding: 0 12px 8px;
+    }
+}
+
+.code-wrapper {
+    code {
+        font-size: 12px;
+    }
+}
+
+.results-wrapper {
+    padding: 8px;
+}
+
+.result-label {
+    width: 100px;
+}

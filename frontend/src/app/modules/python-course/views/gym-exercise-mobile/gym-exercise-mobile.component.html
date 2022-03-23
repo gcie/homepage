@@ -1,46 +1,77 @@
+<ng-template #spinner><mat-spinner diameter="24"></mat-spinner></ng-template>
+
 <mat-sidenav-container class="container">
     <mat-sidenav #sidenav mode="side" class="sidenav">
         <app-python-course-sidenav-menu></app-python-course-sidenav-menu>
     </mat-sidenav>
     <mat-sidenav-content class="content">
-        <mat-tab-group headerPosition="below" class="tab-group-center-labels"
-            ><mat-tab label="Testy">
+        <mat-tab-group headerPosition="below" class="tab-group-center-labels">
+            <mat-tab label="Testy">
                 <div fxLayout="column" style="width: 100%; height: 100%" fxLayoutGap="8px" style="padding: 8px">
+                    <div class="results-wrapper mat-typography">
+                        <div fxLayout="row" fxLayoutAlign="start center">
+                            <span class="mat-body-2 result-label">Wynik testów: &nbsp;</span>
+                            <span>{{ correctTestcases() }}/{{ exercise?.testcases?.length }}</span>
+                            <span fxFlex></span>
+                            <button mat-stroked-button>Uruchom wszystkie</button>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="start center">
+                            <span class="mat-body-2 result-label">Wynik: &nbsp;</span>
+                            <span>{{ correctTestcases() }}/{{ exercise?.maxPoints }}</span>
+                            <span fxFlex></span>
+                            <button mat-stroked-button>Wyślij rozwiązanie</button>
+                        </div>
+                    </div>
+
                     <mat-expansion-panel *ngFor="let testcase of exercise?.testcases; index as i" expanded hideToggle>
                         <mat-expansion-panel-header>
                             <mat-panel-title>Przykład {{ i + 1 }}</mat-panel-title>
                             <mat-panel-description>
                                 <div class="description-wrapper" fxLayout="row" fxLayoutAlign="end center">
                                     <span>Wynik: </span>
-                                    <div class="icon-wrapper" [ngSwitch]="results[i].result">
-                                        <mat-spinner *ngSwitchCase="'pending'" diameter="24"></mat-spinner>
-                                        <mat-icon *ngSwitchCase="'OK'" class="success-icon">done</mat-icon>
-                                        <mat-icon *ngSwitchCase="'TIMEOUT'" class="failure-icon">close</mat-icon>
-                                        <mat-icon *ngSwitchCase="'WRONG_ANSWER'" class="failure-icon">close</mat-icon>
-                                        <mat-icon *ngSwitchCase="'ERROR'" class="failure-icon">error_outline</mat-icon>
-                                        <mat-icon *ngSwitchDefault>pending</mat-icon>
+                                    <div class="icon-wrapper">
+                                        <ng-container *ngIf="!pending[i]; else spinner" [ngSwitch]="testcase.result">
+                                            <mat-icon *ngSwitchCase="'OK'" class="success-icon">done</mat-icon>
+                                            <mat-icon *ngSwitchCase="'TIMEOUT'" class="failure-icon">close</mat-icon>
+                                            <mat-icon *ngSwitchCase="'WRONG_ANSWER'" class="failure-icon">close</mat-icon>
+                                            <mat-icon *ngSwitchCase="'ERROR'" class="failure-icon">error_outline</mat-icon>
+                                            <mat-icon *ngSwitchDefault>pending</mat-icon>
+                                        </ng-container>
                                     </div>
-                                    <button mat-raised-button color="primary" (click)="runTestcase(i, $event)">Uruchom</button>
+                                    <button mat-raised-button color="primary" (click)="runTestcase(i, $event)" [disabled]="pending[i]">
+                                        Uruchom
+                                    </button>
                                 </div>
                             </mat-panel-description>
                         </mat-expansion-panel-header>
-                        <h4>Wejście</h4>
-                        <div class="code-wrapper">
-                            <code [innerHTML]="getCode(testcase.input)"></code>
-                        </div>
-                        <div class="testcase-outputs-wrapper" fxLayout="row" fxLayoutGap="8px">
-                            <div class="testcase-output-wrapper" fxFlex="50">
-                                <h4>Oczekiwane wyjście</h4>
+                        <div fxLayout="column" fxLayoutGap="8px">
+                            <mat-expansion-panel expanded hideToggle class="dense">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>Wejście</mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <div class="code-wrapper">
+                                    <code [innerHTML]="getCode(testcase.input)"></code>
+                                </div>
+                            </mat-expansion-panel>
+                            <mat-expansion-panel expanded hideToggle class="dense">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>Oczekiwane wyjście</mat-panel-title>
+                                </mat-expansion-panel-header>
                                 <div class="code-wrapper">
                                     <code [innerHTML]="getCode(testcase.output)"></code>
                                 </div>
-                            </div>
-                            <div class="testcase-output-wrapper" fxFlex="50">
-                                <h4>Wyjście programu</h4>
+                            </mat-expansion-panel>
+                            <mat-expansion-panel expanded hideToggle class="dense">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>Wyjście programu</mat-panel-title>
+                                </mat-expansion-panel-header>
                                 <div class="code-wrapper">
-                                    <code [innerHTML]="getCode(testcase.output)"></code>
+                                    <code [innerHTML]="getCode(testcase.stdout)"></code>
                                 </div>
-                            </div>
+                                <div class="code-wrapper stderr">
+                                    <code [innerHTML]="getCode(testcase.stderr)"></code>
+                                </div>
+                            </mat-expansion-panel>
                         </div>
                     </mat-expansion-panel>
                 </div>
@@ -54,11 +85,10 @@
                     <h3 style="margin-top: 24px">Wyjście</h3>
                     <span [innerHTML]="exercise?.outputDesc"></span>
                 </div>
-                <button mat-raised-button (click)="test1()">test 1</button>
             </mat-tab>
             <mat-tab label="Edytor">
                 <div fxLayout="column" style="width: 100%; height: 100%" #editorWrapper>
-                    <app-code-editor style="width: 100%" [minLines]="minLines | async"></app-code-editor>
+                    <app-code-editor style="width: 100%" [minLines]="minLines | async" [(content)]="code"></app-code-editor>
                     <div fxFlex></div>
                 </div>
             </mat-tab>

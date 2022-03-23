@@ -157,6 +157,22 @@ paths:
           description: ''
         '404':
           description: ''
+  /api/gym/exercises/{exerciseId}/results:
+    get:
+      operationId: getExerciseResults
+      summary: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResultsDto'
+        '403':
+          description: ''
   /api/gym/exercises/{exerciseId}/submit:
     post:
       operationId: GymController_submit
@@ -283,9 +299,35 @@ components:
             $ref: '#/components/schemas/ExerciseDescDto'
       required:
         - exercises
+    TestcaseWithResultDto:
+      type: object
+      properties:
+        input:
+          type: string
+        output:
+          type: string
+        checker:
+          type: string
+        program:
+          type: string
+        stdout:
+          type: string
+        stderr:
+          type: string
+        result:
+          type: string
+          enum:
+            - OK
+            - TIMEOUT
+            - WRONG_ANSWER
+            - ERROR
+      required:
+        - input
     ExerciseDto:
       type: object
       properties:
+        _id:
+          type: string
         name:
           type: string
         description:
@@ -301,13 +343,19 @@ components:
         testcases:
           type: array
           items:
-            $ref: '#/components/schemas/TestcaseDto'
+            $ref: '#/components/schemas/TestcaseWithResultDto'
+        lastProgram:
+          type: string
+        maxPoints:
+          type: number
       required:
+        - _id
         - name
         - description
         - inputDesc
         - outputDesc
         - testcases
+        - maxPoints
     SubmissionInDto:
       type: object
       properties:
@@ -329,3 +377,32 @@ components:
             - TIMEOUT
             - WRONG_ANSWER
             - ERROR
+    TestcaseResultDto:
+      type: object
+      properties:
+        program:
+          type: string
+        stdout:
+          type: string
+        stderr:
+          type: string
+        result:
+          type: string
+          enum:
+            - OK
+            - TIMEOUT
+            - WRONG_ANSWER
+            - ERROR
+      required:
+        - program
+    ResultsDto:
+      type: object
+      properties:
+        testcaseResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestcaseResultDto'
+        lastProgram:
+          type: string
+      required:
+        - testcaseResults

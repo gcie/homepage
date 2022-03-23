@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { Results, ResultsSchema } from 'src/schemas/results.schema';
 import { Submission, SubmissionSchema } from 'src/schemas/submission.schema';
 import { UsersModule } from 'src/users/users.module';
 import { Exercise, ExerciseSchema } from '../schemas/exercise.schema';
@@ -12,6 +13,7 @@ import { PythonService } from './services/python.service';
         MongooseModule.forFeature([
             { name: Exercise.name, schema: ExerciseSchema },
             { name: Submission.name, schema: SubmissionSchema },
+            { name: Results.name, schema: ResultsSchema },
         ]),
         UsersModule,
     ],

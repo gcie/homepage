@@ -1,8 +1,9 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { TestcaseDto } from './testcase.dto';
+import { TestcaseWithResultDto } from './testcase-with-results.dto';
 
 export class ExerciseDto {
     constructor(object: Partial<ExerciseDto>) {
+        this._id = object._id;
         this.name = object.name;
         this.description = object.description;
         this.inputDesc = object.inputDesc;
@@ -10,7 +11,12 @@ export class ExerciseDto {
         this.prefix = object.prefix;
         this.suffix = object.suffix;
         this.testcases = object.testcases;
+        this.lastProgram = object.lastProgram;
+        this.maxPoints = object.maxPoints;
     }
+
+    @ApiProperty()
+    _id: string;
 
     @ApiProperty()
     name: string;
@@ -30,6 +36,12 @@ export class ExerciseDto {
     @ApiPropertyOptional()
     suffix?: string;
 
-    @ApiProperty({ type: [TestcaseDto] })
-    testcases: TestcaseDto[];
+    @ApiProperty({ type: [TestcaseWithResultDto] })
+    testcases: TestcaseWithResultDto[];
+
+    @ApiPropertyOptional()
+    lastProgram?: string;
+
+    @ApiProperty()
+    maxPoints: number;
 }

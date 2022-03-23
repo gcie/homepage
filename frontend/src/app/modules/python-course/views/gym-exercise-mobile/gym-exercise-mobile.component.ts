@@ -18,6 +18,9 @@ export class GymExerciseMobileComponent implements AfterViewInit {
     exercise: ExerciseDto | undefined;
     status: 'waiting' | 'pending' | 'success' | 'failure' | 'error' = 'waiting';
     results: RunTestcaseOutDto[] = [];
+    code?: string;
+
+    pending: boolean[] = [];
 
     constructor(private api: ApiService, private route: ActivatedRoute) {
         this.observer = new ResizeObserver((entries) => {
@@ -30,23 +33,39 @@ export class GymExerciseMobileComponent implements AfterViewInit {
     ngOnInit() {
         this.exercise = this.route.snapshot.data.exercise;
         this.results = this.exercise?.testcases.map(() => ({})) || [];
+        this.pending = this.exercise?.testcases.map(() => false) || [];
+        this.code = this.exercise?.lastProgram;
         console.log(this.exercise);
     }
 
     ngAfterViewInit(): void {
         this.observer.observe(this.editorWrapper.nativeElement);
-        // this.minLines.next(this.editorWrapper.nativeElement.offsetHeight / 16);
-    }
-
-    test1() {
-        this.api.getExercises().subscribe(console.log, console.error);
     }
 
     runTestcase(index: number, event: Event) {
         event.stopPropagation();
+        if (!this.exercise?._id) throw new Error('No exercise id');
+        if (!this.code) throw new Error('No code to run');
+        this.pending[index] = true;
+        this.api.runTestcase({ exerciseId: this.exercise?._id, testcaseId: index + 1, body: { code: this.code } }).subscribe(
+            (result) => {
+                if (this.exercise) {
+                    this.exercise.testcases[index] = {
+                        ...this.exercise?.testcases[index],
+                        ...result,
+                    };
+                }
+            },
+            console.warn,
+            () => (this.pending[index] = false),
+        );
     }
 
     getCode(code?: string) {
         return code?.replace(/\n/g, '<br />');
+    }
+
+    correctTestcases() {
+        return this.exercise?.testcases.filter((t) => t.result === 'OK').length;
     }
 }

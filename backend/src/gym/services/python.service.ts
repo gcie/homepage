@@ -1,12 +1,17 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 import { spawn } from 'child_process';
+import { Model } from 'mongoose';
 import { RunTestcaseOutDto } from 'src/model/run-testcase-out.dto';
 import { TestcaseResult } from 'src/model/testcase-result.enum';
 import { Testcase } from 'src/model/testcase.model';
+import { Results } from 'src/schemas/results.schema';
 import { RunResult } from '../../model/run-result.model';
 
 @Injectable()
 export class PythonService {
+    constructor(@InjectModel(Results.name) private resultsModel: Model<Results>) {}
+
     async run(program: string, input?: string, timeout: number = 100) {
         var result: RunResult = { stdout: '', stderr: '' };
         await new Promise((resolve) => {

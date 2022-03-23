@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, NotFoundException, Param, ParseIntPipe, Post, Req } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, NotFoundException, Param, ParseIntPipe, Post, Req, Request } from '@nestjs/common';
 import {
     ApiBadRequestResponse,
     ApiCreatedResponse,
@@ -12,6 +12,7 @@ import { AddExerciseOutDto } from 'src/model/add-exercise-out.dto';
 import { ExerciseIdParam } from 'src/model/exercise-id-param';
 import { ExerciseDto } from 'src/model/exercise.dto';
 import { GetExercisesOutDto } from 'src/model/get-exercises-out.dto';
+import { ResultsDto } from 'src/model/results.dto';
 import { Roles } from 'src/model/role.decorator';
 import { Role } from 'src/model/role.enum';
 import { RunProgramInDto } from 'src/model/run-program-in.dto';
@@ -20,7 +21,6 @@ import { RunTestcaseOutDto } from 'src/model/run-testcase-out.dto';
 import { SubmissionInDto } from 'src/model/submission-in.dto';
 import { ExercisesService } from './services/exercises.service';
 import { PythonService } from './services/python.service';
-
 @Controller('api/gym')
 export class GymController {
     constructor(private pythonService: PythonService, private exercises: ExercisesService) {}
@@ -57,9 +57,10 @@ export class GymController {
     @ApiOperation({ operationId: 'getExercise' })
     @ApiOkResponse({ type: ExerciseDto })
     @ApiForbiddenResponse()
-    async getExercise(@Param() { exerciseId }: ExerciseIdParam) {
+    async getExercise(@Req() request, @Param() { exerciseId }: ExerciseIdParam) {
         const exercise = await this.exercises.find(exerciseId);
-        return new ExerciseDto(exercise);
+        const results = await this.exercises.getResults(request.user._id, exercise);
+        return this.exercises.getExerciseWithResultsDto(exercise, results);
     }
 
     @Post('exercises/:exerciseId/testcase/:testcaseId/run')
@@ -70,15 +71,23 @@ export class GymController {
     @ApiNotFoundResponse()
     @ApiForbiddenResponse()
     async runTestcase(
+        @Request() request,
         @Body() submission: SubmissionInDto,
         @Param() { exerciseId }: ExerciseIdParam,
         @Param('testcaseId', ParseIntPipe) testcaseId: number,
     ): Promise<RunTestcaseOutDto> {
         const exercise = await this.exercises.find(exerciseId);
+
         if (!exercise) throw new NotFoundException('Exercise not found');
         if (exercise.testcases.length < testcaseId)
             throw new BadRequestException(`Testcase id must be between 1 and ${exercise.testcases.length}`);
-        return await this.pythonService.runTestcase(submission.code, exercise.testcases[testcaseId - 1]);
+
+        const testcaseResult = await this.pythonService.runTestcase(submission.code, exercise.testcases[testcaseId - 1]);
+        const results = await this.exercises.getResults(request.user._id, exercise);
+        results.testcaseResults[testcaseId - 1] = { ...testcaseResult, program: submission.code };
+        results.lastProgram = submission.code;
+        results.save();
+        return testcaseResult;
     }
 
     @Post('exercises/:exerciseId/run')
@@ -88,10 +97,24 @@ export class GymController {
     @ApiBadRequestResponse()
     @ApiNotFoundResponse()
     @ApiForbiddenResponse()
-    async runTestcases(@Body() submission: SubmissionInDto, @Param() { exerciseId: id }: ExerciseIdParam) {
-        const exercise = await this.exercises.find(id);
+    async runTestcases(@Request() request, @Body() submission: SubmissionInDto, @Param() { exerciseId }: ExerciseIdParam) {
+        const exercise = await this.exercises.find(exerciseId);
         if (!exercise) throw new NotFoundException('Exercise not found');
-        return await this.pythonService.runTestcases(submission.code, exercise.testcases);
+        const results = await this.exercises.getResults(request.user._id, exercise);
+        const testcaseResults = await this.pythonService.runTestcases(submission.code, exercise.testcases);
+        results.testcaseResults = testcaseResults.map((r) => ({ ...r, program: submission.code }));
+        results.lastProgram = submission.code;
+        results.save();
+        return testcaseResults;
+    }
+
+    @Get('exercises/:exerciseId/results')
+    @Roles(Role.User)
+    @ApiOperation({ operationId: 'getExerciseResults' })
+    @ApiOkResponse({ type: [ResultsDto] })
+    @ApiForbiddenResponse()
+    async getExerciseResults(@Request() request): Promise<ResultsDto[]> {
+        return await this.exercises.getResults(request.user._id);
     }
 
     @Post('exercises/:exerciseId/submit')

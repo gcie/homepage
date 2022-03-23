@@ -13,12 +13,10 @@
         <div fxFlexLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
             <mat-spinner *ngIf="status === 'in-progress'" diameter="24"></mat-spinner>
             <mat-icon *ngIf="status !== 'in-progress'" svgIcon="console"></mat-icon>
-            <span>
-                Uruchom
-            </span>
+            <span> Uruchom </span>
         </div>
     </button>
 </div>
 <!-- <div fxFlexLayout="row" fxLayoutAlign="start start" fxLayoutGap="16px"> -->
-<app-code-editor #editor [mode]="mode"></app-code-editor>
+<app-code-editor #editor></app-code-editor>
 <!-- </div> -->

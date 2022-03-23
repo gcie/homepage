@@ -1,5 +1,5 @@
 import { coerceNumberProperty } from '@angular/cdk/coercion';
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import * as ace from 'ace-builds';
 import 'ace-builds/src-noconflict/ext-beautify';
 import 'ace-builds/src-noconflict/ext-language_tools';
@@ -14,14 +14,16 @@ const LANG = 'ace/mode/python';
     selector: 'app-code-editor',
     templateUrl: './code-editor.component.html',
     styleUrls: ['./code-editor.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CodeEditorComponent implements AfterViewInit {
     private codeEditor?: ace.Ace.Editor;
     private editorBeautify: any; // beautify extension
 
     @ViewChild('codeEditor') private codeEditorElmRef!: ElementRef;
+
     @Input() content?: string;
-    @Input() mode?: string;
+    @Output() contentChange = new EventEmitter<string>();
 
     @Input() set minLines(value: any) {
         this._minLines = coerceNumberProperty(value);
@@ -32,6 +34,15 @@ export class CodeEditorComponent implements AfterViewInit {
     }
     private _minLines = 12;
 
+    @Input() set fontSize(value: any) {
+        this._fontSize = coerceNumberProperty(value);
+        this.codeEditor?.setOption('fontSize', this._fontSize);
+    }
+    get fontSize() {
+        return this._fontSize;
+    }
+    private _fontSize = 14;
+
     ngAfterViewInit() {
         ace.require('ace/ext/language_tools');
         const element = this.codeEditorElmRef.nativeElement;
@@ -39,17 +50,10 @@ export class CodeEditorComponent implements AfterViewInit {
         const editorOptions = this.getEditorOptions();
         this.codeEditor = this.createCodeEditor(element, editorOptions);
         this.setContent(this.content || INIT_CONTENT);
-        // hold reference to beautify extension
         this.editorBeautify = ace.require('ace/ext/beautify');
-    }
-
-    private getFontSize() {
-        switch (this.mode) {
-            case 'small':
-                return 18;
-            default:
-                return 14;
-        }
+        this.codeEditor?.on('change', (delta) => {
+            this.contentChange.emit(this.codeEditor?.getValue());
+        });
     }
 
     private createCodeEditor(element: Element, options: any): ace.Ace.Editor {
@@ -65,9 +69,9 @@ export class CodeEditorComponent implements AfterViewInit {
     private getEditorOptions(): Partial<ace.Ace.EditorOptions> & { enableBasicAutocompletion?: boolean } {
         const basicEditorOptions: Partial<ace.Ace.EditorOptions> = {
             highlightActiveLine: true,
-            minLines: this.minLines || 12,
+            minLines: this.minLines,
             maxLines: Infinity,
-            fontSize: this.getFontSize(),
+            fontSize: this.fontSize,
         };
         const extraEditorOptions = { enableBasicAutocompletion: true };
         return Object.assign(basicEditorOptions, extraEditorOptions);
@@ -77,19 +81,14 @@ export class CodeEditorComponent implements AfterViewInit {
      * @returns - the current editor's content.
      */
     public getContent() {
-        if (this.codeEditor) {
-            const code = this.codeEditor.getValue();
-            return code;
-        } else return;
+        return this.codeEditor?.getValue();
     }
 
     /**
      * @param content - set as the editor's content.
      */
     public setContent(content: string): void {
-        if (this.codeEditor) {
-            this.codeEditor.setValue(content);
-        }
+        this.codeEditor?.setValue(content);
     }
 
     /**
@@ -101,16 +100,5 @@ export class CodeEditorComponent implements AfterViewInit {
             const session = this.codeEditor.getSession();
             this.editorBeautify.beautify(session);
         }
-    }
-
-    /**
-     * @event OnContentChange - a proxy event to Ace 'change' event - adding additional data.
-     * @param callback - recive the corrent content and 'change' event's original parameter.
-     */
-    public OnContentChange(callback: (content: string | undefined, delta: ace.Ace.Delta) => void): void {
-        this.codeEditor?.on('change', (delta) => {
-            const content = this.codeEditor?.getValue();
-            callback(content, delta);
-        });
     }
 }

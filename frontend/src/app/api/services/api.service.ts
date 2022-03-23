@@ -13,6 +13,7 @@ import { AddExerciseInDto } from '../models/add-exercise-in-dto';
 import { AddExerciseOutDto } from '../models/add-exercise-out-dto';
 import { ExerciseDto } from '../models/exercise-dto';
 import { GetExercisesOutDto } from '../models/get-exercises-out-dto';
+import { ResultsDto } from '../models/results-dto';
 import { RunProgramInDto } from '../models/run-program-in-dto';
 import { RunProgramOutDto } from '../models/run-program-out-dto';
 import { RunTestcaseOutDto } from '../models/run-testcase-out-dto';
@@ -397,6 +398,49 @@ export class ApiService extends BaseService {
     }): Observable<Array<RunTestcaseOutDto>> {
         return this.runTestcases$Response(params).pipe(
             map((r: StrictHttpResponse<Array<RunTestcaseOutDto>>) => r.body as Array<RunTestcaseOutDto>),
+        );
+    }
+
+    /**
+     * Path part for operation getExerciseResults
+     */
+    static readonly GetExerciseResultsPath = '/api/gym/exercises/{exerciseId}/results';
+
+    /**
+     * This method provides access to the full `HttpResponse`, allowing access to response headers.
+     * To access only the response body, use `getExerciseResults()` instead.
+     *
+     * This method doesn't expect any request body.
+     */
+    getExerciseResults$Response(params?: {}): Observable<StrictHttpResponse<Array<ResultsDto>>> {
+        const rb = new RequestBuilder(this.rootUrl, ApiService.GetExerciseResultsPath, 'get');
+        if (params) {
+        }
+
+        return this.http
+            .request(
+                rb.build({
+                    responseType: 'json',
+                    accept: 'application/json',
+                }),
+            )
+            .pipe(
+                filter((r: any) => r instanceof HttpResponse),
+                map((r: HttpResponse<any>) => {
+                    return r as StrictHttpResponse<Array<ResultsDto>>;
+                }),
+            );
+    }
+
+    /**
+     * This method provides access to only to the response body.
+     * To access the full response (for headers, for example), `getExerciseResults$Response()` instead.
+     *
+     * This method doesn't expect any request body.
+     */
+    getExerciseResults(params?: {}): Observable<Array<ResultsDto>> {
+        return this.getExerciseResults$Response(params).pipe(
+            map((r: StrictHttpResponse<Array<ResultsDto>>) => r.body as Array<ResultsDto>),
         );
     }
 
