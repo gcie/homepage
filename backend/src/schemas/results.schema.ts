@@ -13,6 +13,7 @@ export class Results extends Document {
     @Prop({ type: [TestcaseResultDtoType] }) testcaseResults: TestcaseResultDto[];
 
     @Prop() lastProgram: string;
+    @Prop() score: number;
 }
 
 export const ResultsSchema = SchemaFactory.createForClass(Results);

@@ -17,6 +17,7 @@ import { GymExerciseMobileComponent } from './views/gym-exercise-mobile/gym-exer
 import { GymExerciseMobileResolver } from './views/gym-exercise-mobile/gym-exercise-mobile.resolver';
 import { GymMobileComponent } from './views/gym-mobile/gym-mobile.component';
 import { Lesson01Component } from './views/lesson01/lesson01.component';
+import { ExerciseSubmitDialogComponent } from './components/exercise-submit-dialog/exercise-submit-dialog.component';
 
 @NgModule({
     declarations: [
@@ -32,6 +33,7 @@ import { Lesson01Component } from './views/lesson01/lesson01.component';
         BlockComponent,
         GymMobileComponent,
         GymExerciseMobileComponent,
+        ExerciseSubmitDialogComponent,
     ],
     imports: [CommonModule, SharedModule, MaterialModule, FormsModule, ReactiveFormsModule, FlexLayoutModule, PythonCourseRoutingModule],
     providers: [GymExerciseMobileResolver],

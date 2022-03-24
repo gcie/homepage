@@ -1,29 +1,58 @@
 <ng-template #spinner><mat-spinner diameter="24"></mat-spinner></ng-template>
-
+<ng-template #empty><span class="mat-body-1 secondary-text">brak</span></ng-template>
 <mat-sidenav-container class="container">
     <mat-sidenav #sidenav mode="side" class="sidenav">
         <app-python-course-sidenav-menu></app-python-course-sidenav-menu>
     </mat-sidenav>
     <mat-sidenav-content class="content">
         <mat-tab-group headerPosition="below" class="tab-group-center-labels">
-            <mat-tab label="Testy">
+            <mat-tab label="Zadanie">
+                <div class="exercise-content-wrapper mat-typography">
+                    <div fxLayout="row" fxLayoutAlign="start center" style="margin-bottom: 12px">
+                        <button mat-icon-button (click)="location.back()"><mat-icon>arrow_back_ios</mat-icon></button>
+                        <h2 style="margin: 0">{{ exercise?.name }}</h2>
+                    </div>
+                    <span [innerHTML]="exercise?.description"></span>
+                    <h3 style="margin-top: 24px">Wejście</h3>
+                    <span [innerHTML]="exercise?.inputDesc"></span>
+                    <h3 style="margin-top: 24px">Wyjście</h3>
+                    <span [innerHTML]="exercise?.outputDesc"></span>
+                </div>
+            </mat-tab>
+            <mat-tab label="Edytor">
+                <div fxLayout="column" style="width: 100%; height: 100%" #editorWrapper>
+                    <app-code-editor style="width: 100%" [minLines]="minLines | async" [(content)]="code"></app-code-editor>
+                    <div fxFlex></div>
+                </div> </mat-tab
+            ><mat-tab label="Testy">
                 <div fxLayout="column" style="width: 100%; height: 100%" fxLayoutGap="8px" style="padding: 8px">
-                    <div class="results-wrapper mat-typography">
+                    <div class="results-wrapper mat-typography" fxLayout="column" fxLayoutGap="4px">
                         <div fxLayout="row" fxLayoutAlign="start center">
                             <span class="mat-body-2 result-label">Wynik testów: &nbsp;</span>
                             <span>{{ correctTestcases() }}/{{ exercise?.testcases?.length }}</span>
                             <span fxFlex></span>
-                            <button mat-stroked-button>Uruchom wszystkie</button>
+                            <button mat-stroked-button *ngIf="submittable()" class="submit-btn" (click)="runTests()">Uruchom</button>
+                            <button mat-raised-button *ngIf="!submittable()" class="submit-btn" color="primary" (click)="runTests()">
+                                Uruchom
+                            </button>
                         </div>
                         <div fxLayout="row" fxLayoutAlign="start center">
                             <span class="mat-body-2 result-label">Wynik: &nbsp;</span>
-                            <span>{{ correctTestcases() }}/{{ exercise?.maxPoints }}</span>
+                            <span *ngIf="exercise?.score != undefined; else empty">{{ exercise?.score }}/{{ exercise?.maxScore }}</span>
                             <span fxFlex></span>
-                            <button mat-stroked-button>Wyślij rozwiązanie</button>
+                            <button
+                                mat-raised-button
+                                [disabled]="!submittable() || submitPending"
+                                class="submit-btn"
+                                color="primary"
+                                (click)="submit()"
+                            >
+                                Wyślij
+                            </button>
                         </div>
                     </div>
 
-                    <mat-expansion-panel *ngFor="let testcase of exercise?.testcases; index as i" expanded hideToggle>
+                    <mat-expansion-panel *ngFor="let testcase of exercise?.testcases; index as i" hideToggle>
                         <mat-expansion-panel-header>
                             <mat-panel-title>Przykład {{ i + 1 }}</mat-panel-title>
                             <mat-panel-description>
@@ -38,7 +67,7 @@
                                             <mat-icon *ngSwitchDefault>pending</mat-icon>
                                         </ng-container>
                                     </div>
-                                    <button mat-raised-button color="primary" (click)="runTestcase(i, $event)" [disabled]="pending[i]">
+                                    <button mat-raised-button color="primary" (click)="runTest(i, $event)" [disabled]="pending[i]">
                                         Uruchom
                                     </button>
                                 </div>
@@ -71,25 +100,10 @@
                                 <div class="code-wrapper stderr">
                                     <code [innerHTML]="getCode(testcase.stderr)"></code>
                                 </div>
+                                <div *ngIf="testcase.result == 'TIMEOUT'" class="red">Przekroczono limit czasu</div>
                             </mat-expansion-panel>
                         </div>
                     </mat-expansion-panel>
-                </div>
-            </mat-tab>
-            <mat-tab label="Zadanie">
-                <div class="exercise-content-wrapper mat-typography">
-                    <h2>{{ exercise?.name }}</h2>
-                    <span [innerHTML]="exercise?.description"></span>
-                    <h3 style="margin-top: 24px">Wejście</h3>
-                    <span [innerHTML]="exercise?.inputDesc"></span>
-                    <h3 style="margin-top: 24px">Wyjście</h3>
-                    <span [innerHTML]="exercise?.outputDesc"></span>
-                </div>
-            </mat-tab>
-            <mat-tab label="Edytor">
-                <div fxLayout="column" style="width: 100%; height: 100%" #editorWrapper>
-                    <app-code-editor style="width: 100%" [minLines]="minLines | async" [(content)]="code"></app-code-editor>
-                    <div fxFlex></div>
                 </div>
             </mat-tab>
         </mat-tab-group>

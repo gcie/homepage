@@ -12,7 +12,8 @@ export class ExerciseDto {
         this.suffix = object.suffix;
         this.testcases = object.testcases;
         this.lastProgram = object.lastProgram;
-        this.maxPoints = object.maxPoints;
+        this.maxScore = object.maxScore;
+        this.score = object.score;
     }
 
     @ApiProperty()
@@ -43,5 +44,8 @@ export class ExerciseDto {
     lastProgram?: string;
 
     @ApiProperty()
-    maxPoints: number;
+    maxScore: number;
+
+    @ApiProperty()
+    score: number;
 }

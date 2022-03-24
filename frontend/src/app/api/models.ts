@@ -12,3 +12,4 @@ export { SubmissionInDto } from './models/submission-in-dto';
 export { RunTestcaseOutDto } from './models/run-testcase-out-dto';
 export { TestcaseResultDto } from './models/testcase-result-dto';
 export { ResultsDto } from './models/results-dto';
+export { SubmissionDto } from './models/submission-dto';

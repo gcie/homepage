@@ -126,3 +126,15 @@ $font-types: display-4, display-3, display-2, display-1, headline, title, subhea
         }
     }
 }
+
+.secondary-text {
+    color: #757575;
+}
+
+.green {
+    color: map-get($mat-green, 500);
+}
+
+.red {
+    color: map-get($mat-red, 500);
+}

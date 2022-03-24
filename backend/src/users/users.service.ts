@@ -12,7 +12,7 @@ export class UsersService {
     }
 
     async create(email: string, password: string): Promise<User> {
-        return this.userModel.create({ email, password, name: email, grrolesoups: [] });
+        return this.userModel.create({ email, password, name: email, roles: [] });
     }
 
     // async saveSubmission(email: string, submission: Submission) {

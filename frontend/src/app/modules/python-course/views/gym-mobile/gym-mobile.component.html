@@ -2,12 +2,17 @@
     <mat-sidenav #sidenav mode="side" class="sidenav">
         <app-python-course-sidenav-menu></app-python-course-sidenav-menu>
     </mat-sidenav>
-    <mat-sidenav-content class="content mat-typography" fxLayout="column" fxLayoutGap="8px" fxLayoutAlign="start stretch">
-        <h1 class="header">Lista zadań:</h1>
+    <mat-sidenav-content class="content mat-typography" fxLayout="column" fxLayoutAlign="start stretch">
+        <mat-toolbar color="primary">
+            <h1 class="header">Lista zadań</h1>
+        </mat-toolbar>
         <mat-table [dataSource]="exercises || []">
             <ng-container matColumnDef="name">
                 <mat-cell *matCellDef="let exercise">
                     <h4 style="margin: 0">{{ exercise.name }}</h4>
+                    <span fxFlex></span>
+                    <mat-icon *ngIf="exercise.score == exercise.maxScore" class="green">done</mat-icon>
+                    <!-- <h4 style="margin: 0">{{ exercise.score }}/{{ exercise.maxScore }}</h4> -->
                 </mat-cell>
             </ng-container>
 

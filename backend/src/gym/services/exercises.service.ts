@@ -70,6 +70,21 @@ export class ExercisesService {
         return { exercises: exercises.map((e) => ({ id: e._id, name: e.name, score: 0, maxScore: 0 })) };
     }
 
+    getExercisesOutDto(exercises: Exercise[], results: Results[]): GetExercisesOutDto {
+        exercises.forEach((e) => {
+            const r = results.find((r) => r.exercise.toString() == e._id.toString());
+            console.log(r);
+        });
+        return {
+            exercises: exercises.map((e) => ({
+                id: e._id,
+                name: e.name,
+                score: results.find((r) => r.exercise.toString() == e._id.toString())?.score || 0,
+                maxScore: e.hiddenTestcases.length,
+            })),
+        };
+    }
+
     getExerciseWithResultsDto(exercise: Exercise, results: Results): ExerciseDto {
         const resultsObj = results.toObject();
         var exerciseObj = exercise.toObject();
@@ -78,6 +93,11 @@ export class ExercisesService {
             ...resultsObj.testcaseResults[i],
             _id: undefined,
         }));
-        return new ExerciseDto({ ...exerciseObj, lastProgram: resultsObj.lastProgram, maxPoints: exerciseObj.hiddenTestcases.length });
+        return new ExerciseDto({
+            ...exerciseObj,
+            lastProgram: resultsObj.lastProgram,
+            score: resultsObj.score,
+            maxScore: exerciseObj.hiddenTestcases.length,
+        });
     }
 }

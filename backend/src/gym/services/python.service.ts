@@ -3,16 +3,18 @@ import { InjectModel } from '@nestjs/mongoose';
 import { spawn } from 'child_process';
 import { Model } from 'mongoose';
 import { RunTestcaseOutDto } from 'src/model/run-testcase-out.dto';
+import { SubmissionStatus } from 'src/model/submission-status.enum';
 import { TestcaseResult } from 'src/model/testcase-result.enum';
 import { Testcase } from 'src/model/testcase.model';
 import { Results } from 'src/schemas/results.schema';
+import { Submission } from 'src/schemas/submission.schema';
 import { RunResult } from '../../model/run-result.model';
 
 @Injectable()
 export class PythonService {
-    constructor(@InjectModel(Results.name) private resultsModel: Model<Results>) {}
+    constructor(@InjectModel(Submission.name) private submissionModel: Model<Submission>) {}
 
-    async run(program: string, input?: string, timeout: number = 100) {
+    async run(program: string, input?: string, timeout: number = 500) {
         var result: RunResult = { stdout: '', stderr: '' };
         await new Promise((resolve) => {
             const prog = spawn('python', ['-c', program], { timeout });
@@ -57,6 +59,33 @@ export class PythonService {
     }
 
     async runTestcases(program: string, testcases: Testcase[]): Promise<RunTestcaseOutDto[]> {
-        return await Promise.all(testcases.map((testcase) => this.runTestcase(program, testcase)));
+        const results = [];
+        for (let testcase of testcases) {
+            results.push(await this.runTestcase(program, testcase));
+        }
+        return results;
+    }
+
+    async submit(program: string, testcases: Testcase[], submission: Submission, results: Results) {
+        let i = 0;
+        results.lastProgram = program;
+        for (let testcase of testcases) {
+            i += 1;
+            submission.status = SubmissionStatus.RUNNING;
+            submission.atTestcase = i;
+            await submission.save();
+            const result = await this.runTestcase(program, testcase);
+            if (result.result != TestcaseResult.OK) {
+                submission.status = SubmissionStatus[result.result.toString()];
+                await submission.save();
+                results.score = i - 1;
+                results.save();
+                return;
+            }
+        }
+        submission.status = SubmissionStatus.OK;
+        submission.save();
+        results.score = i;
+        results.save();
     }
 }

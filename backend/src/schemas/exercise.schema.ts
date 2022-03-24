@@ -10,6 +10,7 @@ export class Exercise extends Document {
     @Prop() outputDesc: string;
     @Prop() prefix: string;
     @Prop() suffix: string;
+    @Prop() initialCode: string;
 
     @Prop(TestcasesType) testcases: Testcase[];
     @Prop(TestcasesType) hiddenTestcases: Testcase[];

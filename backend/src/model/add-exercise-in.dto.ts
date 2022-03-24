@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
 import { TestcaseDto } from './testcase.dto';
 
@@ -19,15 +19,20 @@ export class AddExerciseInDto {
     @IsNotEmpty()
     outputDesc: string;
 
-    @ApiProperty()
+    @ApiPropertyOptional()
     prefix?: string;
 
-    @ApiProperty()
+    @ApiPropertyOptional()
     suffix?: string;
 
+    @ApiPropertyOptional()
+    initialCode?: string;
+
     @ApiProperty({ type: [TestcaseDto] })
+    @IsNotEmpty()
     testcases: TestcaseDto[];
 
     @ApiProperty({ type: [TestcaseDto] })
+    @IsNotEmpty()
     hiddenTestcases: TestcaseDto[];
 }

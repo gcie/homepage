@@ -6,10 +6,11 @@ export interface ExerciseDto {
     description: string;
     inputDesc: string;
     lastProgram?: string;
-    maxPoints: number;
+    maxScore: number;
     name: string;
     outputDesc: string;
     prefix?: string;
+    score: number;
     suffix?: string;
     testcases: Array<TestcaseWithResultDto>;
 }

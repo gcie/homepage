@@ -175,7 +175,8 @@ paths:
           description: ''
   /api/gym/exercises/{exerciseId}/submit:
     post:
-      operationId: GymController_submit
+      operationId: submitExercise
+      summary: ''
       parameters:
         - name: exerciseId
           required: true
@@ -190,7 +191,37 @@ paths:
             schema:
               $ref: '#/components/schemas/SubmissionInDto'
       responses:
-        '201':
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: ''
+        '404':
+          description: ''
+  /api/gym/submissions/{submissionId}:
+    get:
+      operationId: getSubmission
+      summary: ''
+      parameters:
+        - name: submissionId
+          required: true
+          in: path
+          description: Submission id
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmissionDto'
+        '403':
+          description: ''
+        '404':
           description: ''
 info:
   title: Homepage
@@ -250,6 +281,8 @@ components:
           type: string
         suffix:
           type: string
+        initialCode:
+          type: string
         testcases:
           type: array
           items:
@@ -263,8 +296,6 @@ components:
         - description
         - inputDesc
         - outputDesc
-        - prefix
-        - suffix
         - testcases
         - hiddenTestcases
     AddExerciseOutDto:
@@ -346,7 +377,9 @@ components:
             $ref: '#/components/schemas/TestcaseWithResultDto'
         lastProgram:
           type: string
-        maxPoints:
+        maxScore:
+          type: number
+        score:
           type: number
       required:
         - _id
@@ -355,7 +388,8 @@ components:
         - inputDesc
         - outputDesc
         - testcases
-        - maxPoints
+        - maxScore
+        - score
     SubmissionInDto:
       type: object
       properties:
@@ -406,3 +440,22 @@ components:
           type: string
       required:
         - testcaseResults
+    SubmissionDto:
+      type: object
+      properties:
+        program:
+          type: string
+        status:
+          type: string
+          enum:
+            - WAITING
+            - RUNNING
+            - OK
+            - TIMEOUT
+            - WRONG_ANSWER
+            - ERROR
+        atTestcase:
+          type: number
+      required:
+        - program
+        - status

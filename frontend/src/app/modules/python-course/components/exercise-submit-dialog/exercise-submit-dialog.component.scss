@@ -1,0 +1,15 @@
+@import '~@angular/material/theming';
+
+.success-icon {
+    color: map-get($mat-green, 500);
+    font-size: 96px;
+    width: 96px;
+    height: 96px;
+}
+
+.failure-icon {
+    color: map-get($mat-red, 500);
+    font-size: 96px;
+    width: 96px;
+    height: 96px;
+}
