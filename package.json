@@ -67,7 +67,7 @@
         "lodash": "^4.17.15",
         "lusca": "^1.6.1",
         "md5": "^2.3.0",
-        "minimist": "^1.2.5",
+        "minimist": "^1.2.6",
         "moment": "^2.27.0",
         "mongoose": "^5.9.27",
         "nodemailer": "^6.4.11",
