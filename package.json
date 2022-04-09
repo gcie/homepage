@@ -68,7 +68,7 @@
         "lusca": "^1.6.1",
         "md5": "^2.3.0",
         "minimist": "^1.2.5",
-        "moment": "^2.27.0",
+        "moment": "^2.29.2",
         "mongoose": "^5.9.27",
         "nodemailer": "^6.4.11",
         "passport": "^0.4.1",
